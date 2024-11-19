@@ -1,0 +1,38 @@
+﻿@model IEnumerable<MilkStore.Models.Product>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/product-listing.css" />
+}
+
+<section>
+    <h2>Product Listing</h2>
+    <table>
+        <thead>
+            <tr>
+                <th>Product Name</th>
+                <th>Category</th>
+                <th>Price</th>
+                <th>Stock Quantity</th>
+                <th>Estimated Delivery</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var product in Model)
+            {
+                <tr>
+                    <td>@product.ProductName</td>
+                    <td>@product.Category</td>
+                    <td>@product.Price.ToString("C")</td>
+                    <td>@product.StockQuantity</td>
+                    <td>@product.EstimatedDelivery.ToShortDateString()</td>
+                    <td class="actions">
+                        <button class="increment_button" style="display: none;">+</button>
+                        <button class="add_button">Add</button>
+                        <button class="decrement_button" style="display: none;">-</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</section>
