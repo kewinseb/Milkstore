@@ -6,14 +6,14 @@ Welcome to **Milkstore**, a web-based application for managing milk delivery ope
 
 ## 📋 Table of Contents
 
-- [About the Project](#about-the-project)  
-- [Technologies Used](#technologies-used)  
-- [Getting Started](#getting-started)  
+- [About the Project](#-about-the-project)  
+- [Technologies Used](#-technologies-used)  
+- [Getting Started](#-getting-started)  
   - [Prerequisites](#prerequisites)  
   - [Installation](#installation)  
-- [Database Configuration](#database-configuration)  
-- [Usage](#usage)  
-- [License](#license)  
+- [Database Configuration](#%EF%B8%8F-database-configuration)  
+- [Usage](#-usage)  
+- [License](#-license)  
 
 ---
 
@@ -103,4 +103,4 @@ Open the solution in Visual Studio.
 
 ## 📝 License
 
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE.txt) file for details.
