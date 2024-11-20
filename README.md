@@ -48,7 +48,7 @@ Key Features:
 ### Installation  
 
 1. **Clone the repository**  
-   Clone the repository from the main branch:  
+   Clone the repository from the develop branch:  
    ```bash
    git clone "https://github.com/<your-username>/milkstore.git"
 
