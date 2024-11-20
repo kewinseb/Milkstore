@@ -11,7 +11,7 @@ Welcome to **Milkstore**, a web-based application for managing milk delivery ope
 - [Getting Started](#-getting-started)  
   - [Prerequisites](#prerequisites)  
   - [Installation](#installation)  
-- [Database Configuration](#-database-configuration)  
+- [Database Configuration](#database-configuration)  
 - [Usage](#-usage)  
 - [License](#-license)  
 
