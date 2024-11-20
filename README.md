@@ -48,14 +48,14 @@ Key Features:
 ### Installation  
 
 1. **Clone the repository**  
-   Clone the repository from the main branch:  
+   Clone the repository from the develop branch:  
    ```bash
    git clone "https://github.com/<your-username>/milkstore.git"
 
 2. **Create a feature branch**  
    Create a new branch for the module you are working on:  
    ```bash
-   git checkout -b "feature/Your_Module_Name"
+   git checkout -b "feature/your_module_name"
 
 3. **Open the project**
 Open the solution in Visual Studio.
