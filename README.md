@@ -6,14 +6,14 @@ Welcome to **Milkstore**, a web-based application for managing milk delivery ope
 
 ## 📋 Table of Contents
 
-- [About the Project](#about-the-project)  
-- [Technologies Used](#technologies-used)  
-- [Getting Started](#getting-started)  
+- [About the Project](#-about-the-project)  
+- [Technologies Used](#-technologies-used)  
+- [Getting Started](#-getting-started)  
   - [Prerequisites](#prerequisites)  
   - [Installation](#installation)  
-- [Database Configuration](#database-configuration)  
-- [Usage](#usage)  
-- [License](#license)  
+- [Database Configuration](#-database-configuration)  
+- [Usage](#-usage)  
+- [License](#-license)  
 
 ---
 
