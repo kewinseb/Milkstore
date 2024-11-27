@@ -1,26 +1,41 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
 using MilkStore.Data;
 using MilkStore.Models;
-using System.Collections.Generic;
-using System.Linq;
 
-namespace MilkStore.Controllers
+public class ProductController : Controller
 {
-    public class ProductController : Controller
+    private readonly MilkstoreDbContext _context;
+    private readonly ILogger<ProductController> _logger;
+
+    public ProductController(MilkstoreDbContext context, ILogger<ProductController> logger)
     {
-        private readonly MilkstoreDbContext _context;
+        _context = context ?? throw new ArgumentNullException(nameof(context));
+        _logger = logger ?? throw new ArgumentNullException(nameof(logger));
+    }
 
-        public ProductController(MilkstoreDbContext context)
-        {
-            _context = context;
-        }
-
-        public IActionResult Index()
+    public IActionResult Index()
+    {
+        try
         {
             // Fetch all products from the database
             var products = _context.Products.ToList();
 
+            // Check if no products exist
+            if (products == null || !products.Any())
+            {
+                ViewBag.Message = "No products available.";
+            }
+
             return View(products);
+        }
+        catch (Exception ex)
+        {
+            // Log the exception
+            _logger.LogError(ex, "An error occurred while fetching products.");
+
+            ViewBag.ErrorMessage = "An error occurred while fetching products.";
+            return View(new List<Product>());
         }
     }
 }
