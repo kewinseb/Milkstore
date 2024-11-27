@@ -13,7 +13,30 @@ builder.Services.AddDbContext<MilkstoreDbContext>(options =>
 
 var app = builder.Build();
 
-// Configure the HTTP request pipeline.
+// Ensure DB connection works on startup
+using (var scope = app.Services.CreateScope())
+{
+    var dbContext = scope.ServiceProvider.GetRequiredService<MilkstoreDbContext>();
+
+    try
+    {
+        // Check if the database can be connected
+        if (dbContext.Database.CanConnect())
+        {
+            Console.WriteLine("Successfully connected to the database.");
+        }
+        else
+        {
+            Console.WriteLine("Failed to connect to the database.");
+        }
+    }
+    catch (Exception ex)
+    {
+        // Log the exception if connection fails
+        Console.WriteLine($"Error connecting to the database: {ex.Message}");
+    }
+}
+
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
