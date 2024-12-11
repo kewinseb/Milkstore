@@ -7,10 +7,10 @@
         <div class="tabs_middle">
             <nav>
                 <ul>
-                    <li><a asp-controller ="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Product" asp-action="Index">Products</a></li>
-                    <li><a href="#">Orders</a></li>
-                    <li><a href="#">Shipment</a></li>
+                    <li><a class="header_nav" asp-controller ="Home" asp-action="Index">Home</a></li>
+                    <li><a class="header_nav" asp-area="" asp-controller="Product" asp-action="Index">Products</a></li>
+                    <li><a class="header_nav" href="#">Orders</a></li>
+                    <li><a class="header_nav" href="#">Shipment</a></li>
                 </ul>
             </nav>
         </div>
@@ -22,7 +22,14 @@
             <div class="circle">
                 3
             </div>
-            <button id="logout_button" class="logout_button">Logout</button>
+            <div>
+                <button id="logout_button" class="logout_button">
+                    <i class="fa-solid fa-user"></i> My Account
+                </button>
+            </div>
+            <button id="logout_button" class="logout_button">
+                <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
+            </button>
         </div>
     </div>
 </header>

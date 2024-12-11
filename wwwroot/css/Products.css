@@ -1,12 +1,16 @@
 ﻿section {
     width: 100%;
-    height: calc(100vh - 40px);
+    height: calc(100vh - 112px);
     padding: 20px;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
 }
 
 h2 {
-    font-size: 24px;
-    padding: 10px 0px;
+    font-size: var(--font-size-lg);
+    padding: 10px 0px 10px 65px;
+    align-self: flex-start;
 }
 
 section input[type="text"], section select {
@@ -15,7 +19,7 @@ section input[type="text"], section select {
 }
 
 table {
-    width: 100%;
+    width: 90%;
     border-collapse: collapse;
     margin-bottom: 20px;
     background-color: #fff;
@@ -41,15 +45,15 @@ table {
 }
 
 .add_button {
-    background-color: #007BFF;
+    background-color: var(--primary-color);
 }
 
 .increment_button {
-    background-color: #28a745;
+    background-color: var(--success-color);
 }
 
 .decrement_button {
-    background-color: #dc3545;
+    background-color: var(--danger-color);
 }
 
 .actions button.delete {
@@ -60,9 +64,7 @@ table {
     opacity: 0.9;
 }
 
-footer {
-    margin-top: 20px;
-}
+
 
     footer button {
         padding: 10px 15px;
