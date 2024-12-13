@@ -1,0 +1,60 @@
+﻿   @model IEnumerable<MilkStore.Models.Order>
+
+
+   @section Styles {
+       <link rel="stylesheet" href="~/css/Order.css" />
+   }
+
+<section>
+          <div class="container">
+                   <h2>Order History</h2>
+        <div class="felx">
+            <div>Order No:</div>
+            <div>
+                <input type="text" placeholder="Search by Order No" id="orderNoSearch">
+            </div>
+
+            <div>Order Date:</div>
+            <div>
+                <input type="date" id="orderDateSearch">
+            </div>
+            <div>
+                <button id="searchButton" class="searchbut">Search</button>
+            </div>
+        </div>
+                 
+
+                   <h2> Recent Orders</h2>
+
+                   <table>
+                       <thead>
+                           <tr>
+                               <th>Order Number</th>
+                               <th>Order TotalAmount</th>
+                               <th>UserEmailId</th>
+                               <th>PaymentMethod</th>
+                               <th>Order Detailes</th>
+                               <th>Shipping Detailes</th>
+                                @* <th>Tracking Number</th> *@
+                              </tr>
+                       </thead>
+                       <tbody>
+                           <tr>
+                               @foreach (var Order in Model)
+                       {
+                         <tr>
+                             <td>@Order.OrderId</td>
+                             <td>@Order.TotalAmount</td>                      
+                             <td>@Order.UserEmailId</td>
+                             <td>@Order.PaymentMethod</td>
+                             <td class="actions"><button class="viewbut">View Detailes</button></td>
+                             <td class="actions"><button>Shipping Detailes</button></td>
+                              @* <td>@Order.TrackingNumber<td> *@
+                         </tr>
+                       }
+                       </tbody>
+                   </table>
+          </div>
+</section>
+
+
