@@ -11,6 +11,9 @@ public partial class Order
 
     public decimal TotalAmount { get; set; }
 
+    public string PaymentMethod { get; set; } = null!;
+    //public int TrackingNumber { get; set; }
+    
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
