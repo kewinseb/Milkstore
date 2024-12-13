@@ -8,9 +8,9 @@ namespace MilkStore.Controllers
 {
     public class TransactionController : Controller
     {
-        private readonly MilkDairyDbContext _context;
+        private readonly MilkstoreDbContext _context;
 
-        public TransactionController(MilkDairyDbContext context)
+        public TransactionController(MilkstoreDbContext context)
         {
             _context = context;
         }
