@@ -2,18 +2,8 @@
     ViewData["Title"] = "Payment Page";
 }
 
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewData["Title"]</title>
-    <link rel="stylesheet" href="css/payment.css"> <!-- Add your CSS file here -->
-</head>
 
-<body>
-<div class="payment-container">
-
+<section class="payment-container">
     <h1>Payment Page</h1>
     <div class="payment-options">
         <div class="payment-option">
@@ -43,15 +33,12 @@
 
     <!-- Form Actions -->
     <div class="form-actions">
-        <button class="submit-button" onclick="validateForm()">Submit Payment</button>
+        <button class="submit-button" onclick="validateForm()">Submit</button>
         <button class="cancel-button" onclick="cancelPayment()">Cancel</button>
     </div>
 
     <!-- Error Message -->
     <div id="error-message" class="error-message"></div>
-</div>
-</body>
-</html>
+</section>
 
 <!-- Include the external payment.js script -->
-<script src="js/payment.js"></script>
