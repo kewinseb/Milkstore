@@ -1,0 +1,83 @@
+﻿
+.payment-container {
+    width: 50%; /* Set a max width for the container */
+    height:450px;
+    margin: 20px auto; /* Center the container on the page */
+    background-color: #f9f9f9; /* Light gray background for contrast */
+    padding: 20px; /* Add padding inside the container */
+    border-radius: 10px; /* Smooth corners */
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+    font-family: Arial, sans-serif; /* Ensure a clean font */
+    color: #333; /* Set a consistent text color */
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.payment-options {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    position: relative;
+    right: 33px;
+}
+
+.payment-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+    .payment-option input {
+        margin-right: 10px;
+    }
+
+.payment-form {
+    display: none;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+    .form-group label {
+        display: block;
+        margin-bottom: 5px;
+    }
+
+    .form-group input, .form-group select {
+        width: 100%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+
+.form-actions {
+    display: flex;
+    justify-content: space-between;
+    gap: 40px;
+}
+
+    .form-actions button {
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+.submit-button {
+    background-color: #28a745;
+    color: #fff;
+}
+
+.cancel-button {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+.error-message {
+    color: #dc3545;
+    margin-top: 10px;
+}
