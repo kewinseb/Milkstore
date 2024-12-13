@@ -1,0 +1,80 @@
+﻿/* General form styling */
+form {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 15px;
+}
+
+    /* Label and input container */
+    form .form-group {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+        flex: 1 1 100%; /* Ensures fields take up equal width */
+    }
+
+    /* Labels */
+    form label {
+        font-weight: bold;
+        font-size: 16px; /* Ensures consistent font size for labels */
+    }
+
+    /* Input fields and date pickers */
+    form input[type="text"],
+    form input[type="date"] {
+        width: 100%; /* Ensures all fields are the same width */
+        max-width: 400px; /* Restricts excessive stretching on wider screens */
+        padding: 5px;
+        border: 1px solid #ccc;
+        border-radius: 3px;
+        font-size: 16px; /* Ensures consistent font size */
+        box-sizing: border-box;
+    }
+
+    /* Button container for alignment */
+    form .button-container {
+        display: flex;
+        gap: 5px;
+        justify-content: flex-start;
+        margin-top: 15px;
+        flex: 1 1 100%; /* Ensures the button container spans the entire form width */
+    }
+
+    /* Buttons */
+    form button {
+        padding: 8px 10px; /* Adjust padding for uniformity */
+        background-color: #007bff;
+        border: none;
+        color: white;
+        border-radius: 3px;
+        font-size: 16px; /* Matches text size with input fields */
+        cursor: pointer;
+    }
+
+        form button:hover {
+            background-color: #0056b3;
+        }
+
+        form button.clear-btn {
+            background-color: #6c757d;
+        }
+
+            form button.clear-btn:hover {
+                background-color: #5a6268;
+            }
+
+    /* No transactions found text */
+    form .no-transactions {
+        margin-top: 10px;
+        color: #6c757d;
+        font-size: 14px;
+    }
