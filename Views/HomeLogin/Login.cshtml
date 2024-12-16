@@ -1,0 +1,45 @@
+﻿@model MilkStore.Models.User
+ @{
+     Layout = null;
+ }
+<link rel="stylesheet" href="~/css/Login.css">
+
+<div class="text-center" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); margin-top: 20px;">
+    <h1 class="display-4" style="font-weight: bold;">Milk Delivery Site</h1>
+</div>
+<div class="container">
+@using (Html.BeginForm("Login", "HomeLogin", FormMethod.Post))
+{
+        <h2>Login</h2>
+    <div class="form-group">
+        @Html.LabelFor(m => m.EmailId, "Email Address")
+        @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", type = "email", placeholder = "Enter your email" })
+        @Html.ValidationMessageFor(m => m.EmailId, null, new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter your password" })
+        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+        <p class="forgot-password" style="text-align: left; margin-top: 10px;">
+            <a href="@Url.Action("ForgotPassword", "HomeLogin")"
+               style="color: #007bff; text-decoration: none; font-size: 14px; font-weight: bold;">
+                Forgot Password?
+            </a>
+        </p>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Login</button>
+}
+
+<p class="forgot-password" style="text-align: left; margin-top: 10px;">
+    Don't have an account?
+    <a href="@Url.Action("Register", "HomeLogin")"
+       style="color: #007bff; text-decoration: none; font-size: 14px; font-weight: bold;">
+        Register
+    </a>
+</p>
+</div>
+
+
+

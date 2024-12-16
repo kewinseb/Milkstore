@@ -1,0 +1,76 @@
+﻿@model MilkStore.Models.User
+@{
+    Layout = null;
+}
+
+
+<link rel="stylesheet" href="~/css/Register.css">
+
+@using (Html.BeginForm("Register", "HomeLogin", FormMethod.Post))
+
+{
+    <h2>Resgistration</h2>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter Name" })
+        @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.EmailId, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", placeholder = "Enter Email" })
+        @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter Password" })
+        @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Address, new { @class = "control-label" })
+        @Html.TextAreaFor(m => m.Address, new { @class = "form-control", placeholder = "Enter Address", rows = 3 })
+        @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.City, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "Enter City" })
+        @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.State, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.State, new { @class = "form-control", placeholder = "Enter State" })
+        @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.PinCode, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.PinCode, new { @class = "form-control", placeholder = "Enter Pin Code" })
+        @Html.ValidationMessageFor(m => m.PinCode, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Enter Phone Number" })
+        @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(m => m.Role, new { @class = "control-label" })
+        @Html.TextBoxFor(m => m.Role, new { @class = "form-control", placeholder = "Enter Role (e.g., User/Admin)" })
+        @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
+    </div>
+
+    <button type="submit" class="btn btn-primary">Register</button>
+
+    <p class="register" style="text-align: left; margin-top: 10px;">
+        Already have an account?
+        <a href="@Url.Action("Login", "HomeLogin")"
+           style="color: #007bff; text-decoration: none; font-size: 14px; font-weight: bold;">
+            Login
+        </a>
+    </p>
+}
