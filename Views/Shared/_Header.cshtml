@@ -1,6 +1,5 @@
-﻿<!-- Views/Shared/_Header.cshtml -->
-<header>
-    <div class="home_header">
+﻿<header>
+    <div class="home_header @(ViewContext.RouteData.Values["action"].ToString() == "Index" && ViewContext.RouteData.Values["controller"].ToString() == "Product" ? "show-cart" : "")">
         <div class="logo">
             <p>Milk Store</p>
         </div>
@@ -20,11 +19,49 @@
         </div>
 
         <div class="logout">
-            <div class="addtocart">
-                <i class="fas fa-cart-shopping"></i>
-            </div>
-            <div class="circle">
-                3
+            <div class="addtocart-container">
+                <div class="addtocart">
+                    <i class="fas fa-cart-shopping"></i>
+                </div>
+                <div class="circle">3</div>
+
+                <!-- Cart Popup -->
+                <div class="cart-popup">
+                    <div class="cart-popup-header">Your Cart</div>
+                    <div class="cart-popup-items">
+                        <!-- Example Item 1 -->
+                        <div class="cart-item">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_hRH_OttBeqAMgjwF7ap3l30oCF7SGDZVVKC1CbApb66lgXRJCrWwjXDAh5zOpSUZsTc&usqp=CAU" alt="Item 1">
+                            <div class="item-info">
+                                <div class="item-name">Milk 1L</div>
+                                <div class="item-price">$2.50</div>
+                            </div>
+                        </div>
+                        <!-- Example Item 2 -->
+                        <div class="cart-item">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTMvVcKtnYAeZBG3NsCXP0_WBc285kI8RcSf9sF2NZlq2A-u6_QkFY2GGotNcNrBDbj_7E&usqp=CAU" alt="Item 2">
+                            <div class="item-info">
+                                <div class="item-name">Cheese Block</div>
+                                <div class="item-price">$4.00</div>
+                            </div>
+                        </div>
+                        <!-- Example Item 3 -->
+                        <div class="cart-item">
+                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcX1TQ8-Q6JUVx2QxVcw0JplVJ-srmb1BFpdACwNbuVE82pDcsN2Sb41xXbZ9LOsgAqrE&usqp=CAU" alt="Item 3">
+                            <div class="item-info">
+                                <div class="item-name">Butter 500g</div>
+                                <div class="item-price">$3.75</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Checkout Button -->
+                    <div class="cart-popup-footer">
+                        <button class="checkout-button">
+                            <i class="fas fa-credit-card"></i> Checkout
+                        </button>
+                    </div>
+                </div>
             </div>
             <div>
                 <button id="logout_button" class="logout_button">
