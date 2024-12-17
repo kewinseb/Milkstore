@@ -8,12 +8,8 @@
                 <ul>
                     <li><a class="header_nav" asp-controller ="Home" asp-action="Index">Home</a></li>
                     <li><a class="header_nav" asp-area="" asp-controller="Product" asp-action="Index">Products</a></li>
-                    <li><a class="header_nav" href="#">Orders</a></li>
+                    <li><a class="header_nav" asp-area="" asp-controller="Order" asp-action="Index">Orders</a></li>
                     <li><a class="header_nav" href="#">Shipment</a></li>
-                    <li><a asp-controller ="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Product" asp-action="Index">Products</a></li>
-                    <li><a asp-area="" asp-controller="Order" asp-action="Index">Orders</a></li>
-                    <li><a href="#">Shipment</a></li>
                 </ul>
             </nav>
         </div>
