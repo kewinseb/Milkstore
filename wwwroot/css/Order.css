@@ -21,6 +21,7 @@ body {
     margin-bottom: 15px;
 }
 
+
 .status {
     background-color: #e6f7e9;
     color: #2a9441;
@@ -85,8 +86,11 @@ textarea {
         color: #007bff;
         font-size: 1.2rem;
     }
-
-.card-body p {
+h2 {
+    font-size: var(--font-size-lg);
+    padding: 10px 0px 10px 0px;
+}
+    .card-body p {
     margin: 8px 0;
     font-size: 0.95rem;
     line-height: 1.4;
