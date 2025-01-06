@@ -1,0 +1,87 @@
+﻿@model IEnumerable<MilkStore.Models.Product>
+
+@* @section Styles { *@
+@*     <link rel="stylesheet" href="~/css/product-listing.css" /> *@
+@* } *@
+
+
+   
+   
+<section>
+
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <div>
+                <h2>Order ID: #167895</h2>
+                <p>Mon, dec 22, 2024</p>
+            </div>
+            @* <div class="status">Approved</div> *@
+        </div>
+
+        <!-- Customer Info -->
+        <div class="info-section">
+            <div class="info-card">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-user"></i> Customer
+                    </div>
+                    <div class="card-body">
+                        <h3><i class="fas fa-user"></i> Customer</h3>
+                        <p><strong>Name:</strong> Maria Aniston</p>
+                        <p><strong>Address:</strong> Building 12D, Mindspace, Madhapur, Hyderabad, 500081</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-shopping-cart"></i> Order Info
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Order date:</strong> 04-09-2024</p>
+                        <p><strong>Order num:</strong> 9876523456</p>
+                        <p><strong>Order total:</strong> Rs.124 (2 items)</p>
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Payment Info -->
+        <div class="info-section">
+            <div class="info-card">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-credit-card"></i> Payment Info
+                    </div>
+                    <div class="card-body">
+                        <p><strong>Payment Mode:</strong> COD</p>
+                        <p><strong>Business name:</strong> Maria Aniston</p>
+                        <p><strong>Phone:</strong> +91 6578605567</p>
+                    </div>
+                </div>
+            </div>
+            <div class="info-card">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-cogs"></i> Product Details
+                    </div>
+                    <div class="card-body">
+                       <p><strong>Product NAME:</strong> Milk</p>
+                        <p><strong>UNIT PRICE:</strong> ₹30</p>
+                        <p><strong>QUANTITY:</strong> 1</p>
+                        <p><strong>Total Amount:</strong> ₹30</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+
+@* @section Scripts { *@
+@*     <script src="~/js/product-actions.js"></script> *@
+@* } *@
