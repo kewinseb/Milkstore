@@ -20,13 +20,13 @@ namespace MilkStore.Controllers
         {
             try
             {
-                // Fetch all products from the database
-                var Order = _context.Products.ToList();
+                // Fetch all Orders from the database
+                var Order = _context.Orders.ToList();
 
-                // Check if no products exist
+                // Check if no Orders exist
                 if (Order == null || !Order.Any())
                 {
-                    ViewBag.Message = "Your order hasn't been placed yet! Check out the product and place your order now!";
+                    ViewBag.Message = "Your order hasn't been placed yet! Check out the Orders and place your order now!";
                 }
 
                 return View(Order);
@@ -34,9 +34,9 @@ namespace MilkStore.Controllers
             catch (Exception ex)
             {
                 // Log the exception
-                _logger.LogError(ex, "An error occurred while fetching products.");
+                _logger.LogError(ex, "An error occurred while fetching Orders.");
 
-                ViewBag.ErrorMessage = "An error occurred while fetching products.";
+                ViewBag.ErrorMessage = "An error occurred while fetching Orders.";
                 return View(new List<Order>());
             }
 
