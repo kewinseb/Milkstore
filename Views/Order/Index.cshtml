@@ -1,60 +1,68 @@
-﻿   @model IEnumerable<MilkStore.Models.Order>
+﻿@model IEnumerable<MilkStore.Models.Order>
 
-
-   @section Styles {
-       <link rel="stylesheet" href="~/css/Order.css" />
-   }
+@section Styles {
+    <link rel="stylesheet" href="~/css/Order.css" />
+}
 
 <section>
-          <div class="container">
-                   <h2>Order History</h2>
-        <div class="felx">
-            <div>Order No:</div>
-            <div>
-                <input type="text" placeholder="Search by Order No" id="orderNoSearch">
-            </div>
+    <h2>Order History</h2>
 
-            <div>Order Date:</div>
-            <div>
-                <input type="date" id="orderDateSearch">
-            </div>
-            <div>
-                <button id="searchButton" class="searchbut">Search</button>
-            </div>
+    <!-- Search Filters -->
+    <div class="search-filters">
+        <div class="search-item">
+            <label for="orderNoSearch">
+                <b>Order No:</b>
+            </label>
+            <input type="text" id="orderNoSearch" placeholder="Search by Order No">
         </div>
-                 
+        <div class="search-item">
+            <label for="orderDateSearch"><b>Order Date:</b></label>
+            <input type="date" id="orderDateSearch">
+        </div>
+         @* <button id="searchButton" >
+             <i class="fa fa-search"></i> <!-- Search Icon -->
+         </button> *@
+    </div>
 
-                   <h2> Recent Orders</h2>
-
-                   <table>
-                       <thead>
-                           <tr>
-                               <th>Order Number</th>
-                               <th>Order TotalAmount</th>
-                               <th>UserEmailId</th>
-                               <th>PaymentMethod</th>
-                               <th>Order Detailes</th>
-                               <th>Shipping Detailes</th>
-                                @* <th>Tracking Number</th> *@
-                              </tr>
-                       </thead>
-                       <tbody>
-                           <tr>
-                               @foreach (var Order in Model)
-                       {
-                         <tr>
-                             <td>@Order.OrderId</td>
-                             <td>@Order.TotalAmount</td>                      
-                             <td>@Order.UserEmailId</td>
-                             <td>@Order.PaymentMethod</td>
-                             <td class="actions"><button class="viewbut">View Detailes</button></td>
-                             <td class="actions"><button>Shipping Detailes</button></td>
-                              @* <td>@Order.TrackingNumber<td> *@
-                         </tr>
-                       }
-                       </tbody>
-                   </table>
-          </div>
+    @if (!Model.Any())
+    {
+        <p>No orders available at the moment.</p>
+    }
+    else
+    {
+        <table>
+            <thead>
+                <tr>
+                    <th>Order Number</th>
+                    <th>Order Total Amount</th>
+                    <th>User Email</th>
+                    <th>Payment Method</th>
+                    <th>Order Details</th>
+                    <th>Shipping Details</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var order in Model)
+                {
+                    <tr>
+                        <td>@order.OrderId</td>
+                        <td>@(order.TotalAmount > 0 ? order.TotalAmount.ToString("C") : "N/A")</td>
+                        <td>@order.UserEmailId</td>
+                        <td>@order.PaymentMethod</td>
+                        <td>
+                            <a class="view-button" asp-area="" asp-controller="Order" asp-action="Index">Order Details</a>
+                            
+                        </td>
+                        <td>
+                            <a class="view-button" asp-area="" asp-controller="ShipmentDetail" asp-action="Index">Shipping Details</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
 </section>
 
-
+@section Scripts {
+    <script src="~/js/order-actions.js"></script>
+}
