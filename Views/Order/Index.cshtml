@@ -6,22 +6,19 @@
 
 <section>
     <h2>Order History</h2>
-
-    <!-- Search Filters -->
-    <div class="search-filters">
-        <div class="search-item">
-            <label for="orderNoSearch">
-                <b>Order No:</b>
-            </label>
-            <input type="text" id="orderNoSearch" placeholder="Search by Order No">
+    <div class="felx">
+        <div>Order No:</div>
+        <div>
+            <input type="text" placeholder="Search by Order No" id="orderNoSearch">
         </div>
-        <div class="search-item">
-            <label for="orderDateSearch"><b>Order Date:</b></label>
+
+        <div>Order Date:</div>
+        <div>
             <input type="date" id="orderDateSearch">
         </div>
-         @* <button id="searchButton" >
-             <i class="fa fa-search"></i> <!-- Search Icon -->
-         </button> *@
+        <div>
+            <button id="searchButton" class="searchbut">Search</button>
+        </div>
     </div>
 
     @if (!Model.Any())
@@ -46,16 +43,11 @@
                 {
                     <tr>
                         <td>@order.OrderId</td>
-                        <td>@(order.TotalAmount > 0 ? order.TotalAmount.ToString("C") : "N/A")</td>
+                        <td>@order.TotalAmount</td>
                         <td>@order.UserEmailId</td>
                         <td>@order.PaymentMethod</td>
-                        <td>
-                            <a class="view-button" asp-area="" asp-controller="Order" asp-action="Index">Order Details</a>
-                            
-                        </td>
-                        <td>
-                            <a class="view-button" asp-area="" asp-controller="ShipmentDetail" asp-action="Index">Shipping Details</a>
-                        </td>
+                        <td><button class="viewbut">View Detailes</button></td>
+                        <td><button class="viewbut">Shipping Detailes</button></td>
                     </tr>
                 }
             </tbody>
