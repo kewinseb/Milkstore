@@ -46,6 +46,11 @@
                             {
                                 <button class="disabled-button" disabled title="Out of Stock">Unavailable</button>
                             }
+
+                            <!-- Admin user Action Buttons -->
+                            <button onclick="location.href='@Url.Action("Index", "Admin", new { actionType = "Add", id = product.ProductId })'" class="add_button">Add</button>
+                            <button onclick="location.href='@Url.Action("Index", "Admin", new { actionType = "Edit", id = product.ProductId })'" class="edit_button">Edit</button>
+                            <button onclick="location.href='@Url.Action("Index", "Admin", new { actionType = "Delete", id = product.ProductId })'" class="delete_button">Delete</button>
                         </td>
                     </tr>
                 }
@@ -56,4 +61,5 @@
 
 @section Scripts {
     <script src="~/js/product-actions.js"></script>
+}
 }
