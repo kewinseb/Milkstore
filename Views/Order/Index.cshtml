@@ -1,7 +1,7 @@
 ﻿@model IEnumerable<MilkStore.Models.Order>
 
 @section Styles {
-    <link rel="stylesheet" href="~/css/Order.css" />
+    <link rel="stylesheet" href="~/css/OrderDetails.css" />
 }
 
 <section>
@@ -21,38 +21,113 @@
         </div>
     </div>
 
-    @if (!Model.Any())
+    <table>
+        <thead>
+            <tr>
+                <th>Order Number</th>
+                <th>Order Total Amount</th>
+                <th>User Email</th>
+                <th>Payment Method</th>
+                <th>Order Details</th>
+                <th>Shipping Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1001</td>
+                <td>$100.00</td>
+                <td>user1@example.com</td>
+                <td>Credit Card</td>
+                <td><a class="viewbut" asp-controller="OrderDetails" asp-action="Index">View Details</a></td>
+                <td><a class="viewbut" asp-controller="ShipmentDetails" asp-action="Index">Shipment Details</a></td>
+            </tr>
+            <tr>
+                <td>1002</td>
+                <td>$250.50</td>
+                <td>user2@example.com</td>
+                <td>PayPal</td>
+                <td><a class="viewbut" asp-controller="OrderDetails" asp-action="Index">View Details</a></td>
+                <td><a class="viewbut" asp-controller="ShipmentDetails" asp-action="Index">Shipment Details</a></td>
+            </tr>
+            <tr>
+                <td>1003</td>
+                <td>$75.75</td>
+                <td>user3@example.com</td>
+                <td>Debit Card</td>
+                <td><a class="viewbut" asp-controller="OrderDetails" asp-action="Index">View Details</a></td>
+                <td><a class="viewbut" asp-controller="ShipmentDetails" asp-action="Index">Shipment Details</a></td>
+            </tr>
+            <tr>
+                <td>1004</td>
+                <td>$300.00</td>
+                <td>user4@example.com</td>
+                <td>Bank Transfer</td>
+                <td><a class="viewbut" asp-controller="OrderDetails" asp-action="Index">View Details</a></td>
+                <td><a class="viewbut" asp-controller="ShipmentDetails" asp-action="Index">Shipment Details</a></td>
+            </tr>
+            <tr>
+                <td>1005</td>
+                <td>$150.25</td>
+                <td>user5@example.com</td>
+                <td>Credit Card</td>
+                <td><a class="viewbut" asp-controller="OrderDetails" asp-action="Index">View Details</a></td>
+                <td><a class="viewbut" asp-controller="ShipmentDetails" asp-action="Index">Shipment Details</a></td>
+            </tr>
+            <tr>
+                <td>1006</td>
+                <td>$500.00</td>
+                <td>user6@example.com</td>
+                <td>PayPal</td>
+                <td><a class="viewbut" asp-controller="OrderDetails" asp-action="Index">View Details</a></td>
+                <td><a class="viewbut" asp-controller="ShipmentDetails" asp-action="Index">Shipment Details</a></td>
+            </tr>
+            <tr>
+                <td>1007</td>
+                <td>$125.00</td>
+                <td>user7@example.com</td>
+                <td>Debit Card</td>
+                <td><a class="viewbut" asp-controller="OrderDetails" asp-action="Index">View Details</a></td>
+                <td><a class="viewbut" asp-controller="ShipmentDetails" asp-action="Index">Shipment Details</a></td>
+            </tr>
+
+
+        </tbody>
+    </table>
+
+
+    @*  @if (!Model.Any())
     {
-        <p>No orders available at the moment.</p>
-    }
-    else
+    <p>No orders available at the moment.</p>
+    } *@
+    @* else
+    { *@
+    @*  <table>
+    <thead>
+    <tr>
+    <th>Order Number</th>
+    <th>Order Total Amount</th>
+    <th>User Email</th>
+    <th>Payment Method</th>
+    <th>Order Details</th>
+    <th>Shipping Details</th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var order in Model)
     {
-        <table>
-            <thead>
-                <tr>
-                    <th>Order Number</th>
-                    <th>Order Total Amount</th>
-                    <th>User Email</th>
-                    <th>Payment Method</th>
-                    <th>Order Details</th>
-                    <th>Shipping Details</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var order in Model)
-                {
-                    <tr>
-                        <td>@order.OrderId</td>
-                        <td>@order.TotalAmount</td>
-                        <td>@order.UserEmailId</td>
-                        <td>@order.PaymentMethod</td>
-                        <td><button class="viewbut">View Detailes</button></td>
-                        <td><button class="viewbut">Shipping Detailes</button></td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+    <tr>
+    <td>@order.OrderId</td>
+    <td>@order.TotalAmount</td>
+    <td>@order.UserEmailId</td>
+    <td>@order.PaymentMethod</td>
+    <td><button class="viewbut">View Detailes</button></td>
+    <td><button class="viewbut">Shipping Detailes</button></td>
+    </tr>
     }
+    </tbody>
+    </table> *@
+    @*       }
+    *@
 </section>
 
 @section Scripts {
