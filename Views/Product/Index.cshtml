@@ -28,7 +28,7 @@
                 @foreach (var product in Model)
                 {
                     <tr>
-                        <td>@product.ProductName</td>
+                        <td><img src="@product.productImage" alt="Alternate Text" /></td>
                         <td>@(string.IsNullOrWhiteSpace(product.Category) ? "Uncategorized" : product.Category)</td>
                         <td>@(product.Price > 0 ? product.Price.ToString("C") : "N/A")</td>
                         <td>@(product.StockQuantity > 0 ? product.StockQuantity : "Out of Stock")</td>
