@@ -33,18 +33,7 @@ public partial class MilkstoreDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        if (!optionsBuilder.IsConfigured)
-        {
-            // This method is only for fallback if the context is created without DI.
-            var config = new ConfigurationBuilder()
-                .SetBasePath(AppContext.BaseDirectory)
-                .AddJsonFile("appsettings.json")
-                .Build();
-
-            optionsBuilder.UseSqlServer(config.GetConnectionString("MilkstoreDbConnectionString"));
-        }
-    }
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-HHOTP7Q;Database=Milkstore;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -176,6 +165,9 @@ public partial class MilkstoreDbContext : DbContext
             entity.Property(e => e.Price)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("price");
+            entity.Property(e => e.ProductImage)
+                .HasMaxLength(255)
+                .HasColumnName("productImage");
             entity.Property(e => e.ProductName)
                 .HasMaxLength(50)
                 .IsUnicode(false)

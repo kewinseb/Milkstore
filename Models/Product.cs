@@ -8,7 +8,6 @@ public partial class Product
     public int ProductId { get; set; }
 
     public string ProductName { get; set; } = null!;
-    public string productImage {  get; set; } = null!;
 
     public decimal Price { get; set; }
 
@@ -21,6 +20,8 @@ public partial class Product
     public DateTime CreatedAt { get; set; }
 
     public DateTime UpdatedAt { get; set; }
+
+    public string? ProductImage { get; set; }
 
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 

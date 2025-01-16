@@ -50,6 +50,7 @@ body {
     color: var(--text-color);
     background-color: var(--background-color);
     line-height: 1.6;
+    overflow: hidden;
 }
 
 /* ===== Typography ===== */

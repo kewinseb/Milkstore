@@ -1,4 +1,3 @@
-using MilkStore.Models;
 using Microsoft.EntityFrameworkCore;
 using MilkStore.Data;
 
