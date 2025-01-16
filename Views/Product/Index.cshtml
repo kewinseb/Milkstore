@@ -4,7 +4,7 @@
     <link rel="stylesheet" href="~/css/product-listing.css" />
 }
 
-<section>
+<section class="product_section">
     <h2>Product Listing</h2>
 
     @if (!Model.Any())
@@ -13,53 +13,34 @@
     }
     else
     {
-        <table>
-            <thead>
-                <tr>
-                    <th>Product Name</th>
-                    <th>Category</th>
-                    <th>Price</th>
-                    <th>Stock Quantity</th>
-                    <th>Estimated Delivery</th>
-                    <th>Actions</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var product in Model)
-                {
-                    <tr>
-                        <td>@product.ProductName</td>
-                        <td>@(string.IsNullOrWhiteSpace(product.Category) ? "Uncategorized" : product.Category)</td>
-                        <td>@(product.Price > 0 ? product.Price.ToString("C") : "N/A")</td>
-                        <td>@(product.StockQuantity > 0 ? product.StockQuantity : "Out of Stock")</td>
-                        <td>
-                            @product.EstimatedDelivery.ToShortDateString()
-                        </td>
-                        <td class="actions">
-                            @if (product.StockQuantity > 0)
-                            {
-                                <button class="increment_button" data-product-id="@product.ProductId">+</button>
-                                <button class="add_button" data-product-id="@product.ProductId">Add</button>
-                                <button class="decrement_button" data-product-id="@product.ProductId">-</button>
-                            }
-                            else
-                            {
-                                <button class="disabled-button" disabled title="Out of Stock">Unavailable</button>
-                            }
-
-                            <!-- Admin user Action Buttons -->
-                            <button onclick="location.href='@Url.Action("Index", "Admin", new { actionType = "Add", id = product.ProductId })'" class="add_button">Add</button>
-                            <button onclick="location.href='@Url.Action("Index", "Admin", new { actionType = "Edit", id = product.ProductId })'" class="edit_button">Edit</button>
-                            <button onclick="location.href='@Url.Action("Index", "Admin", new { actionType = "Delete", id = product.ProductId })'" class="delete_button">Delete</button>
-                        </td>
-                    </tr>
-                }
-            </tbody>
-        </table>
+        <div class="product-grid">
+            @foreach (var product in Model)
+            {
+                <div class="product">
+                    <!-- Dynamically load image from database -->
+                    @* <img src="~/images/aavin-toned-milk-500ml.jpg" /> *@
+                    <img src= "@product.ProductImage" alt="@product.ProductName" class="product-image" />
+                    <p>@product.ProductName</p>
+                    <p class="price">@(product.Price > 0 ? product.Price.ToString("C") : "N/A")</p>
+                    <div class="quantity-controls">
+                        <button class="decrement" data-product-id="@product.ProductId">-</button>
+                        <input type="text" class="quantity" value="1" />
+                        <button class="increment" data-product-id="@product.ProductId">+</button>
+                    </div>
+                    @if (product.StockQuantity > 0)
+                    {
+                        <button class="add-to-cart" data-product-id="@product.ProductId">Add to Cart</button>
+                    }
+                    else
+                    {
+                        <button class="disabled-button" disabled title="Out of Stock">Unavailable</button>
+                    }
+                </div>
+            }
+        </div>
     }
 </section>
 
 @section Scripts {
     <script src="~/js/product-actions.js"></script>
-}
 }
