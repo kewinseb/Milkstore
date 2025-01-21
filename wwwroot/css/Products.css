@@ -85,17 +85,84 @@ p {
     }
 
     .quantity-controls button {
-        background-color: var(--quantity-button-color);
+        background-color: transparent; /* No background initially */
         border: 1px solid #ccc;
         padding: 5px 10px;
         cursor: pointer;
         font-size: 16px;
         border-radius: 4px;
-        transition: background-color 0.3s;
+        transition: background-color 0.3s, color 0.3s;
     }
 
-        .quantity-controls button:hover {
-            background-color: #bbb;
+    /* Decrement Button (Red) */
+    .quantity-controls .decrement {
+        color: var(--danger-color); /* Red color */
+    }
+
+        .quantity-controls .decrement:hover {
+            background-color: var(--danger-color);
+            color: #fff; /* White text on hover */
+        }
+
+    /* Increment Button (Green) */
+    .quantity-controls .increment {
+        color: var(--success-color); /* Green color */
+    }
+
+        .quantity-controls .increment:hover {
+            background-color: var(--success-color);
+            color: #fff; /* White text on hover */
+        }
+
+    .quantity-controls input {
+        width: 40px;
+        text-align: center;
+        border: 1px solid #ccc;
+        padding: 5px;
+        margin: 0 5px;
+        border-radius: 4px;
+    }
+
+.quantity-controls {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    margin: 10px 0;
+}
+
+    .quantity-controls.fade-in {
+        display: flex;
+        animation: fadeIn 0.3s ease-in;
+    }
+
+    .quantity-controls button {
+        background-color: transparent; /* No background initially */
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 16px;
+        border-radius: 4px;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* Decrement Button (Red) */
+    .quantity-controls .decrement {
+        color: var(--danger-color); /* Red color */
+    }
+
+        .quantity-controls .decrement:hover {
+            background-color: var(--danger-color);
+            color: #fff; /* White text on hover */
+        }
+
+    /* Increment Button (Green) */
+    .quantity-controls .increment {
+        color: var(--success-color); /* Green color */
+    }
+
+        .quantity-controls .increment:hover {
+            background-color: var(--success-color);
+            color: #fff; /* White text on hover */
         }
 
     .quantity-controls input {
