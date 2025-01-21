@@ -10,23 +10,36 @@
     --quantity-button-color: #ddd;
 }
 
+body {
+    font-family: var(--font-family);
+    background-color: var(--background-color);
+    margin: 0;
+    padding: 0;
+}
+
 .product_section {
     width: 100%;
-    height: calc(100vh - 112px);
-    overflow-y: auto;
+    height: calc(100vh - 112px); /* Ensure the section takes the full available height */
+    overflow-y: auto; /* Enable vertical scrolling */
     padding: 20px;
+    box-sizing: border-box;
+}
+
+h2 {
+    text-align: center;
+    color: var(--header-bg-color);
+    margin-bottom: 20px;
 }
 
 p {
-    font-size: var(--font-size-lg);
+    font-size: 16px;
     text-align: center;
 }
 
-
 .product-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-    gap: 10px;
+    grid-template-columns: repeat(3, 1fr); /* Three items per row */
+    gap: 20px; /* Increased gap for better spacing */
     padding: 10px;
 }
 
@@ -37,12 +50,19 @@ p {
     text-align: center;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
+    transition: transform 0.2s, box-shadow 0.2s;
 }
+
+    .product:hover {
+        transform: scale(1.03);
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    }
 
     .product img {
         max-width: 100%;
         height: auto;
         margin-bottom: 10px;
+        border-radius: 4px;
     }
 
 .price {
@@ -53,11 +73,16 @@ p {
 }
 
 .quantity-controls {
-    display: flex;
+    display: none;
     justify-content: center;
     align-items: center;
     margin: 10px 0;
 }
+
+    .quantity-controls.fade-in {
+        display: flex;
+        animation: fadeIn 0.3s ease-in;
+    }
 
     .quantity-controls button {
         background-color: var(--quantity-button-color);
@@ -65,7 +90,13 @@ p {
         padding: 5px 10px;
         cursor: pointer;
         font-size: 16px;
+        border-radius: 4px;
+        transition: background-color 0.3s;
     }
+
+        .quantity-controls button:hover {
+            background-color: #bbb;
+        }
 
     .quantity-controls input {
         width: 40px;
@@ -73,6 +104,7 @@ p {
         border: 1px solid #ccc;
         padding: 5px;
         margin: 0 5px;
+        border-radius: 4px;
     }
 
 .add-to-cart {
@@ -84,12 +116,17 @@ p {
     font-size: 16px;
     margin-top: 10px;
     border-radius: 4px;
-    transition: background-color 0.3s;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
     .add-to-cart:hover {
         background-color: var(--button-hover-color);
+        transform: scale(1.05);
     }
+
+.hidden {
+    display: none !important;
+}
 
 .disabled-button {
     background-color: #ddd;
@@ -117,3 +154,16 @@ p {
     .add_button:hover, .edit_button:hover, .delete_button:hover {
         background-color: var(--button-hover-color);
     }
+
+/* Fade-in animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: scale(0.95);
+    }
+
+    to {
+        opacity: 1;
+        transform: scale(1);
+    }
+}

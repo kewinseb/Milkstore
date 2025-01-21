@@ -11,7 +11,6 @@
                     <li><a class="header_nav" asp-area="" asp-controller="Order" asp-action="Index">Orders</a></li>
                     <li><a class="header_nav" asp-controller="ShipmentDetails" asp-action="Index">Shipment</a></li>
                     <li><a class="header_nav" asp-controller="Transaction" asp-action="Index">Transaction</a></li>
-
                 </ul>
             </nav>
         </div>
@@ -20,36 +19,13 @@
                 <div class="addtocart">
                     <i class="fas fa-cart-shopping"></i>
                 </div>
-                <div class="circle">3</div>
+                <div class="circle" id="cart-count">0</div>
 
                 <!-- Cart Popup -->
                 <div class="cart-popup">
                     <div class="cart-popup-header">Your Cart</div>
-                    <div class="cart-popup-items">
-                        <!-- Example Item 1 -->
-                        <div class="cart-item">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS_hRH_OttBeqAMgjwF7ap3l30oCF7SGDZVVKC1CbApb66lgXRJCrWwjXDAh5zOpSUZsTc&usqp=CAU" alt="Whole Milk">
-                            <div class="item-info">
-                                <div class="item-name">Whole Milk 1L</div>
-                                <div class="item-price">$2.50</div>
-                            </div>
-                        </div>
-                        <!-- Example Item 2 -->
-                        <div class="cart-item">
-                            <img src="https://via.placeholder.com/150?text=Almond+Milk" alt="Almond Milk">
-                            <div class="item-info">
-                                <div class="item-name">Almond Milk</div>
-                                <div class="item-price">$4.00</div>
-                            </div>
-                        </div>
-                        <!-- Example Item 3 -->
-                        <div class="cart-item">
-                            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcX1TQ8-Q6JUVx2QxVcw0JplVJ-srmb1BFpdACwNbuVE82pDcsN2Sb41xXbZ9LOsgAqrE&usqp=CAU" alt="Butter">
-                            <div class="item-info">
-                                <div class="item-name">Butter 500g</div>
-                                <div class="item-price">$3.75</div>
-                            </div>
-                        </div>
+                    <div class="cart-popup-items" id="cart-items">
+                        <!-- Dynamically added cart items will appear here -->
                     </div>
 
                     <!-- Checkout Button -->
