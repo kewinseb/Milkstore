@@ -20,7 +20,11 @@
                     <!-- Dynamically load image from database -->
                     <img src="@product.ProductImage" alt="@product.ProductName" class="product-image" />
                     <p>@product.ProductName</p>
-                    <p class="price">@(product.Price > 0 ? product.Price.ToString("C") : "N/A")</p>
+                    <p class="price">
+                        @(product.Price > 0
+                            ? string.Format(new System.Globalization.CultureInfo("en-IN"), "₹{0:N2}", product.Price)
+                            : "N/A")
+                    </p>
                     
                     <div class="actions">
                         <!-- Add to Cart button -->
