@@ -18,29 +18,34 @@
             {
                 <div class="product">
                     <!-- Dynamically load image from database -->
-                    @* <img src="~/images/aavin-toned-milk-500ml.jpg" /> *@
-                    <img src= "@product.ProductImage" alt="@product.ProductName" class="product-image" />
+                    <img src="@product.ProductImage" alt="@product.ProductName" class="product-image" />
                     <p>@product.ProductName</p>
                     <p class="price">@(product.Price > 0 ? product.Price.ToString("C") : "N/A")</p>
-                    <div class="quantity-controls">
-                        <button class="decrement" data-product-id="@product.ProductId">-</button>
-                        <input type="text" class="quantity" value="1" />
-                        <button class="increment" data-product-id="@product.ProductId">+</button>
+                    
+                    <div class="actions">
+                        <!-- Add to Cart button -->
+                        @if (product.StockQuantity > 0)
+                        {
+                            <button class="add-to-cart" data-product-id="@product.ProductId">Add to Cart</button>
+                        }
+                        else
+                        {
+                            <button class="disabled-button" disabled title="Out of Stock">Unavailable</button>
+                        }
+
+                        <!-- Quantity controls (hidden by default) -->
+                        <div class="quantity-controls hidden" data-product-id="@product.ProductId">
+                            <button class="decrement">-</button>
+                            <input type="text" class="quantity" value="0" />
+                            <button class="increment">+</button>
+                        </div>
                     </div>
-                    @if (product.StockQuantity > 0)
-                    {
-                        <button class="add-to-cart" data-product-id="@product.ProductId">Add to Cart</button>
-                    }
-                    else
-                    {
-                        <button class="disabled-button" disabled title="Out of Stock">Unavailable</button>
-                    }
                 </div>
             }
         </div>
     }
 </section>
 
-@section Scripts {
-    <script src="~/js/product-actions.js"></script>
-}
+   @section Scripts {
+       <script src="~/js/product-actions.js"></script>
+   }
