@@ -3,10 +3,13 @@
     const cartCountElement = document.getElementById("cart-count");
     const cartItemsElement = document.getElementById("cart-items");
 
-    // Mock cart data
+
+    
+    // Mock cart data (In real-world scenarios, interact with backend API)
     let cart = [];
 
-    // Update the cart UI
+    // Update the cart UI (header count and popup)
+
     function updateCartUI() {
         // Calculate total quantity
         const totalQuantity = cart.reduce((total, item) => total + item.quantity, 0);
@@ -15,12 +18,18 @@
         // Update cart popup items
         cartItemsElement.innerHTML = cart.map(item => `
             <div class="cart-item">
+
                 <img src="${item.image}" alt="${item.name}" class="cart-item-image">
                 <div class="cart-item-details">
                     <span>${item.name}</span>
                     <span>Qty: ${item.quantity}</span>
                     <span>Total: ₹${(item.price * item.quantity).toFixed(2)}</span>
                 </div>
+
+                <span>${item.name}</span>
+                <span>Qty: ${item.quantity}</span>
+                <span>Total: ${(item.price * item.quantity).toFixed(2)}</span>
+
             </div>
         `).join('');
 
@@ -48,13 +57,17 @@
             // Add product to the cart with quantity 1
             const productElement = this.closest(".product");
             const productName = productElement.querySelector("p").textContent;
+
             const productPrice = parseFloat(productElement.querySelector(".price").textContent.replace("₹", ""));
             const productImage = productElement.querySelector("img").src;
+
 
             // Add the product to the cart if it's not already there
             const existingProduct = cart.find(item => item.id === productId);
             if (!existingProduct) {
+
                 cart.push({ id: productId, name: productName, price: productPrice, quantity: 1, image: productImage });
+
             }
 
             // Update the cart UI immediately after Add to Cart
