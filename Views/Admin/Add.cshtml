@@ -1,0 +1,47 @@
+﻿@model MilkStore.Models.Product
+
+<form asp-action="Add" enctype="multipart/form-data" method="post" id="productForm">
+    <div class="adminform-group">
+        <label>Product Name <span style="color: red;">*</span></label>
+        <input asp-for="ProductName" class="form-control" />
+        <span asp-validation-for="ProductName" class="text-danger"></span>
+    </div>
+    <div class="adminform-group">
+        <label>Price <span style="color: red;">*</span></label>
+        <input asp-for="Price" class="form-control" />
+        <span asp-validation-for="Price" class="text-danger"></span>
+    </div>
+    <div class="adminform-group">
+        <label>Stock Quantity <span style="color: red;">*</span></label>
+        <input asp-for="StockQuantity" class="form-control" />
+        <span asp-validation-for="StockQuantity" class="text-danger"></span>
+    </div>
+    <div class="adminform-group">
+        <label>Category <span style="color: red;">*</span></label>
+        <input asp-for="Category" class="form-control" />
+        <span asp-validation-for="Category" class="text-danger"></span>
+    </div>
+    <div class="adminform-group">
+        <label>Product Image <span style="color: red;">*</span></label>
+        <input asp-for="ProductImage" type="file" class="form-control" />
+        <span asp-validation-for="ProductImage" class="text-danger"></span>
+    </div>
+
+    <button type="submit" class="btn btn-success" onclick="return confirmSubmit()">Add Product</button>
+    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Index", "Product")'">Cancel</button>
+</form>
+
+@section Scripts {
+    @await Html.PartialAsync("_ValidationScriptsPartial")
+    <script>
+        function confirmSubmit() {
+            // Trigger validation
+            if ($("#productForm").valid()) {
+                // Show confirmation dialog if the form is valid
+                return confirm("Are you sure you want to add this product?");
+            }
+            // If the form is invalid, prevent submission
+            return false;
+        }
+    </script>
+}

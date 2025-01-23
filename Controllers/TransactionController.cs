@@ -1,10 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using MilkStore.Data;
 using MilkStore.Models;
-
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace MilkStore.Controllers
-   
 {
     public class TransactionController : Controller
     {
@@ -17,7 +18,9 @@ namespace MilkStore.Controllers
 
         public IActionResult Index()
         {
-            return View(new List<Transaction>());
+            // Fetch all transactions to display on the page
+            var allTransactions = _context.Transactions.ToList();
+            return View(allTransactions);
         }
 
         [HttpPost]
@@ -26,10 +29,16 @@ namespace MilkStore.Controllers
             if (!ValidateSearchFields(transactionId, fromDate, toDate, out string errorMessage))
             {
                 ViewBag.ErrorMessage = errorMessage;
-                return View("Index", new List<Transaction>());
+                ViewBag.TransactionId = transactionId;
+                ViewBag.FromDate = fromDate?.ToString("yyyy-MM-dd");
+                ViewBag.ToDate = toDate?.ToString("yyyy-MM-dd");
+                return View("Index", _context.Transactions.ToList());
             }
 
             var filteredTransactions = fetchTransactionHistory(transactionId, fromDate, toDate);
+            ViewBag.TransactionId = transactionId;
+            ViewBag.FromDate = fromDate?.ToString("yyyy-MM-dd");
+            ViewBag.ToDate = toDate?.ToString("yyyy-MM-dd");
             return View("Index", filteredTransactions);
         }
 
@@ -43,9 +52,9 @@ namespace MilkStore.Controllers
                 return false;
             }
 
-            if (!string.IsNullOrWhiteSpace(transactionId) && transactionId.Length < 5)
+            if (!string.IsNullOrWhiteSpace(transactionId) && (transactionId.Length != 1 || !int.TryParse(transactionId, out _)))
             {
-                errorMessage = "Transaction ID must be at least 5 characters.";
+                errorMessage = "Transaction ID must be a single numeric digit.";
                 return false;
             }
 
