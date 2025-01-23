@@ -1,0 +1,15 @@
+﻿@model MilkStore.Models.Product
+
+
+<form asp-action="Delete" asp-controller="Admin" method="post">
+    <p>Are you sure you want to delete the product <strong>@Model.ProductName</strong>?</p>
+    <input asp-for="ProductId" type="hidden" />
+    <button type="submit" class="btn btn-danger" onclick="return confirmSubmit()">Delete</button>
+    <button type="button" class="btn btn-danger" onclick="location.href='@Url.Action("Index","Product")'">Cancel</button>
+</form>
+<script>
+    function confirmSubmit() {
+        // Show a confirmation dialog box
+        return confirm("Are you sure you want to Delete this product?");
+    }
+</script>

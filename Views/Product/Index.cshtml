@@ -36,7 +36,10 @@
                         {
                             <button class="disabled-button" disabled title="Out of Stock">Unavailable</button>
                         }
-
+                        <!-- Admin user Action Buttons -->
+                        <button onclick="location.href='@Url.Action("Add", "Admin", new { actionType = "Add", id = product.ProductId })'" class="add_button">Add</button>
+                        <button onclick="location.href='@Url.Action("Edit", "Admin", new { actionType = "Edit", id = product.ProductId })'" class="edit_button">Edit</button>
+                        <button onclick="location.href='@Url.Action("Delete", "Admin", new { actionType = "Delete", id = product.ProductId })'" class="delete_button">Delete</button>
                         <!-- Quantity controls (hidden by default) -->
                         <div class="quantity-controls hidden" data-product-id="@product.ProductId">
                             <button class="decrement">-</button>

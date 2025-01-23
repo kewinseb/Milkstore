@@ -7,19 +7,19 @@
             <!-- Transaction ID Field -->
             <div>
                 <label for="transactionId">Transaction ID:</label>
-                <input type="text" id="transactionId" name="transactionId" />
+                <input type="text" id="transactionId" name="transactionId" value="@ViewBag.TransactionId" />
             </div>
 
             <!-- From Date Field -->
             <div>
                 <label for="fromDate">From Date:</label>
-                <input type="date" id="fromDate" name="fromDate" />
+                <input type="date" id="fromDate" name="fromDate" value="@ViewBag.FromDate" />
             </div>
 
             <!-- To Date Field -->
             <div>
                 <label for="toDate">To Date:</label>
-                <input type="date" id="toDate" name="toDate" />
+                <input type="date" id="toDate" name="toDate" value="@ViewBag.ToDate" />
             </div>
 
             <!-- Buttons -->
@@ -37,29 +37,31 @@
 
     @if (Model != null && Model.Any())
     {
-        <table border="1" cellpadding="5" cellspacing="0" style="margin-top: 20px; width: 100%; text-align: left;">
-            <thead>
-                <tr>
-                    <th>Date & Time</th>
-                    <th>Transaction ID</th>
-                    <th>Payment Mode</th>
-                    <th>Payment Status</th>
-                    <th>Amount</th>
-                </tr>
-            </thead>
-            <tbody>
-                @foreach (var transaction in Model)
-                {
+        <div style="margin-top: 20px; max-height: 400px; overflow-y: auto; border: 1px solid #ccc;">
+            <table border="1" cellpadding="5" cellspacing="0" style="width: 100%; text-align: left;">
+                <thead>
                     <tr>
-                        <td>@transaction.TransactionDate.ToString("dd-MM-yyyy HH:mm")</td>
-                        <td>@transaction.TransactionId</td>
-                        <td>@transaction.PaymentMode</td>
-                        <td>@transaction.PaymentStatus</td>
-                        <td>@transaction.TotalAmountPaid.ToString("C")</td>
+                        <th>Date & Time</th>
+                        <th>Transaction ID</th>
+                        <th>Payment Mode</th>
+                        <th>Payment Status</th>
+                        <th>Amount</th>
                     </tr>
-                }
-            </tbody>
-        </table>
+                </thead>
+                <tbody>
+                    @foreach (var transaction in Model)
+                    {
+                        <tr>
+                            <td>@transaction.TransactionDate.ToString("dd-MM-yyyy HH:mm")</td>
+                            <td>@transaction.TransactionId</td>
+                            <td>@transaction.PaymentMode</td>
+                            <td>@transaction.PaymentStatus</td>
+                            <td>@transaction.TotalAmountPaid.ToString("C")</td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
+        </div>
     }
     else
     {

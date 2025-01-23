@@ -1,68 +1,25 @@
-﻿@model MilkStore.Models.Product
-@{
-    ViewData["Title"] = "Products";
-    var actionType = ViewBag.ActionType as string;
-}
-<form method="post" asp-action="@(actionType)" class="form-container">
-    <!-- Fields for Add Product -->
-    @if (actionType == "Add")
-    {
-        <div class="form-group">
-            <label asp-for="ProductName">Product Name</label>
-            <input asp-for="ProductName" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Price">Price</label>
-            <input asp-for="Price" class="form-control" type="number" step="0.01" />
-        </div>
-        <div class="form-group">
-            <label asp-for="StockQuantity">Stock Quantity</label>
-            <input asp-for="StockQuantity" class="form-control" type="number" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Category">Category</label>
-            <input asp-for="Category" class="form-control" />
-        </div>
-    }
-
-    <!-- Fields for Edit or Delete actions -->
-    @if (actionType == "Edit" || actionType == "Delete")
-    {
-        <div class="form-group">
-            <label asp-for="ProductId">Product ID</label>
-            <input asp-for="ProductId" class="form-control" readonly /> <!-- Readonly for Edit and Delete -->
-        </div>
-        <div class="form-group">
-            <label asp-for="ProductName">Product Name</label>
-            <input asp-for="ProductName" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Category">Category</label>
-            <input asp-for="Category" class="form-control" />
-        </div>
-        <div class="form-group">
-            <label asp-for="Price">Price</label>
-            <input asp-for="Price" class="form-control" type="number" step="0.01" />
-        </div>
-        <div class="form-group">
-            <label asp-for="StockQuantity">Stock Quantity</label>
-            <input asp-for="StockQuantity" class="form-control" type="number" />
-        </div>
-    }
-
-    <!-- Submit Button -->
-    <button type="submit" class="custom-submit-button">
-        @if (actionType == "Edit")
+﻿@model IEnumerable<MilkStore.Models.Product>
+<a asp-action="Add" class="btn btn-primary">Add Product</a>
+<table class="table">
+    <thead>
+        <tr>
+            <th>Name</th>
+            <th>Price</th>
+            <th>StockQuantity</th>
+            <th>Category</th>
+            <th>ProductImage</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var product in Model)
         {
-            <text>Edit Product</text>
+            <tr>
+                <td>@product.ProductName</td>
+                <td>@product.Price</td>
+                <td>@product.StockQuantity</td>
+                <td>@product.Category</td>
+                <td>@product.ProductImage</td>
+            </tr>
         }
-        else if (actionType == "Delete")
-        {
-            <text>Delete Product</text>
-        }
-        else
-        {
-            <text>Add Product</text>
-        }
-    </button>
-</form>
+    </tbody>
+</table>
