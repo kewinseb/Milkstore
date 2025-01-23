@@ -15,9 +15,12 @@
         // Update cart popup items
         cartItemsElement.innerHTML = cart.map(item => `
             <div class="cart-item">
-                <span>${item.name}</span>
-                <span>Qty: ${item.quantity}</span>
-                <span>Total: ${(item.price * item.quantity).toFixed(2)}</span>
+                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                <div class="cart-item-details">
+                    <span>${item.name}</span>
+                    <span>Qty: ${item.quantity}</span>
+                    <span>Total: ₹${(item.price * item.quantity).toFixed(2)}</span>
+                </div>
             </div>
         `).join('');
 
@@ -45,12 +48,13 @@
             // Add product to the cart with quantity 1
             const productElement = this.closest(".product");
             const productName = productElement.querySelector("p").textContent;
-            const productPrice = parseFloat(productElement.querySelector(".price").textContent.replace("$", ""));
+            const productPrice = parseFloat(productElement.querySelector(".price").textContent.replace("₹", ""));
+            const productImage = productElement.querySelector("img").src; // Fetch the product image
 
             // Add the product to the cart if it's not already there
             const existingProduct = cart.find(item => item.id === productId);
             if (!existingProduct) {
-                cart.push({ id: productId, name: productName, price: productPrice, quantity: 1 });
+                cart.push({ id: productId, name: productName, price: productPrice, quantity: 1, image: productImage });
             }
 
             // Update the cart UI immediately after Add to Cart
