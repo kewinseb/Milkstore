@@ -1,36 +1,36 @@
-/* Base font size for the whole page */
+ Base font size for the whole page 
 html {
     font-size: 14px;
 }
 
 @media (min-width: 768px) {
     html {
-        font-size: 16px; /* Increase font size for larger screens */
+        font-size: 16px;  Increase font size for larger screens 
     }
 }
 
-/* Focus styles for buttons, inputs, and form controls */
+ Focus styles for buttons, inputs, and form controls 
 .btn:focus,
 .btn:active:focus,
 .btn-link.nav-link:focus,
 .form-control:focus,
 .form-check-input:focus {
-    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb; /* Light blue shadow */
+    box-shadow: 0 0 0 0.1rem white, 0 0 0 0.25rem #258cfb;  Light blue shadow 
 }
 
-/* Ensure the HTML body takes full height */
+ Ensure the HTML body takes full height 
 html {
     position: relative;
     min-height: 100%;
 }
 
 body {
-    margin-bottom: 60px; /* Add space at the bottom */
+    margin-bottom: 60px;  Add space at the bottom 
 }
 
-/* Button Styling */
+ Button Styling 
 .viewbut {
-    background-color: #4CAF50; /* Green background */
+    background-color: #4CAF50;  Green background 
     color: white;
     border: none;
     padding: 5px 5px;
@@ -40,24 +40,24 @@ body {
     transition: background-color 0.3s ease, transform 0.2s;
 }
 
-    /* Hover effect for the button */
+     Hover effect for the button 
     .viewbut:hover {
-        background-color: #45a049; /* Darker green on hover */
+        background-color: #45a049;  Darker green on hover 
         transform: scale(1.05);
     }
 
-    /* Focus effect for the button */
+     Focus effect for the button 
     .viewbut:focus {
         outline: none;
-        box-shadow: 0 0 8px rgba(76, 175, 80, 0.6); /* Green glow effect */
+        box-shadow: 0 0 8px rgba(76, 175, 80, 0.6);  Green glow effect 
     }
 
-    /* Active state when button is clicked */
+     Active state when button is clicked 
     .viewbut:active {
-        background-color: #388e3c; /* Even darker green when clicked */
+        background-color: #388e3c;  Even darker green when clicked 
     }
 
-/* Flex container for search section */
+ Flex container for search section 
 .felx {
     display: flex;
     justify-content: space-between;
@@ -65,14 +65,14 @@ body {
     margin-bottom: 20px;
 }
 
-    /* Label styling inside the flex container */
+     Label styling inside the flex container 
     .felx div {
         font-size: 16px;
         font-weight: bold;
         margin-right: 10px;
     }
 
-/* Search input fields styling */
+ Search input fields styling 
 input[type="text"],
 input[type="date"] {
     padding: 8px;
@@ -84,16 +84,16 @@ input[type="date"] {
     transition: border-color 0.3s ease;
 }
 
-    /* Focus effect on input fields */
+     Focus effect on input fields 
     input[type="text"]:focus,
     input[type="date"]:focus {
-        border-color: #4CAF50; /* Green border when focused */
+        border-color: #4CAF50;  Green border when focused 
         outline: none;
     }
 
-/* Styling for the search button */
+ Styling for the search button 
 #searchButton {
-    background-color: #2196F3; /* Blue background */
+    background-color: #2196F3;  Blue background 
     color: white;
     border: none;
     padding: 10px 20px;
@@ -103,24 +103,24 @@ input[type="date"] {
     transition: background-color 0.3s ease, transform 0.2s;
 }
 
-    /* Hover effect for the search button */
+     Hover effect for the search button 
     #searchButton:hover {
-        background-color: #1976D2; /* Darker blue */
-        transform: scale(1.05); /* Slightly enlarge the button on hover */
+        background-color: #1976D2;  Darker blue 
+        transform: scale(1.05);  Slightly enlarge the button on hover 
     }
 
-    /* Focus effect for the search button */
+     Focus effect for the search button 
     #searchButton:focus {
         outline: none;
-        box-shadow: 0 0 8px rgba(33, 150, 243, 0.6); /* Blue glow effect */
+        box-shadow: 0 0 8px rgba(33, 150, 243, 0.6);  Blue glow effect 
     }
 
-    /* Active state for the search button */
+     Active state for the search button 
     #searchButton:active {
-        background-color: #1565C0; /* Even darker blue when clicked */
+        background-color: #1565C0;  Even darker blue when clicked 
     }
 
-/* Styling for input fields and labels inside .felx */
+ Styling for input fields and labels inside .felx 
 .felx input[type="text"] {
     padding: 8px;
     font-size: 16px;
@@ -129,10 +129,10 @@ input[type="date"] {
     outline: none;
 }
 
-    /* Focus effect for text input */
+     Focus effect for text input 
     .felx input[type="text"]:focus {
         border-color: #4CAF50;
-        box-shadow: 0 0 8px rgba(76, 175, 80, 0.5); /* Green glow effect */
+        box-shadow: 0 0 8px rgba(76, 175, 80, 0.5);  Green glow effect 
     }
 
 .order_section {
@@ -161,3 +161,11 @@ table {
         background-color: #f9f9f9;
     }
 
+
+.order_container {
+    align-items: center;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
