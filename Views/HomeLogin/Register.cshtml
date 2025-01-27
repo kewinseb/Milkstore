@@ -3,13 +3,12 @@
     Layout = null;
 }
 
-
 <link rel="stylesheet" href="~/css/Register.css">
 
 @using (Html.BeginForm("Register", "HomeLogin", FormMethod.Post))
-
 {
-    <h2>Resgistration</h2>
+    <h2>Registration</h2>
+
     <div class="form-group">
         @Html.LabelFor(m => m.Name, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter Name" })
@@ -56,12 +55,6 @@
         @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
         @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Enter Phone Number" })
         @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(m => m.Role, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Role, new { @class = "form-control", placeholder = "Enter Role (e.g., User/Admin)" })
-        @Html.ValidationMessageFor(m => m.Role, "", new { @class = "text-danger" })
     </div>
 
     <button type="submit" class="btn btn-primary">Register</button>
