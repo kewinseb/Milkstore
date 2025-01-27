@@ -23,12 +23,11 @@ body {
 /* Login Title */
 h2 {
     font-size: 24px;
-    /*margin-bottom: 20px;*/
     margin: 0;
-    padding:0;
+    padding: 0;
     font-weight: bold;
     color: #333333;
-    position:relative;
+    position: relative;
 }
 
 /* Form Group */
@@ -110,4 +109,9 @@ p {
             text-decoration: underline;
         }
 
-
+/* Text Danger (Validation Error Messages) */
+.custom-text-danger {
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+}

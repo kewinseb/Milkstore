@@ -2,6 +2,7 @@
  @{
      Layout = null;
  }
+
 <link rel="stylesheet" href="~/css/Login.css">
 
 <div class="text-center" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); margin-top: 20px;">
@@ -10,17 +11,22 @@
 <div class="container">
 @using (Html.BeginForm("Login", "HomeLogin", FormMethod.Post))
 {
-        <h2>Login</h2>
+     <h2>Login</h2>
+     @if (ViewBag.ErrorMessage != null)
+     {
+        <div style="color:red;">@ViewBag.ErrorMessage</div>
+     }
+
     <div class="form-group">
         @Html.LabelFor(m => m.EmailId, "Email Address")
         @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", type = "email", placeholder = "Enter your email" })
-        @Html.ValidationMessageFor(m => m.EmailId, null, new { @class = "text-danger" })
+            @Html.ValidationMessageFor(m => m.EmailId, "", new { style = "color: #ff0000; font-size: 12px; margin-top: 5px;" })
     </div>
 
     <div class="form-group">
         @Html.LabelFor(m => m.Password)
         @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter your password" })
-        @Html.ValidationMessageFor(m => m.Password, null, new { @class = "text-danger" })
+            @Html.ValidationMessageFor(m => m.Password, "", new { style = "color: #ff0000; font-size: 12px; margin-top: 5px;" })
         <p class="forgot-password" style="text-align: left; margin-top: 10px;">
             <a href="@Url.Action("ForgotPassword", "HomeLogin")"
                style="color: #007bff; text-decoration: none; font-size: 14px; font-weight: bold;">
