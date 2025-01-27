@@ -108,10 +108,3 @@ p {
         p a:hover {
             text-decoration: underline;
         }
-
-/* Text Danger (Validation Error Messages) */
-.custom-text-danger {
-    color: red;
-    font-size: 14px;
-    font-weight: bold;
-}

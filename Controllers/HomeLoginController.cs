@@ -131,27 +131,7 @@ namespace MilkStore.Controllers
 
         public IActionResult Logout()
         {
-            // Get the currently logged-in user
-            var userEmail = HttpContext.Session.GetString("UserEmail"); // Assuming you're storing the user's email in the session
-
-            if (!string.IsNullOrEmpty(userEmail))
-            {
-                // Find the user in the database
-                var user = _context.Users.FirstOrDefault(u => u.EmailId == userEmail);
-
-                if (user != null)
-                {
-                    // Remove the user
-                    _context.Users.Remove(user);
-                    _context.SaveChanges();
-                }
-
-                // Clear the session
-                HttpContext.Session.Clear();
-            }
-
-            // Redirect to Login Page
-            return RedirectToAction("Login");
+            return View();
         }
     }
 }
