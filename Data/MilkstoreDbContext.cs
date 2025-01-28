@@ -33,7 +33,7 @@ public partial class MilkstoreDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-C6J6UD7\\SQLEXPRESS;Database=MilkStore;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=True");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-M8KRM45\\SQLEXPRESS;Database=Milkstore;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
