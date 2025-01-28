@@ -1,23 +1,46 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using MilkStore.Data;
 using MilkStore.Models;
-using System.Linq;
 
 namespace MilkStore.Controllers
 {
     public class OrderController : Controller
     {
+
         private readonly MilkstoreDbContext _context;
+        private readonly ILogger<OrderController> _logger;
 
-        public OrderController(MilkstoreDbContext context)
+        public OrderController(MilkstoreDbContext context, ILogger<OrderController> logger)
         {
-            _context = context;
+            _context = context ?? throw new ArgumentNullException(nameof(context));
+            _logger = logger ?? throw new ArgumentNullException(nameof(logger));
         }
-
         public IActionResult Index()
         {
-            var orders = _context.Orders.ToList(); // Fetch all orders from the database
-            return View(orders); // Pass the data to the view
+            try
+            {
+                // Fetch all Orders from the database
+                var Order = _context.Orders.ToList();
+
+                // Check if no Orders exist
+                if (Order == null || !Order.Any())
+                {
+                    ViewBag.Message = "Your order hasn't been placed yet! Check out the Orders and place your order now!";
+                }
+
+                return View(Order);
+            }
+            catch (Exception ex)
+            {
+                // Log the exception
+                _logger.LogError(ex, "An error occurred while fetching Orders.");
+
+                ViewBag.ErrorMessage = "An error occurred while fetching Orders.";
+                return View(new List<Order>());
+            }
+
         }
     }
 }
+
