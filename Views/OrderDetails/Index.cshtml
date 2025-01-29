@@ -1,86 +1,141 @@
 ﻿@model IEnumerable<MilkStore.Models.Product>
 
-@* @section Styles { *@
-@*     <link rel="stylesheet" href="~/css/product-listing.css" /> *@
-@* } *@
-
-
-   
-   
 <section>
-
     <div class="container">
         <!-- Header -->
         <div class="header">
             <div>
-                <h2>Order ID: #167895</h2>
-                <p>Mon, dec 22, 2024</p>
+                <b>Order ID: #167895</b>
+                <p>Mon, Dec 22, 2024</p>
             </div>
-            @* <div class="status">Approved</div> *@
+
         </div>
 
-        <!-- Customer Info -->
-        <div class="info-section">
-            <div class="info-card">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-user"></i> Customer
+        <!-- Main Layout with Customer Info and Order Details -->
+        <div class="main-layout">
+            <!-- Left section (Customer Info) takes 75% -->
+            <div class="customer-info">
+                <div class="info-section">
+                    <div class="info-card">
+                        <div class="card">
+                            <div class="Customer_card-header">
+                                <i class="fas fa-user"></i> Customer
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Name:</strong> Maria Aniston</p>
+                                <p><strong>Address:</strong> Building 12D, Mindspace, Madhapur, Hyderabad, 500081</p>
+                            </div>
+                        </div>
                     </div>
+                    <div class="info-card">
+                        <div class="card">
+                            <div class="Customer_card-header">
+                                <i class="fas fa-shopping-cart"></i> Order Info
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Order date:</strong> 04-09-2024</p>
+                                <p><strong>Order total:</strong> Rs.60 (2 items)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-                    <div class="card-body">
-
-                        <p><strong>Name:</strong> Maria Aniston</p>
-                        <p><strong>Address:</strong> Building 12D, Mindspace, Madhapur, Hyderabad, 500081</p>
+                <div class="info-section">
+                    <div class="info-card">
+                        <div class="card">
+                            <div class="Customer_card-header">
+                                <i class="fas fa-credit-card"></i> Payment Info
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Payment Mode:</strong> COD</p>
+                                <p><strong>Business name:</strong> Maria Aniston</p>
+                                <p><strong>Phone:</strong> +91 6578605567</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="info-card">
+                        <div class="card">
+                            <div class="Customer_card-header">
+                                <i class="fas fa-cogs"></i> Product Details
+                            </div>
+                            <div class="card-body">
+                                <p><strong>Product NAME:</strong> Milk</p>
+                                <p><strong>UNIT PRICE:</strong> ₹30</p>
+                                <p><strong>Quantity:</strong> 1</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="info-card">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-shopping-cart"></i> Order Info
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Order date:</strong> 04-09-2024</p>
-                        <p><strong>Order total:</strong> Rs.60 (2 items)</p>
-                        
+
+            <!-- Right Section (Order Details Scrollable) takes 25% -->
+            <div class="order-details-scrollable-container">
+                <b>Orders</b>
+                
+                <div class="order-details-scrollable">
+                    <a asp-controller="OrderDetails" asp-action="Index">
+                    <div class="card">
+                            <div class="card-header text-white">Milk (1L)</div>
+                            <div class="card-body">
+                                <p><strong>Quantity:</strong> 2</p>
+                                <p><strong>Unit Price:</strong> ₹30</p>
+                                <p><strong>Status:</strong> Delivered</p>
+                            </div>
+                        </div>
+
+                   </a>
+                   <a asp-controller="OrderDetails" asp-action="Index">
+                        <div class="card">
+                            <div class="card-header text-white">Milk (500ml)</div>
+                            <div class="card-body">
+                                <p><strong>Quantity:</strong> 1</p>
+                                <p><strong>Unit Price:</strong> ₹20</p>
+                                <p><strong>Status:</strong> Pending</p>
+                            </div>
+                        </div>
+                    </a>
+                        <a asp-controller="OrderDetails" asp-action="Index">
+                        <div class="card">
+                            <div class="card-header text-white">Milk (2L)</div>
+                            <div class="card-body">
+                                <p><strong>Quantity:</strong> 1</p>
+                                <p><strong>Unit Price:</strong> ₹60</p>
+                                <p><strong>Status:</strong> Delivered</p>
+                            </div>
+                        </div>
+                        </a>
+                        <a asp-controller="OrderDetails" asp-action="Index">
+                        <div class="card">
+                            <div class="card-header text-white">Flavored Milk (500ml)</div>
+                            <div class="card-body">
+                                <p><strong>Quantity:</strong> 1</p>
+                                <p><strong>Unit Price:</strong> ₹25</p>
+                                <p><strong>Status:</strong> Pending</p>
+                            </div>
+                        </div>
+                            </a>
+                        <a asp-controller="OrderDetails" asp-action="Index">
+                        <div class="card">
+                            <div class="card-header text-white">Organic Milk (1L)</div>
+                            <div class="card-body">
+                                <p><strong>Quantity:</strong> 2</p>
+                                <p><strong>Unit Price:</strong> ₹40</p>
+                                <p><strong>Status:</strong> Delivered</p>
+                            </div>
+                        </div>
+                                </a>
+                        <a asp-controller="OrderDetails" asp-action="Index">
+                        <div class="card">
+                            <div class="card-header text-white">Low-fat Milk (1L)</div>
+                            <div class="card-body">
+                                <p><strong>Quantity:</strong> 1</p>
+                                <p><strong>Unit Price:</strong> ₹35</p>
+                                <p><strong>Status:</strong> Pending</p>
+                            </div>
+                        </div>
+                        </a>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- Payment Info -->
-        <div class="info-section">
-            <div class="info-card">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-credit-card"></i> Payment Info
-                    </div>
-                    <div class="card-body">
-                        <p><strong>Payment Mode:</strong> COD</p>
-                        <p><strong>Business name:</strong> Maria Aniston</p>
-                        <p><strong>Phone:</strong> +91 6578605567</p>
-                    </div>
-                </div>
-            </div>
-            <div class="info-card">
-                <div class="card">
-                    <div class="card-header">
-                        <i class="fas fa-cogs"></i> Product Details
-                    </div>
-                    <div class="card-body">
-                       <p><strong>Product NAME:</strong> Milk</p>
-                        <p><strong>UNIT PRICE:</strong> ₹30</p>
-                        <p><strong>Quality:</strong> 1</p>
-
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
 </section>
-
-
-@* @section Scripts { *@
-@*     <script src="~/js/product-actions.js"></script> *@
-@* } *@
