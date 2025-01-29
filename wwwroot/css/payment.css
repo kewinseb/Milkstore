@@ -1,7 +1,7 @@
 ﻿
 .payment-container {
     width: 50%; /* Set a max width for the container */
-    height:475px;
+    height:500px;
     margin: 20px auto; /* Center the container on the page */
     background-color: #f9f9f9; /* Light gray background for contrast */
     padding: 50px; /* Add padding inside the container */
