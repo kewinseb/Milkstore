@@ -129,9 +129,8 @@ namespace MilkStore.Migrations
                         .HasColumnType("decimal(10, 2)")
                         .HasColumnName("totalAmount");
 
-                    b.Property<string>("TrackingNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("TrackingNumber")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("UpdatedAt")
                         .ValueGeneratedOnAdd()
@@ -235,11 +234,6 @@ namespace MilkStore.Migrations
                         .HasColumnType("decimal(10, 2)")
                         .HasColumnName("price");
 
-                    b.Property<string>("ProductImage")
-                        .HasMaxLength(255)
-                        .HasColumnType("nvarchar(255)")
-                        .HasColumnName("productImage");
-
                     b.Property<string>("ProductName")
                         .IsRequired()
                         .HasMaxLength(50)
@@ -256,6 +250,10 @@ namespace MilkStore.Migrations
                         .HasColumnType("datetime2")
                         .HasColumnName("updatedAt")
                         .HasDefaultValueSql("(sysdatetime())");
+
+                    b.Property<string>("productImage")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ProductId")
                         .HasName("PK__Product__2D10D16ACCDF16A4");
