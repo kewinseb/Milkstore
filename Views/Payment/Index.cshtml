@@ -2,7 +2,6 @@
     ViewData["Title"] = "Payment Page";
 }
 
-
 <section class="payment-container">
     <h1>Payment Page</h1>
     <div class="payment-options">
@@ -20,11 +19,27 @@
     <div id="debit-credit-form" class="payment-form" style="display: none;">
         <div class="form-group">
             <label for="card-number">Card Number</label>
-            <input type="text" id="card-number" placeholder="Enter card number" required>
+            <!-- Card number validation: only digits, max length 16 -->
+            <input type="text"
+                   id="card-number"
+                   placeholder="Enter Card Number"
+                   maxlength="16"
+                   pattern="^[0-9]{16}$"
+                   title="Please enter exactly 16 digits"
+                   required>
+            <span id="card-error" class="error-message"></span>
         </div>
         <div class="form-group">
             <label for="cvv">CVV</label>
-            <input type="text" id="cvv" placeholder="Enter CVV" required>
+            <!-- CVV validation: only digits, max length 3 -->
+            <input type="text"
+                   id="cvv"
+                   placeholder="CVV"
+                   maxlength="3"
+                   pattern="^[0-9]{3}$"
+                   title="Please enter exactly 3 digits"
+                   required>
+            <span id="cvv-error" class="error-message"></span>
         </div>
     </div>
     <div id="cod-form" class="payment-form" style="display: none;">
@@ -40,5 +55,3 @@
     <!-- Error Message -->
     <div id="error-message" class="error-message"></div>
 </section>
-
-<!-- Include the external payment.js script -->

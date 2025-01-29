@@ -41,6 +41,8 @@ namespace MilkStore.Controllers
 
             if (user != null)
             {
+                HttpContext.Session.SetString("UserEmailId", user.EmailId);
+
                 // Redirect to Home page on successful login
                 return RedirectToAction("Index", "Home");
             }

@@ -1,10 +1,10 @@
 ﻿
 .payment-container {
     width: 50%; /* Set a max width for the container */
-    height:450px;
+    height:475px;
     margin: 20px auto; /* Center the container on the page */
     background-color: #f9f9f9; /* Light gray background for contrast */
-    padding: 20px; /* Add padding inside the container */
+    padding: 50px; /* Add padding inside the container */
     border-radius: 10px; /* Smooth corners */
     box-shadow: 0 0 15px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
     font-family: Arial, sans-serif; /* Ensure a clean font */
@@ -54,13 +54,33 @@ h1 {
         border-radius: 5px;
     }
 
+/* Custom styles for card number */
+#card-number {
+    border: 1px solid #007bff; /* Blue border for card number */
+    margin-bottom: 9px; /* Additional margin if needed */
+    width: 300px;
+}
+
+/* Custom styles for CVV */
+#cvv {
+    border: 1px solid #007bff; /* blue border for CVV */
+    margin-bottom: 10px; /* Additional margin if needed */
+    margin-left: auto; /* Adjust this value as needed to move it right */
+    width: 60px;
+}
+
+
+
 .form-actions {
     display: flex;
-    justify-content: space-between;
-    gap: 40px;
+    justify-content: flex-start;
+    gap: 30px; /* Adjust the spacing */
+    padding: 0;
+    margin: 0;
 }
 
     .form-actions button {
+        margin: 0; /* Reset margins */
         padding: 10px 20px;
         border: none;
         border-radius: 5px;
