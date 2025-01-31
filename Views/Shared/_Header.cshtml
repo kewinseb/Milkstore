@@ -7,13 +7,28 @@
             <nav>
                 <ul>
                     <li><a class="header_nav" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a class="header_nav" asp-area="" asp-controller="Product" asp-action="Index">Products</a></li>
+
+                    @if (Context.Session.GetString("UserRole") == "admin")
+                    {
+                        <li class="dropdown">
+                            <a class="header_nav dropdown-toggle" href="#" id="adminDropdown">AdminDashboard</a>
+                            <ul class="dropdown-menu">
+                                <li><a asp-controller="Admin" asp-action="Index">Dashboard</a></li>
+                                <li><a asp-controller="Transaction" asp-action="Index">Transaction</a></li>
+                            </ul>
+                        </li>
+                    }
+                    else
+                    {
+                        <li><a class="header_nav" asp-area="" asp-controller="Product" asp-action="Index">Products</a></li>
+                    }
+
                     <li><a class="header_nav" asp-area="" asp-controller="Order" asp-action="Index">Orders</a></li>
                     <li><a class="header_nav" asp-controller="ShipmentDetails" asp-action="Index">Shipment</a></li>
-                    <li><a class="header_nav" asp-controller="Transaction" asp-action="Index">Transaction</a></li>
                 </ul>
             </nav>
         </div>
+
         <div class="logout">
             <div class="addtocart-container">
                 <div class="addtocart">
@@ -46,4 +61,4 @@
             </button>
         </div>
     </div>
-</header>
+</header> 
