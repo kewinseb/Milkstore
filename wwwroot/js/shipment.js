@@ -11,7 +11,15 @@
     document.getElementById('editShipment').addEventListener('click', () => alert('Edit shipment clicked'));
     document.getElementById('printPackingSlip').addEventListener('click', () => alert('Print packing slip clicked'));
     document.getElementById('refundOrder').addEventListener('click', () => alert('Refund Order clicked'));
+    // document.getElementById('cancelOrder').addEventListener('click', () => alert('Cancel order clicked'));
     document.getElementById('cancelOrder').addEventListener('click', () => alert('Cancel order clicked'));
+    document.getElementById('cancelOrder').addEventListener('click', () => {
+        if (confirm("Are you sure you want to cancel this order?")) {
+            window.location.href = "product.html"; // Change this to your actual product page URL
+        }
+    });
+
+
 
     // Update Tracking Progress
     const updateTrackingProgress = () => {

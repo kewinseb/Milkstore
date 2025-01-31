@@ -31,9 +31,9 @@ namespace MilkStore.Controllers
         }
 
         [HttpPost]
-        public IActionResult Login(string username,string password)
+        public IActionResult Login(string username, string password)
         {
-            return RedirectToAction("Index","Home");
+            return RedirectToAction("Index", "Home");
         }
 
         public IActionResult Register()
@@ -54,6 +54,3 @@ namespace MilkStore.Controllers
         }
     }
 }
-
-
-

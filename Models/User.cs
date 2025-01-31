@@ -36,4 +36,5 @@ public partial class User
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
     public virtual ICollection<Transaction> Transactions { get; set; } = new List<Transaction>();
+    public object Email { get; internal set; }
 }

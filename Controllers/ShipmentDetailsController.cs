@@ -5,7 +5,11 @@ using MilkStore.Models;
 
 public class ShipmentDetailsController : Controller
 {
+
+
     private readonly MilkstoreDbContext _context;
+
+
     private readonly ILogger<ProductController> _logger;
 
     public ShipmentDetailsController(MilkstoreDbContext context, ILogger<ProductController> logger)
@@ -13,7 +17,7 @@ public class ShipmentDetailsController : Controller
         _context = context ?? throw new ArgumentNullException(nameof(context));
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
-
+    
     public IActionResult Index()
     {
         try
