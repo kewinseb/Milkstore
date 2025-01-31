@@ -1,4 +1,3 @@
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MilkStore.Data;
@@ -35,19 +34,23 @@ namespace MilkStore.Controllers
         [HttpPost]
         public IActionResult Login(string emailId, string password)
         {
-            // Find user with the provided email and password
-            var user = _context.Users
-                               .FirstOrDefault(u => u.EmailId == emailId && u.Password == password);
+            var user = _context.Users.FirstOrDefault(u => u.EmailId == emailId && u.Password == password);
 
             if (user != null)
             {
                 HttpContext.Session.SetString("UserEmailId", user.EmailId);
+                HttpContext.Session.SetString("UserRole", user.Role); // Store role in session
 
-                // Redirect to Home page on successful login
-                return RedirectToAction("Index", "Home");
+                if (user.Role == "admin")
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
+                else
+                {
+                    return RedirectToAction("Index", "Home");
+                }
             }
 
-            // Return error message if login fails
             ViewBag.ErrorMessage = "Invalid Email or Password.";
             return View();
         }
@@ -137,6 +140,5 @@ namespace MilkStore.Controllers
         }
     }
 }
-   
 
 
