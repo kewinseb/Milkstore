@@ -1,121 +1,44 @@
-﻿/* General Reset */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f4f7fc;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-}
-
-/* Form Container */
-form {
-    width: 100%;
-    max-width: 400px;
+﻿/* Update the existing container style */
+.container {
+    max-width: 800px;
+    max-height: 85vh; /* Set maximum height to 85% of viewport height */
+    margin: 20px auto;
     padding: 20px;
-    background: #ffffff;
-    border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-    text-align: center;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow-y: auto; /* Enable vertical scrolling */
+    /* Smooth scrolling behavior */
+    scroll-behavior: smooth;
 }
 
-/* Title */
-h2 {
-    font-size: 24px;
-    margin-bottom: 20px;
-    font-weight: bold;
-    color: #333333;
-    text-align: center;
-}
-
-/* Form Group */
-form > div {
-    margin-bottom: 20px;
-    text-align: left;
-}
-
-    form > div label {
-        font-size: 14px;
-        font-weight: bold;
-        color: #555555;
-        margin-bottom: 5px;
-        display: block;
+    /* Custom scrollbar styles for Webkit browsers (Chrome, Safari, Edge) */
+    .container::-webkit-scrollbar {
+        width: 10px;
     }
 
-    form > div .form-control {
-        width: 100%;
-        padding: 10px;
-        font-size: 14px;
-        border: 1px solid #ddd;
-        border-radius: 5px;
-        box-sizing: border-box;
+    .container::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 8px;
     }
 
-        form > div .form-control:focus {
-            border-color: #007bff;
-            box-shadow: 0 0 3px rgba(0, 123, 255, 0.5);
-            outline: none;
+    .container::-webkit-scrollbar-thumb {
+        background: #4CAF50;
+        border-radius: 8px;
+    }
+
+        .container::-webkit-scrollbar-thumb:hover {
+            background: #45a049;
         }
 
-    form > div .text-danger {
-        font-size: 12px;
-        color: #ff0000;
-        margin-top: 5px;
-    }
-
-/* Submit Button */
-.btn-primary {
-    width: 100%;
-    padding: 10px;
-    font-size: 16px;
-    font-weight: bold;
-    background-color: #007bff;
-    color: #ffffff;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
+/* For Firefox */
+.container {
+    scrollbar-width: thin;
+    scrollbar-color: #4CAF50 #f1f1f1;
 }
 
-    .btn-primary:hover {
-        background-color: #0056b3;
-    }
-
-/* Back to Login Link */
-div a {
-    display: block;
-    margin-top: 15px;
-    font-size: 14px;
-    color: #007bff;
-    text-decoration: none;
-    text-align: center;
-    font-weight: bold;
+/* Ensure content has enough padding to not be hidden behind scrollbar */
+.tracking-details {
+    padding-right: 5px;
 }
 
-    div a:hover {
-        text-decoration: underline;
-    }
 
-/* Responsive Design */
-@media (max-width: 480px) {
-    form {
-        padding: 15px;
-    }
-
-    h2 {
-        font-size: 20px;
-    }
-
-    form > div label {
-        font-size: 12px;
-    }
-
-    form > div .form-control {
-        font-size: 13px;
-    }
-
-    .btn-primary {
-        font-size: 14px;
-    }
-}
