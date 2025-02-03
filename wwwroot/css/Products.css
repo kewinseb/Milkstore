@@ -2,9 +2,6 @@
     --background-color: #f3f3f3;
     --header-bg-color: violet;
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --primary-color: #f0c14b;
-    --button-hover-color: #e7b03b;
-    --button-text-color: #111;
     --product-bg-color: white;
     --price-color: #b12704;
     --quantity-button-color: #ddd;
@@ -17,6 +14,10 @@ body {
     padding: 0;
 }
 
+.hidden {
+    display:none;
+}
+    
 .product_section {
     width: 100%;
     height: calc(100vh - 112px); /* Ensure the section takes the full available height */
@@ -27,7 +28,6 @@ body {
 
 h2 {
     text-align: center;
-    color: var(--header-bg-color);
     margin-bottom: 20px;
 }
 
@@ -226,7 +226,7 @@ p {
 }
 
     .add-to-bag:hover {
-        background-color: var(--button-hover-color);
+        background-color: var(--header-color);
         transform: scale(1.05);
     }
 
@@ -251,7 +251,7 @@ p {
 
 /* Remove from Bag Button */
 .remove-from-bag {
-    background-color: var(--primary-color);
+    background-color: var(--danger-color);
     color: white;
     border: none;
     padding: 10px;
@@ -264,7 +264,7 @@ p {
 }
 
     .remove-from-bag:hover {
-        background-color: #e07b27; /* Different color for remove button */
+        background-color: #e42a2a; /* Different color for remove button */
         transform: scale(1.05);
     }
 
@@ -276,3 +276,109 @@ p {
     .cart-container .remove-from-bag:hover {
         background-color: #d04e4e;
     }
+
+
+    .quantity-controls button {
+        background-color: var(--quantity-button-color);
+        border: 1px solid #ccc;
+        padding: 5px 10px;
+        cursor: pointer;
+        font-size: 16px;
+        color: #333;
+    }
+
+    .quantity-controls input {
+        width: 40px;
+        text-align: center;
+        border: 1px solid #ccc;
+        padding: 5px;
+        margin: 0 5px;
+    }
+
+.cart-item-quantity {
+    background-color: var(--quantity-button-color);
+    border: 1px solid #ccc;
+    padding: 7px 10px;
+}
+/* Jello Animation */
+@keyframes jello {
+    0% {
+        transform: scale(1);
+    }
+
+    25% {
+        transform: scale(1.1) rotate(-5deg);
+    }
+
+    50% {
+        transform: scale(1) rotate(5deg);
+    }
+
+    75% {
+        transform: scale(1.1) rotate(0deg);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Apply the jello animation */
+.jello-animation {
+    animation: jello 1s ease infinite; /* Infinite loop for the frown icon */
+}
+
+/* Apply the jello animation only once for the cart count circle */
+.cart-count.jello-animation {
+    animation: jello 1s ease forwards;
+}
+
+/* Empty cart message styling */
+.empty-cart-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+    .empty-cart-message i {
+        font-size: 50px;
+        color: #ff6b6b;
+        margin-bottom: 10px;
+    }
+
+    .empty-cart-message p {
+        font-size: 18px;
+        color: #333;
+    }
+
+
+
+/*======================
+    404 page
+=======================*/
+
+
+.page_404 {
+    background: #fff;
+}
+
+    .page_404 img {
+        width: 100%;
+    }
+
+.four_zero_four_bg {
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 300px;
+    background-position: center;
+}
+
+
+    .h2 {
+        font-family: var(--font-family-base);
+        font-size: var(--font-size-lg);
+        text-align: center;
+    }
+

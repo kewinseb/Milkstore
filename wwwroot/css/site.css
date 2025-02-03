@@ -12,7 +12,7 @@
     --white: #f3f3f3;
     --header-color: #7f19e6;
     --button-dark: #41087a;
-    --primary-color: #195de6;
+    --primary-color: #08c;
     --secondary-color: #e619a1;
     --danger-color: #c00;
     --warning-color: #f50;
@@ -56,6 +56,7 @@ body {
 /* ===== Typography ===== */
 h1, h2, h3, h4, h5, h6 {
     font-weight: bold;
+    color: var(--text-color);
 }
 
 p {
