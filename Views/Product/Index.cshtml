@@ -2,110 +2,7 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/product-listing.css" />
-    <style>
-        /* Sliding Cart Styles */
-        .cart-container {
-            position: fixed;
-            top: 0;
-            right: -400px; /* Hidden by default */
-            width: 400px;
-            height: 100%;
-            background-color: #fff;
-            box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
-            transition: right 0.3s ease-in-out;
-            z-index: 1000;
-            display: flex;
-            flex-direction: column;
-        }
 
-            .cart-container.active {
-                right: 0;
-            }
-
-        .cart-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 16px;
-            background-color: #f8f8f8;
-            border-bottom: 1px solid #ddd;
-        }
-
-            .cart-header h3 {
-                margin: 0;
-            }
-
-        .close-cart {
-            background: none;
-            border: none;
-            font-size: 20px;
-            cursor: pointer;
-        }
-
-        .cart-body {
-            flex: 1;
-            padding: 16px;
-            overflow-y: auto;
-        }
-
-        .cart-item {
-            display: flex;
-            align-items: center;
-            margin-bottom: 16px;
-        }
-
-            .cart-item img {
-                width: 50px;
-                height: 50px;
-                margin-right: 16px;
-            }
-
-        .cart-item-details {
-            flex: 1;
-        }
-
-        .cart-item-title {
-            font-weight: bold;
-            margin-bottom: 4px;
-        }
-
-        .remove-icon {
-            cursor: pointer;
-            width: 20px;
-            height: 20px;
-        }
-
-        .cart-footer {
-            padding: 16px;
-            border-top: 1px solid #ddd;
-            background-color: #f8f8f8;
-        }
-
-            .cart-footer p {
-                margin: 4px 0;
-            }
-
-        .btn {
-            display: block;
-            width: 100%;
-            margin-top: 8px;
-            padding: 10px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .btn-primary {
-            background-color: #007bff;
-            color: white;
-        }
-
-        .btn-secondary {
-            background-color: #6c757d;
-            color: white;
-        }
-    </style>
 }
 
 <section class="product_section">
@@ -136,8 +33,7 @@
                                name="quantity"
                                class="quantity-input"
                                value="1"
-                               min="1"
-                               onchange="updateQuantity(this, '@product.ProductId')" />
+                               min="1" />
                         @if (product.StockQuantity > 0)
                         {
                             <button class="add-to-bag" data-product-id="@product.ProductId"
@@ -156,103 +52,26 @@
             }
         </div>
     }
-
 </section>
+
+<!-- Blur Overlay -->
+<div class="blur-overlay" id="blurOverlay"></div>
 
 <!-- Sliding Cart -->
 <div class="cart-container" id="cartContainer">
     <div class="cart-header">
         <h3>Shopping Bag</h3>
-        <button class="close-cart" onclick="closeCart()">×</button>
+        <button class="close-cart" id="closeCartBtn">×</button> <!-- Close Button in Header -->
     </div>
-    <div class="cart-body" id="cartBody">
-        <!-- Dynamic Cart Items will appear here -->
-    </div>
+    <div class="cart-body" id="cartBody"></div>
     <div class="cart-footer">
         <p id="shipping">Shipping: Free</p>
         <p id="total">Total: ₹0.00</p>
-        <button class="btn btn-secondary" onclick="continueShopping()">Continue Shopping</button>
-        <button class="btn btn-primary">Proceed to Checkout</button>
+        <button class="button button-secondary" onclick="continueShopping()">Continue Shopping</button>
+        <button class="button button-primary">Proceed to Checkout</button>
     </div>
 </div>
-
 @section Scripts {
-    <script>
-        document.querySelectorAll('.add-to-bag').forEach(button => {
-            button.addEventListener('click', function () {
-                const productId = this.getAttribute('data-product-id');
-                const productName = this.getAttribute('data-product-name');
-                const productPrice = this.getAttribute('data-product-price');
-                const productImage = this.getAttribute('data-product-image');
-
-                if (this.classList.contains('add-to-bag')) {
-                    addToBag(productId, productName, productPrice, productImage, this);
-                    openCart();
-                } else {
-                    removeFromBag(productId, productPrice, this);
-                }
-            });
-        });
-
-        function openCart() {
-            document.getElementById('cartContainer').classList.add('active');
-        }
-
-        function closeCart() {
-            document.getElementById('cartContainer').classList.remove('active');
-        }
-
-        function addToBag(id, name, price, image, button) {
-            const cartBody = document.getElementById('cartBody');
-            const totalElement = document.getElementById('total');
-
-            let cartItem = document.querySelector(`.cart-item[data-product-id="${id}"]`);
-
-            if (cartItem) {
-                let quantityElement = cartItem.querySelector('.cart-item-quantity');
-                quantityElement.textContent = parseInt(quantityElement.textContent) + 1;
-            } else {
-                cartItem = document.createElement('div');
-                cartItem.className = 'cart-item';
-                cartItem.setAttribute('data-product-id', id);
-                cartItem.innerHTML = `
-                                    <img src="${image}" alt="${name}" />
-                                    <div class="cart-item-details">
-                                        <p class="cart-item-title">${name}</p>
-                                        <p>Price: ₹${price}</p>
-                                        <p>Quantity: <span class="cart-item-quantity">1</span></p>
-                                    </div>
-                                             <i class="fa-solid fa-trash" onclick="removeFromBag('${id}', '${price}', this)" alt="Remove"></i>
-                                `;
-                cartBody.appendChild(cartItem);
-            }
-
-            updateTotal(totalElement, parseFloat(price));
-            button.classList.replace('add-to-bag', 'remove-from-bag');
-            button.textContent = 'Remove from Bag';
-        }
-
-        function removeFromBag(id, price, element) {
-            const cartBody = document.getElementById('cartBody');
-            const totalElement = document.getElementById('total');
-            const cartItem = element.closest('.cart-item');
-
-            if (cartItem) {
-                cartBody.removeChild(cartItem);
-            }
-
-            updateTotal(totalElement, -parseFloat(price));
-            const productButton = document.querySelector(`button[data-product-id="${id}"]`);
-            if (productButton) {
-                productButton.classList.replace('remove-from-bag', 'add-to-bag');
-                productButton.textContent = 'Add to Bag';
-            }
-        }
-
-        function updateTotal(totalElement, priceChange) {
-            const currentTotal = parseFloat(totalElement.textContent.replace('Total: ₹', '').replace(',', '')) || 0;
-            const newTotal = currentTotal + priceChange;
-            totalElement.textContent = `Total: ₹${newTotal.toFixed(2)}`;
-        }
-    </script>
+    <script src="~/js/product-actions.js"></script>
 }
+
