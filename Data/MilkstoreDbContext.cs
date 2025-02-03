@@ -20,7 +20,7 @@ public partial class MilkstoreDbContext : DbContext
 
     public virtual DbSet<Cart> Carts { get; set; }
 
-    public virtual DbSet<Order> Orders { get; set; }
+    public virtual DbSet<Orders> Orders { get; set; }
 
     public virtual DbSet<OrderItem> OrderItems { get; set; }
 
@@ -33,7 +33,7 @@ public partial class MilkstoreDbContext : DbContext
     public virtual DbSet<User> Users { get; set; }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder.UseSqlServer("Server=DESKTOP-M8KRM45\\SQLEXPRESS;Database=Milkstore;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=True");
+        => optionsBuilder.UseSqlServer("Server=DESKTOP-NA36FNA\\SQLEXPRESS;Database=Milkstore;Trusted_Connection=True;TrustServerCertificate=True;Encrypt=True");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -92,7 +92,7 @@ public partial class MilkstoreDbContext : DbContext
                 .HasConstraintName("FK__Cart__User_email__4222D4EF");
         });
 
-        modelBuilder.Entity<Order>(entity =>
+        modelBuilder.Entity<Order_old>(entity =>
         {
             entity.HasKey(e => e.OrderId).HasName("PK__Orders__0809335DA27F7321");
 
@@ -281,4 +281,6 @@ public partial class MilkstoreDbContext : DbContext
     }
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
+
+public DbSet<MilkStore.Models.Orders> Order { get; set; } = default!;
 }

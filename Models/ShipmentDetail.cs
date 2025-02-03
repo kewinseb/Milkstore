@@ -15,5 +15,5 @@ public partial class ShipmentDetail
 
     public int OrdersOrderId { get; set; }
 
-    public virtual Order OrdersOrder { get; set; } = null!;
+    public virtual Orders OrdersOrder { get; set; } = null!;
 }

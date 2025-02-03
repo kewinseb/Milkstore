@@ -1,0 +1,57 @@
+﻿@model IEnumerable<MilkStore.Models.Orders>
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/orders.css" />
+}
+
+<h2>Your Orders</h2>
+
+<!-- Filters and Search -->
+<div class="filters">
+    <form method="get">
+        <input type="text" name="orderIdSearch" placeholder="Search by Order ID" value="" />
+        <input type="date" name="startDate" value="" />
+        <input type="date" name="endDate" value="" />
+        <button type="submit" class="btn">Filter</button>
+    </form>
+</div> 
+
+<!-- Tabs for order categories -->
+<div class="order-tabs">
+    <a href="?status=All" class="tab">Orders</a>
+    <a href="?status=Cancelled" class="tab">Cancelled Orders</a>
+</div>
+
+<!-- Order grid -->
+<div class="order-grid">
+    @foreach (var order in Model)
+    {
+
+        <div class="order-card">
+            <div class="order-header">
+                <span>Order ID: #@order.OrderId</span>
+                <span>Status: @order.OrderStatus</span>
+            </div>
+
+            <div class="order-body">
+                <img src="@order.ProductImage" alt="@order.ProductName" class="product-image" />
+                <div class="order-info">
+                    <h4>@order.ProductName</h4>
+                    <p><strong>Order Date:</strong> @order.OrderDate.ToString("yyyy-MM-dd")</p>
+                    <p><strong>Delivery Date:</strong> @order.DeliveryDate?.ToString("yyyy-MM-dd")</p>
+                    <p><strong>Total Amount:</strong> $@order.TotalAmount</p>
+                    <p><strong>Shipping Address:</strong> @order.ShippingAddress</p>
+                </div>
+            </div>
+
+            <div class="order-actions">
+                @if (order.OrderStatus != "Cancelled")
+                {
+                    <a asp-action="CancelOrder" asp-route-orderId="@order.OrderId" class="btn">Cancel Order</a>
+                }
+
+                <a asp-action="Reorder" asp-route-orderId="@order.OrderId" class="btn">Reorder</a>
+            </div>
+        </div>
+    }
+</div>
