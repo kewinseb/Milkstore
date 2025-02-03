@@ -1,4 +1,4 @@
-<header>
+﻿<header>
     <div class="home_header @(ViewContext.RouteData.Values["controller"] != null && ViewContext.RouteData.Values["controller"].ToString() != "Account" ? "show-cart" : "")">
         <div class="logo">
             <p>Milk Store</p>
@@ -31,25 +31,10 @@
 
         <div class="logout">
             <div class="addtocart-container">
-                <div class="addtocart">
+                <div class="addtocart" id="cartIcon">
                     <i class="fas fa-cart-shopping"></i>
                 </div>
                 <div class="circle" id="cart-count">0</div>
-
-                <!-- Cart Popup -->
-                <div class="cart-popup">
-                    <div class="cart-popup-header">Your Cart</div>
-                    <div class="cart-popup-items" id="cart-items">
-                        <!-- Dynamically added cart items will appear here -->
-                    </div>
-
-                    <!-- Checkout Button -->
-                    <div class="cart-popup-footer">
-                        <button class="checkout-button" onclick="location.href='@Url.Action("Index", "Payment")'">
-                            <i class="fas fa-credit-card"></i> Checkout
-                        </button>
-                    </div>
-                </div>
             </div>
             <div>
                 <button id="logout_button" class="logout_button">
@@ -61,4 +46,25 @@
             </button>
         </div>
     </div>
-</header> 
+</header>
+
+<!-- Blur Overlay -->
+<div class="blur-overlay" id="blurOverlay"></div>
+
+<!-- Sliding Cart -->
+<div class="cart-container" id="cartContainer">
+    <div class="cart-header">
+        <h3>Shopping Bag</h3>
+        <button class="close-cart" id="closeCartBtn">×</button> <!-- Close Button in Header -->
+    </div>
+    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-footer">
+        <p id="shipping">Shipping: Free</p>
+        <p id="total">Total: ₹0.00</p>
+        <button class="button button-secondary" onclick="continueShopping()">Continue Shopping</button>
+        <button class="button button-primary">Proceed to Checkout</button>
+    </div>
+</div>
+@section Scripts {
+    <script src="~/js/product-actions.js"></script>
+}
