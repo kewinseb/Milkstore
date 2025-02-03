@@ -1,144 +1,159 @@
-﻿// Object to track the products and their quantities in the cart
-let cart = {};
+﻿let cart = {}; // Store cart items
 
-// Function to open the cart (popup)
-function openCart() {
-    document.getElementById('cartContainer').classList.add('active');
-    document.getElementById('blurOverlay').style.display = 'block';
+// Cached DOM elements
+const cartContainer = document.getElementById('cartContainer');
+const blurOverlay = document.getElementById('blurOverlay');
+const cartBody = document.getElementById('cartBody');
+const totalAmountEl = document.getElementById('total');
+const cartCountEl = document.getElementById('cart-count');
+const cartIcon = document.getElementById('cartIcon');
+const closeCartBtn = document.getElementById('closeCartBtn');
+
+// Initially hide cart count circle
+cartCountEl.classList.add('hidden');
+
+// Open & Close Cart Functions
+function toggleCart(open) {
+    cartContainer.classList.toggle('active', open);
+    blurOverlay.style.display = open ? 'block' : 'none';
 }
 
-// Function to close the cart (popup)
-function closeCart() {
-    document.getElementById('cartContainer').classList.remove('active');
-    document.getElementById('blurOverlay').style.display = 'none';
-}
+// Event Listeners
+cartIcon.addEventListener('click', () => toggleCart(true));
+closeCartBtn.addEventListener('click', () => toggleCart(false));
 
-// Add event listener to the close button in the cart popup
-document.getElementById('closeCartBtn').addEventListener('click', closeCart);
+// Delegate event handling to the document for buttons (better performance)
+document.addEventListener('click', (event) => {
+    const target = event.target;
 
-// Event listener for add/remove buttons on the product page
-document.querySelectorAll('.add-to-bag').forEach(button => {
-    button.addEventListener('click', function () {
-        const productId = this.getAttribute('data-product-id');
-        const productName = this.getAttribute('data-product-name');
-        const productPrice = this.getAttribute('data-product-price');
-        const productImage = this.getAttribute('data-product-image');
+    // Add/Remove Product Button
+    if (target.classList.contains('add-to-bag') || target.classList.contains('remove-from-bag')) {
+        const productId = target.dataset.productId;
+        const productName = target.dataset.productName;
+        const productPrice = parseFloat(target.dataset.productPrice);
+        const productImage = target.dataset.productImage;
 
-        if (this.classList.contains('add-to-bag')) {
-            addToBag(productId, productName, productPrice, productImage, this);
-            openCart();  // Open cart when item is added
+        if (!cart[productId]) {
+            addToBag(productId, productName, productPrice, productImage);
         } else {
-            removeFromBag(productId, productPrice, this);
+            removeFromBag(productId);
         }
-    });
+
+        // Ensure cart opens when an item is added
+        toggleCart(true);
+    }
+
+    // Quantity Increment/Decrement
+    if (target.classList.contains('increment') || target.classList.contains('decrement')) {
+        const productId = target.closest('.cart-item').dataset.productId;
+        const change = target.classList.contains('increment') ? 1 : -1;
+        updateQuantity(productId, change);
+    }
+
+    // Remove Product from Cart (Trash Icon)
+    if (target.classList.contains('delete-icon')) {
+        const productId = target.closest('.cart-item').dataset.productId;
+        removeFromBag(productId);
+    }
 });
 
-// Function to add product to the cart (main page and popup)
-function addToBag(id, name, price, image, button) {
-    const cartBody = document.getElementById('cartBody');
-    const totalElement = document.getElementById('total');
-    const cartIconCount = document.getElementById('cart-count');
-
-    // If the product already exists in the cart, update quantity
-    if (cart[id]) {
-        cart[id].quantity++;
-    } else {
-        // Otherwise, add the product to the cart object
-        cart[id] = { name, price, image, quantity: 1 };
-    }
-
-    // Update header cart count (total quantity of all products)
-    let totalQuantity = 0;
-    for (const product in cart) {
-        totalQuantity += cart[product].quantity;
-    }
-    cartIconCount.textContent = totalQuantity;
-
-    // Update the cart slider (add/update item)
-    updateCartSlider();
-
-    // Update the button's text and class for removal
-    button.classList.replace('add-to-bag', 'remove-from-bag');
-    button.textContent = 'Remove from Bag';
+// Function to Add Product to Cart
+function addToBag(id, name, price, image) {
+    cart[id] = cart[id] || { name, price, image, quantity: 1 };
+    updateCartUI();
+    updateProductButton(id, true);
 }
 
-// Function to remove product from the cart (main page and popup)
-function removeFromBag(id, price, element) {
-    const cartBody = document.getElementById('cartBody');
-    const totalElement = document.getElementById('total');
-    const cartIconCount = document.getElementById('cart-count');
+// Function to Remove Product from Cart
+function removeFromBag(id) {
+    delete cart[id];
+    updateCartUI();
+    updateProductButton(id, false);
+}
 
+// Function to Update Quantity
+function updateQuantity(id, change) {
     if (cart[id]) {
-        // Decrease quantity or remove product if quantity is 0
-        cart[id].quantity--;
-        if (cart[id].quantity === 0) {
-            delete cart[id];
-        }
-    }
-
-    // Update header cart count (total quantity of all products)
-    let totalQuantity = 0;
-    for (const product in cart) {
-        totalQuantity += cart[product].quantity;
-    }
-    cartIconCount.textContent = totalQuantity;
-
-    // Update the cart slider (remove product if quantity is 0)
-    updateCartSlider();
-
-    // Update the button on the product page
-    const productButton = document.querySelector(`button[data-product-id="${id}"]`);
-    if (productButton) {
-        productButton.classList.replace('remove-from-bag', 'add-to-bag');
-        productButton.textContent = 'Add to Bag';
+        cart[id].quantity = Math.max(0, cart[id].quantity + change);
+        if (cart[id].quantity === 0) removeFromBag(id);
+        updateCartUI();
     }
 }
 
-// Function to update the cart slider with current products and their quantities
-function updateCartSlider() {
-    const cartBody = document.getElementById('cartBody');
-    cartBody.innerHTML = ''; // Clear current cart items
+// Function to Update "Add to Bag" Button
+function updateProductButton(id, isAdded) {
+    const button = document.querySelector(`.add-to-bag[data-product-id="${id}"], .remove-from-bag[data-product-id="${id}"]`);
+    if (button) {
+        button.textContent = isAdded ? 'Remove from Bag' : 'Add to Bag';
+        button.classList.toggle('add-to-bag', !isAdded);
+        button.classList.toggle('remove-from-bag', isAdded);
+    }
+}
 
-    const totalElement = document.getElementById('total');
-    let totalAmount = 0;
+// Function to Update Cart UI
+function updateCartUI() {
+    cartBody.innerHTML = '';
+    let totalAmount = 0, totalQuantity = 0;
 
-    // Loop through the cart object to display products and their quantities
-    for (const id in cart) {
-        const product = cart[id];
+    Object.entries(cart).forEach(([id, product]) => {
+        totalAmount += product.price * product.quantity; // ✅ Price updates based on quantity
+        totalQuantity += product.quantity;
+
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
-        cartItem.setAttribute('data-product-id', id);
+        cartItem.dataset.productId = id;
 
         cartItem.innerHTML = `
             <img src="${product.image}" alt="${product.name}" />
             <div class="cart-item-details">
                 <p class="cart-item-title">${product.name}</p>
-                <p>Price: ₹${product.price}</p>
-                <p>Quantity: <span class="cart-item-quantity">${product.quantity}</span></p>
+                <p>Price: ₹${(product.price * product.quantity).toFixed(2)}</p> <!-- ✅ Updated Price Display -->
+                <div class="quantity-controls">
+                    <button class="decrement">-</button>
+                    <span class="cart-item-quantity">${product.quantity}</span>
+                    <button class="increment">+</button>
+                </div>
             </div>
-            <i class="fa-solid fa-trash delete-icon" onclick="removeFromBag('${id}', '${product.price}', this)" alt="Remove"></i>
+            <i class="fa-solid fa-trash delete-icon"></i>
         `;
+
         cartBody.appendChild(cartItem);
-
-        totalAmount += product.price * product.quantity;
-    }
-
-    // Update the total amount in the cart
-    totalElement.textContent = `Total: ₹${totalAmount.toFixed(2)}`;
-
-    // Ensure quantity in the slider is updated after removal
-    document.querySelectorAll('.cart-item').forEach(cartItem => {
-        const productId = cartItem.getAttribute('data-product-id');
-        const quantitySpan = cartItem.querySelector('.cart-item-quantity');
-        if (cart[productId]) {
-            quantitySpan.textContent = cart[productId].quantity;
-        }
     });
 
+    totalAmountEl.textContent = `Total: ₹${totalAmount.toFixed(2)}`;
 
-    // Update the total amount in the cart
-    totalElement.textContent = `Total: ₹${totalAmount.toFixed(2)}`;
+    // Show the number of products added (not the quantity)
+    const totalProductsAdded = Object.keys(cart).length; // Get the number of distinct products added
+    cartCountEl.textContent = totalProductsAdded;
+
+    // Show or hide the cart count circle based on the number of products added
+    cartCountEl.classList.toggle('hidden', totalProductsAdded === 0); // Hide if no products
+
+    // If no products are in the cart, show frown icon and message with jello animation
+    if (totalProductsAdded === 0) {
+        cartBody.innerHTML = `
+            <section class="page_404">
+		<div class="four_zero_four_bg">
+		</div>
+
+		<div class="content_box">
+		<h3 class="h2">
+		Sorry, No products in the cart 🛒!
+		</h3>
+	</div>
+</section>
+        `;
+    } else {
+        // Trigger the jello animation for the cart count circle when there are products in the cart
+        cartCountEl.classList.add('jello-animation');
+        setTimeout(() => {
+            cartCountEl.classList.remove('jello-animation');
+        }, 1000); // Duration of jello animation
+    }
 }
 
-// Event listener for the cart icon (in header)
-document.getElementById('cartIcon').addEventListener('click', openCart);
+// Call this function on page load or whenever the user navigates to the cart
+document.addEventListener('DOMContentLoaded', updateCartUI); // This will trigger when the page is loaded
+
+// If you are using a navigation or routing system, call updateCartUI when navigating to the cart page
+

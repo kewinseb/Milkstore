@@ -111,10 +111,10 @@ public partial class MilkstoreDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("User_emailId");
 
-            entity.HasOne(d => d.UserEmail).WithMany(p => p.Orders)
-                .HasForeignKey(d => d.UserEmailId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Orders__User_ema__47DBAE45");
+            //entity.HasOne(d => d.UserEmail).WithMany(p => p.Orders)
+            //    .HasForeignKey(d => d.UserEmailId)
+            //    .OnDelete(DeleteBehavior.SetNull)
+            //    .HasConstraintName("FK__Orders__User_ema__47DBAE45");
         });
 
         modelBuilder.Entity<OrderItem>(entity =>
@@ -136,10 +136,10 @@ public partial class MilkstoreDbContext : DbContext
                 .HasDefaultValueSql("(sysdatetime())")
                 .HasColumnName("updatedAt");
 
-            entity.HasOne(d => d.OrdersOrder).WithMany(p => p.OrderItems)
-                .HasForeignKey(d => d.OrdersOrderId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__OrderItem__Order__4CA06362");
+            //entity.HasOne(d => d.OrdersOrder).WithMany(p => p.OrderItems)
+            //    .HasForeignKey(d => d.OrdersOrderId)
+            //    .OnDelete(DeleteBehavior.ClientSetNull)
+            //    .HasConstraintName("FK__OrderItem__Order__4CA06362");
 
             entity.HasOne(d => d.ProductProduct).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.ProductProductId)
@@ -194,10 +194,10 @@ public partial class MilkstoreDbContext : DbContext
                 .IsUnicode(false)
                 .HasColumnName("shippingAddress");
 
-            entity.HasOne(d => d.OrdersOrder).WithMany(p => p.ShipmentDetails)
-                .HasForeignKey(d => d.OrdersOrderId)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__ShipmentD__Order__5629CD9C");
+            //entity.HasOne(d => d.OrdersOrder).WithMany(p => p.ShipmentDetails)
+            //    .HasForeignKey(d => d.OrdersOrderId)
+            //    .OnDelete(DeleteBehavior.ClientSetNull)
+            //    .HasConstraintName("FK__ShipmentD__Order__5629CD9C");
         });
 
         modelBuilder.Entity<Transaction>(entity =>
@@ -282,5 +282,5 @@ public partial class MilkstoreDbContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-public DbSet<MilkStore.Models.Orders> Order { get; set; } = default!;
+    public DbSet<MilkStore.Models.Orders> Order { get; set; } = default!;
 }
