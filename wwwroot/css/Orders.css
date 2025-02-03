@@ -1,0 +1,109 @@
+﻿/* Orders Page Styling */
+h2 {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+/* Filters */
+.filters {
+    margin-bottom: 20px;
+}
+
+    .filters input {
+        padding: 8px;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+
+    .filters button {
+        padding: 8px 15px;
+        background-color: #ff9900;
+        color: white;
+        border: none;
+        border-radius: 5px;
+    }
+
+/* Tabs for different order categories */
+.order-tabs {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+    .order-tabs .tab {
+        padding: 10px 20px;
+        background: #f1f1f1;
+        text-decoration: none;
+        color: black;
+        border-radius: 5px;
+        font-weight: bold;
+    }
+
+        .order-tabs .tab:hover {
+            background: #ddd;
+        }
+
+/* Order Grid */
+.order-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+/* Individual Order Card */
+.order-card {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 15px;
+}
+
+.order-header {
+    display: flex;
+    justify-content: space-between;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+/* Order Body */
+.order-body {
+    display: flex;
+    gap: 10px;
+}
+
+.product-image {
+    width: 100px;
+    height: 100px;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.order-info h4 {
+    margin: 0;
+}
+
+.order-info p {
+    margin: 3px 0;
+    font-size: 14px;
+}
+
+/* Order Actions */
+.order-actions {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.btn {
+    background: #ff9900;
+    color: white;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+    .btn:hover {
+        background: #e68a00;
+    }

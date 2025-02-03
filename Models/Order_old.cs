@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace MilkStore.Models;
 
-public partial class Order
+public partial class Order_old
 {
     public int OrderId { get; set; }
 

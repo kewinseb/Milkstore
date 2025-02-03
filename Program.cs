@@ -10,6 +10,15 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MilkstoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MilkstoreDbConnectionString")));
 
+// Add session services
+builder.Services.AddDistributedMemoryCache();
+builder.Services.AddSession(options =>
+{
+    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session timeout duration
+    options.Cookie.HttpOnly = true; // Prevent client-side access
+    options.Cookie.IsEssential = true; // Mark the cookie as essential
+});
+
 var app = builder.Build();
 
 // Ensure DB connection works on startup
@@ -19,7 +28,6 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
-        // Check if the database can be connected
         if (dbContext.Database.CanConnect())
         {
             Console.WriteLine("Successfully connected to the database.");
@@ -47,9 +55,12 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
+// Enable session middleware
+app.UseSession();
+
 app.UseAuthorization();
 
 app.MapControllerRoute(
-name: "default",
-pattern: "{controller=HomeLogin}/{action=Login}/{id?}");
+    name: "default",
+    pattern: "{controller=HomeLogin}/{action=Login}/{id?}");
 app.Run();

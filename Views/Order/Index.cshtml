@@ -1,7 +1,8 @@
-﻿@model IEnumerable<MilkStore.Models.Order>
+﻿@model IEnumerable<MilkStore.Models.Orders>
 
 @section Styles {
     <link rel="stylesheet" href="~/css/OrderDetails.css" />
+
 }
 
 <section class="order_section">
@@ -21,7 +22,7 @@
         </div>
     </div>
 
-    <table>
+    <table id="ordersTable">
         <thead>
             <tr>
                 <th>Order Number</th>
@@ -96,40 +97,94 @@
 
 
     @*  @if (!Model.Any())
+
     {
-    <p>No orders available at the moment.</p>
+<p>No orders available at the moment.</p>
+
     } *@
+
     @* else
+
     { *@
+
     @*  <table>
-    <thead>
-    <tr>
-    <th>Order Number</th>
-    <th>Order Total Amount</th>
-    <th>User Email</th>
-    <th>Payment Method</th>
-    <th>Order Details</th>
-    <th>Shipping Details</th>
-    </tr>
-    </thead>
-    <tbody>
+<thead>
+<tr>
+<th>Order Number</th>
+<th>Order Total Amount</th>
+<th>User Email</th>
+<th>Payment Method</th>
+<th>Order Details</th>
+<th>Shipping Details</th>
+</tr>
+</thead>
+<tbody>
+
     @foreach (var order in Model)
+
     {
-    <tr>
-    <td>@order.OrderId</td>
-    <td>@order.TotalAmount</td>
-    <td>@order.UserEmailId</td>
-    <td>@order.PaymentMethod</td>
-    <td><button class="viewbut">View Detailes</button></td>
-    <td><button class="viewbut">Shipping Detailes</button></td>
-    </tr>
+<tr>
+<td>@order.OrderId</td>
+<td>@order.TotalAmount</td>
+<td>@order.UserEmailId</td>
+<td>@order.PaymentMethod</td>
+<td><button class="viewbut">View Detailes</button></td>
+<td><button class="viewbut">Shipping Detailes</button></td>
+</tr>
+
     }
-    </tbody>
-    </table> *@
+</tbody>
+</table> *@
+
     @*       }
+
     *@
 </section>
 
 @section Scripts {
     <script src="~/js/order-actions.js"></script>
+
+
+    <script>
+
+        // Search Button Click Event
+
+        document.getElementById('searchButton').addEventListener('click', function () {
+
+            let orderNoSearch = document.getElementById('orderNoSearch').value.toLowerCase();
+
+            let orderDateSearch = document.getElementById('orderDateSearch').value;
+
+            let tableRows = document.querySelectorAll('#ordersTable tbody tr');
+
+            tableRows.forEach(function(row) {
+
+                let orderNo = row.cells[0].innerText.toLowerCase();
+
+                let orderDate = row.cells[1].innerText; // Assuming the 2nd column is Order Date.
+
+                // Check if both the order number and date match
+
+                let matchOrderNo = orderNo.includes(orderNoSearch);
+
+                let matchOrderDate = orderDate.includes(orderDateSearch);
+
+                // Show or hide the row based on the search criteria
+
+                if (matchOrderNo && matchOrderDate) {
+
+                    row.style.display = '';
+
+                } else {
+
+                    row.style.display = 'none';
+
+                }
+
+            });
+
+        });
+    </script>
+
 }
+

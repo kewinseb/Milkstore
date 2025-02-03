@@ -21,7 +21,7 @@ public partial class OrderItem
 
     public DateTime UpdatedAt { get; set; }
 
-    public virtual Order OrdersOrder { get; set; } = null!;
+    public virtual Orders OrdersOrder { get; set; } = null!;
 
     public virtual Product ProductProduct { get; set; } = null!;
 }
