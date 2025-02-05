@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using MilkStore.Data;
@@ -129,9 +130,17 @@ namespace MilkStore.Controllers
             return RedirectToAction("Login");
         }
 
-        public IActionResult Logout()
+        [HttpPost]
+        public async Task<IActionResult> Logout()
         {
-            return View();
+            // Sign out the user
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            // Clear session data (if used)
+            HttpContext.Session.Clear();
+
+            // Redirect to the login page
+            return RedirectToAction("Login");
         }
     }
 }

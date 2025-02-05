@@ -41,7 +41,10 @@
                     <i class="fa-solid fa-user"></i> My Account
                 </button>
             </div>
-            <button id="logout_button" class="logout_button">
+            <form id="logout_form" method="post" action="@Url.Action("Logout", "HomeLogin")" style="display:none;">
+                <button type="submit">Logout</button>
+            </form>
+            <button id="logout_button" class="logout_button" onclick="document.getElementById('logout_form').submit();">
                 <i class="fa fa-sign-out" aria-hidden="true"></i> Logout
             </button>
         </div>

@@ -5,55 +5,123 @@
 
 <link rel="stylesheet" href="~/css/Register.css">
 
+<style>
+    .required-label::after {
+        content: " *";
+        color: red;
+        font-weight: bold;
+    }
+
+    .validation-error {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector("form").addEventListener("submit", function (event) {
+            let isValid = true;
+            let requiredFields = document.querySelectorAll(".required");
+
+            // Clear previous error messages
+            document.querySelectorAll(".validation-error").forEach(function (el) {
+                el.textContent = '';
+            });
+
+            requiredFields.forEach(function (field) {
+                let errorElement = document.getElementById(field.name + "Error");
+
+                if (!field.value.trim()) {
+                    // Show validation error message below the field
+                    errorElement.textContent = field.getAttribute("data-alert");
+                    field.focus();
+                    isValid = false;
+                    event.preventDefault();  // Prevent form submission
+                    return false;
+                }
+            });
+
+            return isValid;
+        });
+    });
+</script>
+
 @using (Html.BeginForm("Register", "HomeLogin", FormMethod.Post))
 {
     <h2>Registration</h2>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Name, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Name, new { @class = "form-control", placeholder = "Enter Name" })
+        @Html.LabelFor(m => m.Name, new { @class = "control-label required-label" })
+        @Html.TextBoxFor(m => m.Name, new { @class = "form-control required", placeholder = "Enter Name", data_alert = "Name is required!" })
+        <div class="validation-error" id="NameError"></div>
         @Html.ValidationMessageFor(m => m.Name, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.EmailId, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", placeholder = "Enter Email" })
+        @Html.LabelFor(m => m.EmailId, new { @class = "control-label required-label" })
+        @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control required", placeholder = "Enter Email", data_alert = "EmailId is required!" })
+        <div class="validation-error" id="EmailIdError"></div>
         @Html.ValidationMessageFor(m => m.EmailId, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Password, new { @class = "control-label" })
-        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter Password" })
+        @Html.LabelFor(m => m.Password, new { @class = "control-label required-label" })
+        @Html.PasswordFor(m => m.Password, new { @class = "form-control required", placeholder = "Enter Password", data_alert = "Password is required!" })
+        <div class="validation-error" id="PasswordError"></div>
         @Html.ValidationMessageFor(m => m.Password, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Address, new { @class = "control-label" })
-        @Html.TextAreaFor(m => m.Address, new { @class = "form-control", placeholder = "Enter Address", rows = 3 })
+        @Html.LabelFor(m => m.Address, new { @class = "control-label required-label" })
+        @Html.TextAreaFor(m => m.Address, new { @class = "form-control required", placeholder = "Enter Address", rows = 3, data_alert = "Address is required!" })
+        <div class="validation-error" id="AddressError"></div>
         @Html.ValidationMessageFor(m => m.Address, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.City, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.City, new { @class = "form-control", placeholder = "Enter City" })
+        @Html.LabelFor(m => m.City, new { @class = "control-label required-label" })
+        @Html.TextBoxFor(m => m.City, new { @class = "form-control required", placeholder = "Enter City", data_alert = "City is required!" })
+        <div class="validation-error" id="CityError"></div>
         @Html.ValidationMessageFor(m => m.City, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.State, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.State, new { @class = "form-control", placeholder = "Enter State" })
+        @Html.LabelFor(m => m.State, new { @class = "control-label required-label" })
+        @Html.TextBoxFor(m => m.State, new { @class = "form-control required", placeholder = "Enter State", data_alert = "State is required!" })
+        <div class="validation-error" id="StateError"></div>
         @Html.ValidationMessageFor(m => m.State, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.PinCode, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.PinCode, new { @class = "form-control", placeholder = "Enter Pin Code" })
+        @Html.LabelFor(m => m.PinCode, new { @class = "control-label required-label" })
+        @Html.TextBoxFor(m => m.PinCode, new
+            {
+                @class = "form-control required",
+                placeholder = "Enter Pin Code",
+                maxlength = "6",
+                pattern = "[0-9]{5,6}",
+                oninput = "this.value=this.value.replace(/[^0-9]/g,'');",
+                data_alert = "Pin Code is required!"
+            })
+        <div class="validation-error" id="PinCodeError"></div>
         @Html.ValidationMessageFor(m => m.PinCode, "", new { @class = "text-danger" })
     </div>
 
     <div class="form-group">
-        @Html.LabelFor(m => m.Phone, new { @class = "control-label" })
-        @Html.TextBoxFor(m => m.Phone, new { @class = "form-control", placeholder = "Enter Phone Number" })
+        @Html.LabelFor(m => m.Phone, new { @class = "control-label required-label" })
+        @Html.TextBoxFor(m => m.Phone, new
+            {
+                @class = "form-control required",
+                placeholder = "Enter Phone Number",
+                maxlength = "10",
+                type = "tel",
+                pattern = "[0-9]{10}",
+                oninput = "this.value=this.value.replace(/[^0-9]/g,'');",
+                data_alert = "Phone Number is required!"
+            })
+        <div class="validation-error" id="PhoneError"></div>
         @Html.ValidationMessageFor(m => m.Phone, "", new { @class = "text-danger" })
     </div>
 
