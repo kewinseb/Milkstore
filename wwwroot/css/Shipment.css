@@ -1,44 +1,205 @@
-﻿/* Update the existing container style */
-.container {
+﻿.container {
     max-width: 800px;
-    max-height: 85vh; /* Set maximum height to 85% of viewport height */
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    overflow-y: auto; /* Enable vertical scrolling */
-    /* Smooth scrolling behavior */
-    scroll-behavior: smooth;
+    max-height: 90vh; /* Limit container height */
+    overflow-y: auto; /* Add scrollbar if content exceeds height */
 }
 
-    /* Custom scrollbar styles for Webkit browsers (Chrome, Safari, Edge) */
-    .container::-webkit-scrollbar {
-        width: 10px;
+.header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 10px 0;
+    z-index: 10;
+}
+
+.customer-option {
+    flex: 1;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.action-button {
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    color: white;
+    transition: background-color 0.3s, transform 0.1s;
+}
+
+    .action-button:hover {
+        opacity: 0.9;
     }
 
-    .container::-webkit-scrollbar-track {
+    .action-button:active {
+        transform: scale(0.98);
+    }
+
+.delivery-tracking {
+    margin: 40px 0;
+    position: relative;
+}
+
+.tracking-container {
+    max-height: 400px; /* Fixed height for tracking details */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #eee;
+    border-radius: 4px;
+    padding: 0 10px;
+}
+
+    /* Scrollbar styling for webkit browsers */
+    .tracking-container::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .tracking-container::-webkit-scrollbar-track {
         background: #f1f1f1;
-        border-radius: 8px;
+        border-radius: 4px;
     }
 
-    .container::-webkit-scrollbar-thumb {
-        background: #4CAF50;
-        border-radius: 8px;
+    .tracking-container::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 4px;
     }
 
-        .container::-webkit-scrollbar-thumb:hover {
-            background: #45a049;
+        .tracking-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
 
-/* For Firefox */
-.container {
-    scrollbar-width: thin;
-    scrollbar-color: #4CAF50 #f1f1f1;
+.status-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin: 20px 0;
+    position: relative;
+    background-color: white;
+    padding: 10px 0;
 }
 
-/* Ensure content has enough padding to not be hidden behind scrollbar */
+.status-line {
+    position: absolute;
+    height: 2px;
+    background-color: #ddd;
+    width: 100%;
+    top: 50%;
+    z-index: 1;
+}
+
+.progress-line {
+    position: absolute;
+    height: 2px;
+    background-color: #ff9800;
+    width: 0%;
+    top: 50%;
+    z-index: 2;
+    transition: width 0.5s ease;
+}
+
+.status-point {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #ddd;
+    z-index: 3;
+    position: relative;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+    .status-point:hover {
+        transform: scale(1.2);
+    }
+
+    .status-point.active {
+        background-color: #ff9800;
+    }
+
 .tracking-details {
-    padding-right: 5px;
+    margin-top: 30px;
 }
 
+.tracking-item {
+    padding: 10px 0;
+    border-bottom: 1px solid #eee;
+    display: flex;
+    justify-content: space-between;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
 
+    .tracking-item:hover {
+        background-color: #f5f5f5;
+    }
+
+.status-label {
+    color: #ff9800;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 10px 0;
+    z-index: 5;
+}
+
+.dates {
+    color: #666;
+    font-size: 0.9em;
+}
+
+#detailModal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+
+.modal-content {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 8px;
+    text-align: center;
+}
+
+.close-modal {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.footer[b-661cn3v8ma] {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    white-space: nowrap;
+    line-height: normal;
+}
+
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
