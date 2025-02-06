@@ -15,9 +15,9 @@ body {
 }
 
 .hidden {
-    display:none;
+    display: none;
 }
-    
+
 .product_section {
     width: 100%;
     height: calc(100vh - 112px); /* Ensure the section takes the full available height */
@@ -278,22 +278,22 @@ p {
     }
 
 
-    .quantity-controls button {
-        background-color: var(--quantity-button-color);
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 16px;
-        color: #333;
-    }
+.quantity-controls button {
+    background-color: var(--quantity-button-color);
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #333;
+}
 
-    .quantity-controls input {
-        width: 40px;
-        text-align: center;
-        border: 1px solid #ccc;
-        padding: 5px;
-        margin: 0 5px;
-    }
+.quantity-controls input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 0 5px;
+}
 
 .cart-item-quantity {
     background-color: var(--quantity-button-color);
@@ -376,9 +376,8 @@ p {
 }
 
 
-    .h2 {
-        font-family: var(--font-family-base);
-        font-size: var(--font-size-lg);
-        text-align: center;
-    }
-
+.h2 {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-lg);
+    text-align: center;
+}
