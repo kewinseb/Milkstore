@@ -5,13 +5,13 @@ using MilkStore.Models;
 
 namespace MilkStore.Controllers
 {
-    public class OrderController : Controller
+    public class Order_oldController : Controller
     {
 
         private readonly MilkstoreDbContext _context;
-        private readonly ILogger<OrderController> _logger;
+        private readonly ILogger<Order_oldController> _logger;
 
-        public OrderController(MilkstoreDbContext context, ILogger<OrderController> logger)
+        public Order_oldController(MilkstoreDbContext context, ILogger<Order_oldController> logger)
         {
             _context = context ?? throw new ArgumentNullException(nameof(context));
             _logger = logger ?? throw new ArgumentNullException(nameof(logger));
@@ -37,7 +37,7 @@ namespace MilkStore.Controllers
                 _logger.LogError(ex, "An error occurred while fetching Orders.");
 
                 ViewBag.ErrorMessage = "An error occurred while fetching Orders.";
-                return View(new List<Order>());
+                return View(new List<Order_old>());
             }
 
         }

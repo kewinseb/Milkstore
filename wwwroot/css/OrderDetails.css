@@ -6,7 +6,7 @@ body {
     color: black;
 }
 
-.container {
+.Order_Details_container {
     width: 75%; /* Set width to 75% of the screen width */
     margin-left: 0; /* No left margin */
     padding: 20px;
@@ -90,12 +90,6 @@ body {
             background-color: #555;
         }
 
-/* Container Styles */
-.container {
-    width: 100%; /* Full width of the screen */
-    margin-left: 0;
-    padding: 20px;
-}
 
 /* Flexbox Layout for Customer Info and Order Details */
 .main-layout {
