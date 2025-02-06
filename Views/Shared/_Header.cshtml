@@ -34,7 +34,7 @@
                 <div class="addtocart" id="cartIcon">
                     <i class="fas fa-cart-shopping"></i>
                 </div>
-                <div class="circle" id="cart-count">0</div>
+                <div class="circle" id="cart-count">0</div> <!-- ✅ Cart count updates here -->
             </div>
             <div>
                 <button id="logout_button" class="logout_button">
@@ -57,14 +57,16 @@
         <h3>Shopping Bag</h3>
         <button class="close-cart" id="closeCartBtn">×</button> <!-- Close Button in Header -->
     </div>
-    <div class="cart-body" id="cartBody"></div>
+    <div class="cart-body" id="cartBody"></div> <!-- ✅ Cart items update here -->
     <div class="cart-footer">
         <p id="shipping">Shipping: Free</p>
         <p id="total">Total: ₹0.00</p>
-        <button class="button button-secondary" onclick="continueShopping()">Continue Shopping</button>
+        <button class="button button-secondary" id="continueShoppingBtn">Continue Shopping</button>
         <button class="button button-primary">Proceed to Checkout</button>
     </div>
 </div>
+
+<!-- ✅ Ensure the script is always included -->
 @section Scripts {
     <script src="~/js/product-actions.js"></script>
 }

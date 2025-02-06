@@ -278,28 +278,82 @@ p {
     }
 
 
-    .quantity-controls button {
-        background-color: var(--quantity-button-color);
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 16px;
-        color: #333;
-    }
-
-    .quantity-controls input {
-        width: 40px;
-        text-align: center;
-        border: 1px solid #ccc;
-        padding: 5px;
-        margin: 0 5px;
-    }
-
-.cart-item-quantity {
-    background-color: var(--quantity-button-color);
-    border: 1px solid #ccc;
-    padding: 7px 10px;
+/* 🔹 Fix alignment of increment/decrement buttons */
+.quantity-controls {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 5px; /* Space between buttons */
+    padding: 5px;
 }
+
+    .quantity-controls button {
+        background-color: purple;
+        color: white;
+        border: none;
+        width: 30px;
+        height: 30px;
+        font-size: 18px;
+        font-weight: bold;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background 0.3s ease;
+    }
+
+        .quantity-controls button:hover {
+            background-color: darkviolet;
+        }
+
+    .quantity-controls span {
+        min-width: 30px;
+        text-align: center;
+        font-size: 16px;
+        font-weight: bold;
+        background: white;
+        border: 1px solid #ddd;
+        padding: 5px 10px;
+        border-radius: 5px;
+    }
+
+/* 🔹 Align cart items properly */
+.cart-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+}
+
+    .cart-item img {
+        width: 50px;
+        height: 50px;
+        object-fit: contain;
+        border-radius: 5px;
+    }
+
+/* 🔹 Align Cart Item Details */
+.cart-item-details {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+/* 🔹 Align delete icon properly */
+.delete-icon {
+    color: red;
+    cursor: pointer;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+    .delete-icon:hover {
+        color: darkred;
+    }
+
 /* Jello Animation */
 @keyframes jello {
     0% {
