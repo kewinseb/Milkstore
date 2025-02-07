@@ -8,7 +8,6 @@ const totalAmountEl = document.getElementById('total');
 const cartCountEl = document.getElementById('cart-count');
 const cartIcon = document.getElementById('cartIcon');
 const closeCartBtn = document.getElementById('closeCartBtn');
-const continueShoppingBtn = document.getElementById('continueShoppingBtn');
 
 // Initially hide cart count circle
 cartCountEl.classList.add('hidden');
@@ -20,22 +19,19 @@ function toggleCart(open) {
 }
 
 // Continue Shopping Function (Closes Cart & Redirects)
-function continueShopping() {
-    // Hide cart UI
-    toggleCart(false);
-
-    // Redirect to Product Index page (Modify if needed)
-    window.location.href = '/Product/Index';
-}
+//function continueShopping() {
+//    // Hide cart UI
+//    toggleCart(false);
+//}
 
 // Event Listeners
 cartIcon.addEventListener('click', () => toggleCart(true));
 closeCartBtn.addEventListener('click', () => toggleCart(false));
 
 // Attach event listener to the Continue Shopping button
-if (continueShoppingBtn) {
-    continueShoppingBtn.addEventListener('click', continueShopping);
-}
+//if (continueShoppingBtn) {
+//    continueShoppingBtn.addEventListener('click', continueShopping);
+//}
 
 // Delegate event handling to the document for buttons (better performance)
 document.addEventListener('click', (event) => {
@@ -111,7 +107,7 @@ function updateCartUI() {
     let totalAmount = 0, totalQuantity = 0;
 
     Object.entries(cart).forEach(([id, product]) => {
-        totalAmount += product.price * product.quantity;
+        totalAmount += product.price * product.quantity; // ✅ Price updates based on quantity
         totalQuantity += product.quantity;
 
         const cartItem = document.createElement('div');
@@ -122,7 +118,7 @@ function updateCartUI() {
             <img src="${product.image}" alt="${product.name}" />
             <div class="cart-item-details">
                 <p class="cart-item-title">${product.name}</p>
-                <p>Price: ₹${(product.price * product.quantity).toFixed(2)}</p>
+                <p>Price: ₹${(product.price * product.quantity).toFixed(2)}</p> <!-- ✅ Updated Price Display -->
                 <div class="quantity-controls">
                     <button class="decrement">-</button>
                     <span class="cart-item-quantity">${product.quantity}</span>
@@ -151,12 +147,12 @@ function updateCartUI() {
 		<div class="four_zero_four_bg">
 		</div>
 
-                <div class="content_box">
+		<div class="content_box">
 		<h3 class="h2">
 		Sorry, No products in the cart 🛒!
 		</h3>
-                </div>
-            </section>
+	</div>
+</section>
         `;
     } else {
         // Trigger the jello animation for the cart count circle when there are products in the cart

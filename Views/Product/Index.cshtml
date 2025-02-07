@@ -2,6 +2,7 @@
 
 @section Styles {
     <link rel="stylesheet" href="~/css/product-listing.css" />
+
 }
 
 <section class="product_section">
@@ -26,7 +27,7 @@
                     </p>
 
                     <div class="actions">
-                        <button class="remove-from-bag hidden" data-product-id="@product.ProductId">Remove from Bag</button>
+                        <button class="remove-from-bag hidden" data-product-id="1">Remove from Bag</button>
                         @if (product.StockQuantity > 0)
                         {
                             <button class="add-to-bag" data-product-id="@product.ProductId"
@@ -60,11 +61,10 @@
     <div class="cart-footer">
         <p id="shipping">Shipping: Free</p>
         <p id="total">Total: ₹0.00</p>
-        <button class="button button-secondary" id="continueShoppingBtn">Continue Shopping</button>
+        <button class="button button-secondary" onclick="continueShopping()">Continue Shopping</button>
         <button class="button button-primary">Proceed to Checkout</button>
-        </div>
+    </div>
 </div>
-
 @section Scripts {
     <script src="~/js/product-actions.js"></script>
 }
