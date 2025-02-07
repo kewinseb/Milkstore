@@ -1,14 +1,40 @@
-﻿.container {
+﻿/* Reset styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Main layout to ensure footer visibility */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* Main content wrapper */
+.main-content {
+    flex: 1 0 auto;
+}
+
+/* Delivery tracking container */
+.delivery-tracking-container {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
     border: 1px solid #ddd;
     border-radius: 8px;
-    max-height: 90vh; /* Limit container height */
-    overflow-y: auto; /* Add scrollbar if content exceeds height */
+    max-height: 90vh;
+    overflow-y: auto;
 }
 
-.header {
+.tracking-header {
     display: flex;
     justify-content: space-between;
     margin-bottom: 30px;
@@ -53,14 +79,13 @@
 }
 
 .tracking-container {
-    max-height: 400px; /* Fixed height for tracking details */
-    overflow-y: auto; /* Enable vertical scrolling */
+    max-height: 400px;
+    overflow-y: auto;
     border: 1px solid #eee;
     border-radius: 4px;
     padding: 0 10px;
 }
 
-    /* Scrollbar styling for webkit browsers */
     .tracking-container::-webkit-scrollbar {
         width: 8px;
     }
@@ -159,7 +184,7 @@
     font-size: 0.9em;
 }
 
-#detailModal {
+.tracking-modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -190,16 +215,14 @@
     cursor: pointer;
 }
 
+/* Footer styles */
 .footer[b-661cn3v8ma] {
-    position: absolute;
-    bottom: 0;
+    flex-shrink: 0;
+    background-color: #f8f9fa;
+    padding: 1rem;
+    text-align: left;
+    border-top: 1px solid #dee2e6;
     width: 100%;
     white-space: nowrap;
     line-height: normal;
-}
-
-{
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
 }
