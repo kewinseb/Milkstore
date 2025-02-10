@@ -1,110 +1,10 @@
-﻿<!DOCTYPE html>
-<html>
-<head>
-    <style>
-        * {
-            box-sizing: border-box;
-            font-family: Arial, sans-serif;
-        }
+﻿@model IEnumerable<MilkStore.Models.ShipmentDetail>
 
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-        }
-
-        .header {
-            display: flex;
-            justify-content: space-between;
-            margin-bottom: 30px;
-        }
-
-        .customer-option {
-            flex: 1;
-        }
-
-        .actions {
-            display: flex;
-            flex-direction: column;
-            gap: 5px;
-        }
-
-        .action-button {
-            padding: 8px 16px;
-            background-color: #f5f5f5;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            cursor: pointer;
-        }
-
-        .delivery-tracking {
-            margin: 40px 0;
-        }
-
-        .status-bar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px 0;
-            position: relative;
-        }
-
-        .status-line {
-            position: absolute;
-            height: 2px;
-            background-color: #ddd;
-            width: 100%;
-            top: 50%;
-            z-index: 1;
-        }
-
-        .progress-line {
-            position: absolute;
-            height: 2px;
-            background-color: #ff9800;
-            width: 40%;
-            top: 50%;
-            z-index: 2;
-        }
-
-        .status-point {
-            width: 20px;
-            height: 20px;
-            border-radius: 50%;
-            background-color: #ddd;
-            z-index: 3;
-            position: relative;
-        }
-
-            .status-point.active {
-                background-color: #ff9800;
-            }
-
-        .tracking-details {
-            margin-top: 30px;
-        }
-
-        .tracking-item {
-            padding: 10px 0;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        .status-label {
-            color: #ff9800;
-            font-weight: bold;
-        }
-
-        .dates {
-            color: #666;
-            font-size: 0.9em;
-        }
-    </style>
-</head>
-<body>
+@section Styles {
+    <link rel="stylesheet" href="~/css/Shipment.css" />
+    
+}
+    
     <div class="container">
         <div class="header">
             <div class="customer-option">
@@ -116,49 +16,60 @@
                 </div>
             </div>
             <div class="actions">
-                <button class="action-button">Edit shipment</button>
-                <button class="action-button">Print packing slip</button>
-                <button class="action-button">Refund Order</button>
-                <button class="action-button">Cancel order</button>
+                <button id="editShipment" class="action-button">Edit shipment</button>
+                <button id="printPackingSlip" class="action-button">Print packing slip</button>
+                
             </div>
         </div>
 
         <div class="delivery-tracking">
             <h3>Delivery Tracking</h3>
-            <div class="status-label">In Transit : On Schedule</div>
-            <p>Expected delivery:   Thursday 12 December 2024, by 8:00pm</p>
+            <div class="status-label" id="statusLabel">In Transit : On Schedule</div>
+            <p id="expectedDelivery">Expected delivery: Thursday 12 December 2024, by 8:00pm</p>
 
             <div class="status-bar">
                 <div class="status-line"></div>
                 <div class="progress-line"></div>
-                <div class="status-point active"></div>
-                <div class="status-point active"></div>
-                <div class="status-point"></div>
-                <div class="status-point"></div>
-                <div class="status-point"></div>
+                <div class="status-point" data-stage="Order Placed"></div>
+                <div class="status-point" data-stage="Order Processed"></div>
+                <div class="status-point" data-stage="Shipped"></div>
+                <div class="status-point" data-stage="Out for Delivery"></div>
+                <div class="status-point" data-stage="Delivered"></div>
             </div>
 
-            <div class="tracking-details">
-                <div class="tracking-item">
-                    <div>5 December 2024, 8:05 pm, HYDERABAD WB IN</div>
-                    <div>Package arrived at a courier facility</div>
-                </div>
-                <div class="tracking-item">
-                    <div>5 December 2024, 2:34 pm, BANGLORE KA IN</div>
-                    <div>Package left the courier facility</div>
-                </div>
-                <div class="tracking-item">
-                    <div>5 December 2024, 12:30 am, CHENNAI KA IN</div>
-                    <div>Package arrived at a courier facility</div>
-                </div>
-                <div class="tracking-item">
+            <div class="tracking-details" id="trackingDetails">
+                <div class="tracking-item" data-details="Package received by our warehouse team and processing started.">
                     <div>4 December 2024, 1:30 pm, KOLKATA KA IN</div>
                     <div>Package received by courier</div>
                 </div>
+                <div class="tracking-item" data-details="Package arrived at regional sorting center and being prepared for next route.">
+                    <div>5 December 2024, 12:30 am, CHENNAI KA IN</div>
+                    <div>Package arrived at a courier facility</div>
+                </div>
+                <div class="tracking-item" data-details="Package is being transported to the next logistics hub.">
+                    <div>5 December 2024, 2:34 pm, BANGLORE KA IN</div>
+                    <div>Package left the courier facility</div>
+                </div>
+                <div class="tracking-item" data-details="Package has arrived at the destination regional facility.">
+                    <div>5 December 2024, 8:05 pm, HYDERABAD WB IN</div>
+                    <div>Package arrived at a courier facility</div>
+                </div>
             </div>
         </div>
+
+        <div class="footer">
+            <p>© 2024 Order Tracking. All Rights Reserved.</p>
+        </div>
     </div>
-</body>
-</html>
+
+    <div id="detailModal" class="modal">
+        <div class="modal-content">
+            <span class="close-modal">&times;</span>
+            <h2 id="modalTitle">Tracking Details</h2>
+            <p id="modalDescription"></p>
+        </div>
+    </div>
+
+    
 
 
