@@ -82,6 +82,7 @@ p {
     backdrop-filter: blur(0.5px);
     display: none;
     z-index: 999;
+    cursor: pointer;
 }
 
 /* Sliding Cart Styles */
