@@ -1,35 +1,38 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace MilkStore.Models
 {
     public class Orders
     {
-        [Key]
-        public int OrderId { get; set; }  // Primary Key
+       
+            [Key]
+            [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+            public int OrderId { get; set; } // Primary Key with Identity (101,1)
 
-        [Required]
-        public DateTime OrderDate { get; set; } = DateTime.Now;  // Default value as current date
+            [Required]
+            [ForeignKey("User")]
+            public string UserEmailId { get; set; } = null!; // FK to Users table
 
-        public DateTime? DeliveryDate { get; set; }  // Nullable in case delivery is not set
+            [Required]
+            public DateTime OrderDate { get; set; } = DateTime.UtcNow; // Default value
 
-        [Required]
-        [Range(0.01, 99999.99)]
-        public decimal TotalAmount { get; set; }
+            [Required]
+            public int OrderQuantity { get; set; } // Total number of products in the order
 
-        [Required]
-        [MaxLength(50)]
-        public string OrderStatus { get; set; } = "Pending";  // Default status
+            [Required]
+            [Column(TypeName = "decimal(10,2)")]
+            public decimal TotalAmount { get; set; } // Total price of all products in order
 
-        [Required]
-        [MaxLength(255)]
-        public string ShippingAddress { get; set; }
+            [Required]
+            [Column(TypeName = "varchar(50)")]
+            public string OrderStatus { get; set; } = "Pending"; // Default status
 
-        [Required]
-        [MaxLength(255)]
-        public string ProductName { get; set; }  // Product name as a string
+            public DateTime CreatedAt { get; set; } = DateTime.UtcNow;
+            public DateTime UpdatedAt { get; set; } = DateTime.UtcNow;
 
-        [Required]
-        [MaxLength(255)]
-        public string ProductImage { get; set; }  // Image URL or file path
-    }
+            // Navigation Property
+            public virtual User User { get; set; } = null!;
+    }       
+    
 }
