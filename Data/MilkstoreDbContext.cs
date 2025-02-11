@@ -303,5 +303,5 @@ public partial class MilkstoreDbContext : DbContext
 
     partial void OnModelCreatingPartial(ModelBuilder modelBuilder);
 
-public DbSet<MilkStore.Models.Orders> Order { get; set; } = default!;
+    public DbSet<MilkStore.Models.Orders> Order { get; set; } = default!;
 }

@@ -14,30 +14,22 @@ public class ShipmentDetailsController : Controller
         _logger = logger ?? throw new ArgumentNullException(nameof(logger));
     }
 
-    public IActionResult Index()
-    {
-        try
-        {
-            // Fetch all products from the database
-            var products = _context.Products.ToList();
+     public IActionResult Index()
+     {
+         try
+         {
+             return View();
+         }
+         catch (Exception ex)
+         {
+             // Log the exception
+             _logger.LogError(ex, "An error occurred while fetching products.");
 
-            // Check if no products exist
-            if (products == null || !products.Any())
-            {
-                ViewBag.Message = "No products available.";
-            }
+             ViewBag.ErrorMessage = "An error occurred while fetching products.";
+             return View(new List<Product>());
+         }
+     }
 
-            return View(products);
-        }
-        catch (Exception ex)
-        {
-            // Log the exception
-            _logger.LogError(ex, "An error occurred while fetching products.");
-
-            ViewBag.ErrorMessage = "An error occurred while fetching products.";
-            return View(new List<Product>());
-        }
-    }
 }
 
 

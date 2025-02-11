@@ -5,46 +5,92 @@
 
 <link rel="stylesheet" href="~/css/Login.css">
 
+<style>
+    .required-label::after {
+        content: " *";
+        color: red;
+        font-weight: bold;
+    }
+
+    .validation-error {
+        color: red;
+        font-size: 12px;
+        margin-top: 5px;
+    }
+</style>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        document.querySelector("form").addEventListener("submit", function (event) {
+            let isValid = true;
+            let requiredFields = document.querySelectorAll(".required");
+
+            // Clear previous error messages
+            document.querySelectorAll(".validation-error").forEach(function (el) {
+                el.textContent = '';
+            });
+
+            requiredFields.forEach(function (field) {
+                let errorElement = document.getElementById(field.name + "Error");
+
+                if (!field.value.trim()) {
+                    // Show validation error message below the field
+                    errorElement.textContent = field.getAttribute("data-alert");
+                    field.focus();
+                    isValid = false;
+                    event.preventDefault();  // Prevent form submission
+                    return false;
+                }
+            });
+
+            return isValid;
+        });
+    });
+</script>
+
 <div class="text-center" style="position: absolute; top: 0; left: 50%; transform: translateX(-50%); margin-top: 20px;">
     <h1 class="display-4" style="font-weight: bold;">Milk Delivery Site</h1>
 </div>
+
 <div class="container">
-@using (Html.BeginForm("Login", "HomeLogin", FormMethod.Post))
-{
-     <h2>Login</h2>
-     @if (ViewBag.ErrorMessage != null)
-     {
-        <div style="color:red;">@ViewBag.ErrorMessage</div>
-     }
+    @using (Html.BeginForm("Login", "HomeLogin", FormMethod.Post))
+    {
+        <h2>Login</h2>
+        @if (ViewBag.ErrorMessage != null)
+        {
+            <div style="color:red;">@ViewBag.ErrorMessage</div>
+        }
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.EmailId, "Email Address")
-        @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control", type = "email", placeholder = "Enter your email" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.EmailId, "Email Address", new { @class = "required-label" })
+            @Html.TextBoxFor(m => m.EmailId, new { @class = "form-control required", type = "email", placeholder = "Enter your email", data_alert = "Email is required!" })
+            <div class="validation-error" id="EmailIdError"></div>
             @Html.ValidationMessageFor(m => m.EmailId, "", new { style = "color: #ff0000; font-size: 12px; margin-top: 5px;" })
-    </div>
+        </div>
 
-    <div class="form-group">
-        @Html.LabelFor(m => m.Password)
-        @Html.PasswordFor(m => m.Password, new { @class = "form-control", placeholder = "Enter your password" })
+        <div class="form-group">
+            @Html.LabelFor(m => m.Password, new { @class = "required-label" })
+            @Html.PasswordFor(m => m.Password, new { @class = "form-control required", placeholder = "Enter your password", data_alert = "Password is required!" })
+            <div class="validation-error" id="PasswordError"></div>
             @Html.ValidationMessageFor(m => m.Password, "", new { style = "color: #ff0000; font-size: 12px; margin-top: 5px;" })
-        <p class="forgot-password" style="text-align: left; margin-top: 10px;">
-            <a href="@Url.Action("ForgotPassword", "HomeLogin")"
-               style="color: #007bff; text-decoration: none; font-size: 14px; font-weight: bold;">
-                Forgot Password?
-            </a>
-        </p>
-    </div>
+            <p class="forgot-password" style="text-align: left; margin-top: 10px;">
+                <a href="@Url.Action("ForgotPassword", "HomeLogin")"
+                   style="color: #007bff; text-decoration: none; font-size: 14px; font-weight: bold;">
+                    Forgot Password?
+                </a>
+            </p>
+        </div>
 
-    <button type="submit" class="btn btn-primary">Login</button>
-}
+        <button type="submit" class="btn btn-primary">Login</button>
+    }
 
-<p class="forgot-password" style="text-align: left; margin-top: 10px;">
-    Don't have an account?
-    <a href="@Url.Action("Register", "HomeLogin")"
-       style="color: #007bff; text-decoration: none; font-size: 14px; font-weight: bold;">
-        Register
-    </a>
-</p>
+    <p class="forgot-password" style="text-align: left; margin-top: 10px;">
+        Don't have an account?
+        <a href="@Url.Action("Register", "HomeLogin")"
+           style="color: #007bff; text-decoration: none; font-size: 14px; font-weight: bold;">
+            Register
+        </a>
+    </p>
 </div>
 
 

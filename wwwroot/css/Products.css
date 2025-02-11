@@ -2,9 +2,6 @@
     --background-color: #f3f3f3;
     --header-bg-color: violet;
     --font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    --primary-color: #f0c14b;
-    --button-hover-color: #e7b03b;
-    --button-text-color: #111;
     --product-bg-color: white;
     --price-color: #b12704;
     --quantity-button-color: #ddd;
@@ -17,6 +14,10 @@ body {
     padding: 0;
 }
 
+.hidden {
+    display: none;
+}
+
 .product_section {
     width: 100%;
     height: calc(100vh - 112px); /* Ensure the section takes the full available height */
@@ -27,7 +28,6 @@ body {
 
 h2 {
     text-align: center;
-    color: var(--header-bg-color);
     margin-bottom: 20px;
 }
 
@@ -72,165 +72,313 @@ p {
     margin: 10px 0;
 }
 
-.quantity-controls {
+.blur-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(0.5px);
     display: none;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0;
+    z-index: 999;
+    cursor: pointer;
 }
 
-    .quantity-controls.fade-in {
-        display: flex;
-        animation: fadeIn 0.3s ease-in;
-    }
-
-    .quantity-controls button {
-        background-color: transparent; /* No background initially */
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 16px;
-        border-radius: 4px;
-        transition: background-color 0.3s, color 0.3s;
-    }
-
-    /* Decrement Button (Red) */
-    .quantity-controls .decrement {
-        color: var(--danger-color); /* Red color */
-    }
-
-        .quantity-controls .decrement:hover {
-            background-color: var(--danger-color);
-            color: #fff; /* White text on hover */
-        }
-
-    /* Increment Button (Green) */
-    .quantity-controls .increment {
-        color: var(--success-color); /* Green color */
-    }
-
-        .quantity-controls .increment:hover {
-            background-color: var(--success-color);
-            color: #fff; /* White text on hover */
-        }
-
-    .quantity-controls input {
-        width: 40px;
-        text-align: center;
-        border: 1px solid #ccc;
-        padding: 5px;
-        margin: 0 5px;
-        border-radius: 4px;
-    }
-
-.quantity-controls {
-    display: none;
-    justify-content: center;
-    align-items: center;
-    margin: 10px 0;
+/* Sliding Cart Styles */
+.cart-container {
+    position: fixed;
+    top: 0;
+    right: -400px; /* Hidden by default */
+    width: 400px;
+    height: 100%;
+    background-color: #fff;
+    box-shadow: -2px 0 5px rgba(0, 0, 0, 0.2);
+    transition: right 0.3s ease-in-out;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
 }
 
-    .quantity-controls.fade-in {
-        display: flex;
-        animation: fadeIn 0.3s ease-in;
+    .cart-container.active {
+        right: 0;
     }
 
-    .quantity-controls button {
-        background-color: transparent; /* No background initially */
-        border: 1px solid #ccc;
-        padding: 5px 10px;
-        cursor: pointer;
-        font-size: 16px;
-        border-radius: 4px;
-        transition: background-color 0.3s, color 0.3s;
+.cart-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 16px;
+    background-color: #f8f8f8;
+    border-bottom: 1px solid #ddd;
+}
+
+    .cart-header h3 {
+        margin: 0;
     }
 
-    /* Decrement Button (Red) */
-    .quantity-controls .decrement {
-        color: var(--danger-color); /* Red color */
-    }
-
-        .quantity-controls .decrement:hover {
-            background-color: var(--danger-color);
-            color: #fff; /* White text on hover */
-        }
-
-    /* Increment Button (Green) */
-    .quantity-controls .increment {
-        color: var(--success-color); /* Green color */
-    }
-
-        .quantity-controls .increment:hover {
-            background-color: var(--success-color);
-            color: #fff; /* White text on hover */
-        }
-
-    .quantity-controls input {
-        width: 40px;
-        text-align: center;
-        border: 1px solid #ccc;
-        padding: 5px;
-        margin: 0 5px;
-        border-radius: 4px;
-    }
-
-.add-to-cart {
-    background-color: var(--primary-color);
+.close-cart {
+    background: transparent;
     border: none;
-    color: var(--button-text-color);
-    padding: 10px 20px;
+    font-size: 24px; /* Slightly larger for better visibility */
+    color: #333; /* Darker color for better contrast */
+    cursor: pointer;
+    transition: color 0.3s ease, transform 0.3s ease;
+}
+
+.cart-body {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+}
+
+/* Cart Item */
+.cart-item {
+    display: flex;
+    justify-content: space-between; /* Align image, details, and button */
+    align-items: center;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ddd;
+    background-color: var(--product-bg-color);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    position: relative;
+}
+
+    .cart-item img {
+        width: 50px;
+        height: 50px;
+        object-fit: cover;
+        margin-right: 10px;
+        border-radius: 4px;
+    }
+
+.cart-item-details {
+    flex-grow: 1;
+}
+
+.cart-item-actions {
+    display: flex;
+    justify-content: space-between; /* Align both buttons (Add and Remove) */
+    align-items: center; /* Vertically align the buttons */
+    gap: 10px; /* Space between buttons */
+    width: 100%; /* Ensure it spans the full width */
+}
+
+    .cart-item-actions button {
+        background-color: var(--primary-color);
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        cursor: pointer;
+        font-size: 14px;
+        border-radius: 5px;
+        transition: background-color 0.3s ease;
+        flex: 1; /* Ensure the buttons take equal space */
+    }
+
+        .cart-item-actions button:hover {
+            background-color: var(--button-hover-color);
+        }
+
+.delete-icon {
+    cursor: pointer;
+    color: red;
+    font-size: 20px;
+    transition: color 0.3s;
+    position: absolute; /* Position the delete icon absolutely within the cart item */
+    right: 10px; /* Add a right margin to position the trash icon on the right */
+}
+
+    .delete-icon:hover {
+        color: darkred;
+    }
+
+.cart-footer {
+    padding: 16px;
+    border-top: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+.button {
+    display: block;
+    width: 100%;
+    margin-top: 8px;
+    padding: 10px;
+    border: none;
+    border-radius: 4px;
     cursor: pointer;
     font-size: 16px;
-    margin-top: 10px;
-    border-radius: 4px;
-    transition: background-color 0.3s, transform 0.2s;
 }
 
-    .add-to-cart:hover {
-        background-color: var(--button-hover-color);
+/* Add to Bag Button */
+.add-to-bag {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 30%;
+    text-align: center;
+}
+
+    .add-to-bag:hover {
+        background-color: var(--header-color);
         transform: scale(1.05);
     }
 
-.hidden {
-    display: none !important;
-}
-
+/* Disabled Add to Bag Button (Out of Stock) */
 .disabled-button {
-    background-color: #ddd;
+    background-color: #ccc;
+    color: #666;
     border: none;
-    color: #999;
     padding: 10px 20px;
-    cursor: not-allowed;
     font-size: 16px;
-    margin-top: 10px;
-    border-radius: 4px;
+    border-radius: 5px;
+    cursor: not-allowed;
+    width: 100%;
+    text-align: center;
 }
 
-.add_button, .edit_button, .delete_button {
-    background-color: var(--primary-color);
+    .disabled-button[disabled] {
+        cursor: not-allowed;
+        background-color: #f5f5f5;
+        color: #999;
+    }
+
+/* Remove from Bag Button */
+.remove-from-bag {
+    background-color: var(--danger-color);
+    color: white;
     border: none;
-    color: var(--button-text-color);
+    padding: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    width: 40%;
+    text-align: center;
+}
+
+    .remove-from-bag:hover {
+        background-color: #e42a2a; /* Different color for remove button */
+        transform: scale(1.05);
+    }
+
+/* When cart is opened, adjust button styles to show Remove */
+.cart-container .remove-from-bag {
+    background-color: #ff4c4c; /* Color to indicate removal */
+}
+
+    .cart-container .remove-from-bag:hover {
+        background-color: #d04e4e;
+    }
+
+
+.quantity-controls button {
+    background-color: var(--quantity-button-color);
+    border: 1px solid #ccc;
     padding: 5px 10px;
     cursor: pointer;
-    font-size: 14px;
-    margin-top: 5px;
-    border-radius: 4px;
-    transition: background-color 0.3s;
+    font-size: 16px;
+    color: #333;
 }
 
-    .add_button:hover, .edit_button:hover, .delete_button:hover {
-        background-color: var(--button-hover-color);
-    }
+.quantity-controls input {
+    width: 40px;
+    text-align: center;
+    border: 1px solid #ccc;
+    padding: 5px;
+    margin: 0 5px;
+}
 
-/* Fade-in animation */
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-        transform: scale(0.95);
-    }
-
-    to {
-        opacity: 1;
+.cart-item-quantity {
+    background-color: var(--quantity-button-color);
+    border: 1px solid #ccc;
+    padding: 7px 10px;
+}
+/* Jello Animation */
+@keyframes jello {
+    0% {
         transform: scale(1);
     }
+
+    25% {
+        transform: scale(1.1) rotate(-5deg);
+    }
+
+    50% {
+        transform: scale(1) rotate(5deg);
+    }
+
+    75% {
+        transform: scale(1.1) rotate(0deg);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* Apply the jello animation */
+.jello-animation {
+    animation: jello 1s ease infinite; /* Infinite loop for the frown icon */
+}
+
+/* Apply the jello animation only once for the cart count circle */
+.cart-count.jello-animation {
+    animation: jello 1s ease forwards;
+}
+
+/* Empty cart message styling */
+.empty-cart-message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 20px;
+}
+
+    .empty-cart-message i {
+        font-size: 50px;
+        color: #ff6b6b;
+        margin-bottom: 10px;
+    }
+
+    .empty-cart-message p {
+        font-size: 18px;
+        color: #333;
+    }
+
+
+
+/*======================
+    404 page
+=======================*/
+
+
+.page_404 {
+    background: #fff;
+}
+
+    .page_404 img {
+        width: 100%;
+    }
+
+.four_zero_four_bg {
+    background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+    height: 300px;
+    background-position: center;
+}
+
+
+.h2 {
+    font-family: var(--font-family-base);
+    font-size: var(--font-size-lg);
+    text-align: center;
 }

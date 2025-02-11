@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using MilkStore.Data;
 
@@ -10,13 +11,19 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddDbContext<MilkstoreDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("MilkstoreDbConnectionString")));
 
-// Add session services
-builder.Services.AddDistributedMemoryCache();
+// Add Authentication services with Cookie authentication
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.LoginPath = "/HomeLogin/Login"; // Path to login page
+        options.LogoutPath = "/HomeLogin/Logout"; // Path to logout page
+    });
+
+// Add Session services if you're managing sessions
 builder.Services.AddSession(options =>
 {
-    options.IdleTimeout = TimeSpan.FromMinutes(30); // Session timeout duration
-    options.Cookie.HttpOnly = true; // Prevent client-side access
-    options.Cookie.IsEssential = true; // Mark the cookie as essential
+    options.Cookie.HttpOnly = true;
+    options.Cookie.IsEssential = true;
 });
 
 var app = builder.Build();
@@ -28,6 +35,7 @@ using (var scope = app.Services.CreateScope())
 
     try
     {
+        // Check if the database can be connected
         if (dbContext.Database.CanConnect())
         {
             Console.WriteLine("Successfully connected to the database.");
@@ -55,10 +63,10 @@ app.UseStaticFiles();
 
 app.UseRouting();
 
-// Enable session middleware
-app.UseSession();
-
+// Use authentication and session before authorization
+app.UseAuthentication(); // Add this line
 app.UseAuthorization();
+app.UseSession(); // Add this line if you're using sessions
 
 app.MapControllerRoute(
     name: "default",
