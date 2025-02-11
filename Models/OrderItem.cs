@@ -11,7 +11,7 @@ public partial class OrderItem
 
     public int ProductProductId { get; set; }
 
-    public int Quantity { get; set; }
+    //public int Quantity { get; set; }
 
     public decimal PriceAtOrder { get; set; }
 
