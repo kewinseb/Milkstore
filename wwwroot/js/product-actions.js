@@ -50,25 +50,23 @@ document.addEventListener('click', (event) => {
             removeFromBag(productId);
         }
 
-        // Ensure cart opens when an item is added
         toggleCart(true);
     }
 
-    // Quantity Increment/Decrement
     if (target.classList.contains('increment') || target.classList.contains('decrement')) {
         const productId = target.closest('.cart-item').dataset.productId;
         const change = target.classList.contains('increment') ? 1 : -1;
         updateQuantity(productId, change);
     }
 
-    // Remove Product from Cart (Trash Icon)
     if (target.classList.contains('delete-icon')) {
         const productId = target.closest('.cart-item').dataset.productId;
         removeFromBag(productId);
     }
 });
 
-// Function to Add Product to Cart
+
+
 function addToBag(id, name, price, image) {
     cart[id] = cart[id] || { name, price, image, quantity: 1 };
     updateCartUI();
