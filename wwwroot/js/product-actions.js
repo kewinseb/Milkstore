@@ -1,4 +1,4 @@
-﻿let cart = {}; // Store cart items
+﻿let cart = JSON.parse(sessionStorage.getItem('cart')) || []; // Retrieve cart from session storage or initialize as an array
 
 // Cached DOM elements
 const cartContainer = document.getElementById('cartContainer');
@@ -18,20 +18,10 @@ function toggleCart(open) {
     blurOverlay.style.display = open ? 'block' : 'none';
 }
 
-// Continue Shopping Function (Closes Cart & Redirects)
-//function continueShopping() {
-//    // Hide cart UI
-//    toggleCart(false);
-//}
-
 // Event Listeners
 cartIcon.addEventListener('click', () => toggleCart(true));
 closeCartBtn.addEventListener('click', () => toggleCart(false));
-
-// Attach event listener to the Continue Shopping button
-//if (continueShoppingBtn) {
-//    continueShoppingBtn.addEventListener('click', continueShopping);
-//}
+blurOverlay.addEventListener('click', () => toggleCart(false)); // ✅ Close cart when clicking on overlay
 
 // Delegate event handling to the document for buttons (better performance)
 document.addEventListener('click', (event) => {
@@ -44,13 +34,17 @@ document.addEventListener('click', (event) => {
         const productPrice = parseFloat(target.dataset.productPrice);
         const productImage = target.dataset.productImage;
 
-        if (!cart[productId]) {
+        const existingProduct = cart.find(item => item.id === productId);
+
+        if (!existingProduct) {
             addToBag(productId, productName, productPrice, productImage);
         } else {
             removeFromBag(productId);
         }
 
-        toggleCart(true);
+
+        toggleCart(true); // Ensure cart opens when an item is added
+
     }
 
     if (target.classList.contains('increment') || target.classList.contains('decrement')) {
@@ -66,25 +60,30 @@ document.addEventListener('click', (event) => {
 });
 
 
+// Function to Add Product to Cart (stored in an array)
 
 function addToBag(id, name, price, image) {
-    cart[id] = cart[id] || { name, price, image, quantity: 1 };
+    cart.push({ id, name, price, image, quantity: 1 });
+    updateSessionStorage();
     updateCartUI();
     updateProductButton(id, true);
 }
 
 // Function to Remove Product from Cart
 function removeFromBag(id) {
-    delete cart[id];
+    cart = cart.filter(product => product.id !== id);
+    updateSessionStorage();
     updateCartUI();
     updateProductButton(id, false);
 }
 
 // Function to Update Quantity
 function updateQuantity(id, change) {
-    if (cart[id]) {
-        cart[id].quantity = Math.max(0, cart[id].quantity + change);
-        if (cart[id].quantity === 0) removeFromBag(id);
+    const product = cart.find(item => item.id === id);
+    if (product) {
+        product.quantity = Math.max(0, product.quantity + change);
+        if (product.quantity === 0) removeFromBag(id);
+        updateSessionStorage();
         updateCartUI();
     }
 }
@@ -104,19 +103,19 @@ function updateCartUI() {
     cartBody.innerHTML = '';
     let totalAmount = 0, totalQuantity = 0;
 
-    Object.entries(cart).forEach(([id, product]) => {
-        totalAmount += product.price * product.quantity; // ✅ Price updates based on quantity
+    cart.forEach(product => {
+        totalAmount += product.price * product.quantity;
         totalQuantity += product.quantity;
 
         const cartItem = document.createElement('div');
         cartItem.className = 'cart-item';
-        cartItem.dataset.productId = id;
+        cartItem.dataset.productId = product.id;
 
         cartItem.innerHTML = `
             <img src="${product.image}" alt="${product.name}" />
             <div class="cart-item-details">
                 <p class="cart-item-title">${product.name}</p>
-                <p>Price: ₹${(product.price * product.quantity).toFixed(2)}</p> <!-- ✅ Updated Price Display -->
+                <p>Price: ₹${(product.price * product.quantity).toFixed(2)}</p>
                 <div class="quantity-controls">
                     <button class="decrement">-</button>
                     <span class="cart-item-quantity">${product.quantity}</span>
@@ -131,38 +130,36 @@ function updateCartUI() {
 
     totalAmountEl.textContent = `Total: ₹${totalAmount.toFixed(2)}`;
 
-    // Show the number of products added (not the quantity)
-    const totalProductsAdded = Object.keys(cart).length; // Get the number of distinct products added
+    // Show the number of distinct products added
+    const totalProductsAdded = cart.length;
     cartCountEl.textContent = totalProductsAdded;
 
     // Show or hide the cart count circle based on the number of products added
-    cartCountEl.classList.toggle('hidden', totalProductsAdded === 0); // Hide if no products
+    cartCountEl.classList.toggle('hidden', totalProductsAdded === 0);
 
     // If no products are in the cart, show frown icon and message with jello animation
     if (totalProductsAdded === 0) {
         cartBody.innerHTML = `
             <section class="page_404">
-		<div class="four_zero_four_bg">
-		</div>
-
-		<div class="content_box">
-		<h3 class="h2">
-		Sorry, No products in the cart 🛒!
-		</h3>
-	</div>
-</section>
+                <div class="four_zero_four_bg"></div>
+                <div class="content_box">
+                    <h3 class="h2">
+                        Sorry, No products in the cart 🛒!
+                    </h3>
+                </div>
+            </section>
         `;
     } else {
-        // Trigger the jello animation for the cart count circle when there are products in the cart
         cartCountEl.classList.add('jello-animation');
         setTimeout(() => {
             cartCountEl.classList.remove('jello-animation');
-        }, 1000); // Duration of jello animation
+        }, 1000);
     }
 }
 
-// Call this function on page load or whenever the user navigates to the cart
-document.addEventListener('DOMContentLoaded', updateCartUI); // This will trigger when the page is loaded
+function updateSessionStorage() {
+    sessionStorage.setItem('cart', JSON.stringify(cart));
+}
 
-// If you are using a navigation or routing system, call updateCartUI when navigating to the cart page
-
+// Call this function on page load
+document.addEventListener('DOMContentLoaded', updateCartUI);

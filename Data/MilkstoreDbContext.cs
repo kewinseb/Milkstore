@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore;
 using MilkStore.Models;
+using static MilkStore.Models.Orders;
 
 namespace MilkStore.Data;
 
@@ -92,29 +93,49 @@ public partial class MilkstoreDbContext : DbContext
                 .HasConstraintName("FK__Cart__User_email__4222D4EF");
         });
 
-        modelBuilder.Entity<Order_old>(entity =>
+        modelBuilder.Entity<Orders>(entity =>
         {
-            entity.HasKey(e => e.OrderId).HasName("PK__Orders__0809335DA27F7321");
+            entity.HasKey(e => e.OrderId).HasName("PK__Orders__0809335DD82F7ECB");
 
-            entity.Property(e => e.OrderId).HasColumnName("orderId");
-            entity.Property(e => e.CreatedAt)
-                .HasDefaultValueSql("(sysdatetime())")
-                .HasColumnName("createdAt");
-            entity.Property(e => e.TotalAmount)
-                .HasColumnType("decimal(10, 2)")
-                .HasColumnName("totalAmount");
-            entity.Property(e => e.UpdatedAt)
-                .HasDefaultValueSql("(sysdatetime())")
-                .HasColumnName("updatedAt");
+            entity.Property(e => e.OrderId)
+                .ValueGeneratedOnAdd()
+                .HasColumnName("orderId");
+
             entity.Property(e => e.UserEmailId)
                 .HasMaxLength(30)
                 .IsUnicode(false)
                 .HasColumnName("User_emailId");
 
-            //entity.HasOne(d => d.UserEmail).WithMany(p => p.Orders)
-            //    .HasForeignKey(d => d.UserEmailId)
-            //    .OnDelete(DeleteBehavior.SetNull)
-            //    .HasConstraintName("FK__Orders__User_ema__47DBAE45");
+            entity.Property(e => e.OrderDate)
+                .HasDefaultValueSql("(sysdatetime())")
+                .HasColumnName("orderDate");
+
+            entity.Property(e => e.OrderQuantity)
+                .HasColumnName("orderQuantity");
+
+            entity.Property(e => e.TotalAmount)
+                .HasColumnType("decimal(10, 2)")
+                .HasColumnName("totalAmount");
+
+            entity.Property(e => e.OrderStatus)
+                .HasMaxLength(50)
+                .IsUnicode(false)
+                .HasDefaultValue("Pending")
+                .HasColumnName("orderStatus");
+
+            entity.Property(e => e.CreatedAt)
+                .HasDefaultValueSql("(sysdatetime())")
+                .HasColumnName("createdAt");
+
+            entity.Property(e => e.UpdatedAt)
+                .HasDefaultValueSql("(sysdatetime())")
+                .HasColumnName("updatedAt");
+
+            entity.HasOne(d => d.User)
+                .WithMany(p => p.Orders)
+                .HasForeignKey(d => d.UserEmailId)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Orders__User_emailId");
         });
 
         modelBuilder.Entity<OrderItem>(entity =>
@@ -130,7 +151,7 @@ public partial class MilkstoreDbContext : DbContext
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("priceAtOrder");
             entity.Property(e => e.ProductProductId).HasColumnName("Product_productId");
-            entity.Property(e => e.Quantity).HasColumnName("quantity");
+            //entity.Property(e => e.Quantity).HasColumnName("quantity");
             entity.Property(e => e.TrackingNumber).HasColumnName("trackingNumber");
             entity.Property(e => e.UpdatedAt)
                 .HasDefaultValueSql("(sysdatetime())")
