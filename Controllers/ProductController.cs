@@ -1,7 +1,11 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
+using Microsoft.VisualStudio.Web.CodeGenerators.Mvc.Templates.BlazorIdentity.Pages.Manage;
+using MilkStore;
 using MilkStore.Data;
 using MilkStore.Models;
+using System.Security.Claims;
 
 public class ProductController : Controller
 {
@@ -38,4 +42,100 @@ public class ProductController : Controller
             return View(new List<Product>());
         }
     }
+
+    [HttpPost]
+    [Route("ProductController/AddToCart")]
+
+    public async Task<IActionResult> AddToCart([FromBody] Cart cartItem)
+    {
+        if (cartItem == null)
+        {
+            return BadRequest("Invalid cart data.");
+        }
+        // Get User ID (Assuming you have authentication in place)
+        /*string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized("User not logged in.");
+        }*/
+        try
+        {
+            cartItem.UserEmailId = HttpContext.Session.GetString("UserEmailId");
+
+            var existingItem = await _context.Carts.FirstOrDefaultAsync(c => c.ProductProductId == cartItem.ProductProductId && c.UserEmailId == cartItem.UserEmailId); // Include UserEmailId in the check
+
+            if (existingItem != null)
+            {
+                existingItem.Quantity += cartItem.Quantity;
+                _context.Carts.Update(existingItem); // Update existing item
+            }
+            else
+            {
+                _context.Carts.Add(cartItem);
+            }
+
+            await _context.SaveChangesAsync();
+            return Ok(new { Message = "Item added to cart successfully!" });
+        }
+        catch (DbUpdateException ex) // Catch DbUpdateException specifically
+        {
+            _logger.LogError(ex, "Error adding to cart (DbUpdateException)"); // Log full exception details
+            return StatusCode(500, "A database error occurred while adding to cart."); // More specific message
+        }
+        catch (Exception ex) // Catch other exceptions
+        {
+            _logger.LogError(ex, "Error adding to cart"); // Log full exception details
+            return StatusCode(500, "An error occurred while adding to cart."); // General message
+        }
+
+    }
+
+    [HttpGet]
+    public async Task<IActionResult> GetCart()
+    {
+        string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized("User not logged in.");
+        }
+        var cartItems = await _context.Carts.Where(c => c.UserEmailId == userId).ToListAsync();
+        return Ok(cartItems);
+    }
+
+    [HttpPost]
+
+    [Route("ProductController/RemoveFromCart")]
+
+    [HttpPost]
+
+    public async Task<IActionResult> RemoveFromCart([FromBody] int productProductId)
+
+    {
+
+        if (productProductId <= 0)
+
+        {
+
+            return BadRequest(new { Message = "Invalid product ID." });
+
+        }
+
+        var cartItem = await _context.Carts.FirstOrDefaultAsync(c => c.ProductProductId == productProductId);
+
+        if (cartItem != null)
+
+        {
+
+            _context.Carts.Remove(cartItem);
+
+            await _context.SaveChangesAsync();
+
+            return Ok(new { Message = "Item removed from cart!" });
+
+        }
+
+        return NotFound(new { Message = "Item not found in cart." });
+
+    }
+
 }
