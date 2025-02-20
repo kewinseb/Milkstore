@@ -47,16 +47,20 @@ body {
 
 .customer-option {
     flex: 1;
+    margin-top: 20px; /* Adds space between navigation bar and customer option */
+    padding: 10px; /* Optional: Adds inner spacing */
 }
+
 
 .actions {
-    display: flex;
-    flex-direction: column;
-    gap: 5px;
+    flex: 1;
+    margin-top: 20px; /* Adds space between navigation bar and customer option */
+    padding: 10px; /* Optional: Adds inner spacing */
 }
 
+
 .action-button {
-    padding: 8px 16px;
+    padding: 10px;
     background-color: #4CAF50;
     border: none;
     border-radius: 4px;
@@ -73,9 +77,67 @@ body {
         transform: scale(0.98);
     }
 
+/* Updated delivery tracking with enforced scrollbar */
 .delivery-tracking {
     margin: 40px 0;
     position: relative;
+    height: 300px; /* Fixed height to enforce scrollbar */
+    overflow-y: scroll; /* Always show scrollbar */
+    padding: 0 10px 20px 10px;
+    border: 1px solid #eee;
+    border-radius: 8px;
+}
+
+    /* Webkit scrollbar styles */
+    .delivery-tracking::-webkit-scrollbar {
+        width: 8px;
+    }
+
+    .delivery-tracking::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 8px;
+    }
+
+    .delivery-tracking::-webkit-scrollbar-thumb {
+        background: #aaa;
+        border-radius: 8px;
+    }
+
+        .delivery-tracking::-webkit-scrollbar-thumb:hover {
+            background: #888;
+        }
+
+/* Firefox scrollbar styles */
+.delivery-tracking {
+    scrollbar-width: thin;
+    scrollbar-color: #aaa #f1f1f1;
+}
+
+    /* Keep important elements visible while scrolling */
+    .delivery-tracking h3 {
+        position: sticky;
+        top: 0;
+        background-color: white;
+        z-index: 10;
+        padding: 10px 0;
+    }
+
+.status-label {
+    color: #ff9800;
+    font-weight: bold;
+    position: sticky;
+    top: 40px;
+    background-color: white;
+    padding: 10px 0;
+    z-index: 5;
+}
+
+#expectedDelivery {
+    position: sticky;
+    top: 80px;
+    background-color: white;
+    z-index: 5;
+    padding: 5px 0;
 }
 
 .tracking-container {
@@ -86,32 +148,16 @@ body {
     padding: 0 10px;
 }
 
-    .tracking-container::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .tracking-container::-webkit-scrollbar-track {
-        background: #f1f1f1;
-        border-radius: 4px;
-    }
-
-    .tracking-container::-webkit-scrollbar-thumb {
-        background: #888;
-        border-radius: 4px;
-    }
-
-        .tracking-container::-webkit-scrollbar-thumb:hover {
-            background: #555;
-        }
-
 .status-bar {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 20px 0;
-    position: relative;
+    position: sticky;
+    top: 120px;
     background-color: white;
     padding: 10px 0;
+    z-index: 9;
 }
 
 .status-line {
@@ -154,6 +200,7 @@ body {
 
 .tracking-details {
     margin-top: 30px;
+    padding-bottom: 100px; /* Extra padding to ensure scrollable content */
 }
 
 .tracking-item {
@@ -169,22 +216,12 @@ body {
         background-color: #f5f5f5;
     }
 
-.status-label {
-    color: #ff9800;
-    font-weight: bold;
-    position: sticky;
-    top: 0;
-    background-color: white;
-    padding: 10px 0;
-    z-index: 5;
-}
-
 .dates {
     color: #666;
     font-size: 0.9em;
 }
 
-.tracking-modal {
+.tracking-modal, .modal {
     display: none;
     position: fixed;
     z-index: 1000;
@@ -215,14 +252,11 @@ body {
     cursor: pointer;
 }
 
-/* Footer styles */
-.footer[b-661cn3v8ma] {
-    flex-shrink: 0;
-    background-color: #f8f9fa;
-    padding: 1rem;
-    text-align: left;
-    border-top: 1px solid #dee2e6;
-    width: 100%;
-    white-space: nowrap;
-    line-height: normal;
+
+/* Header styling */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 20px;
 }
