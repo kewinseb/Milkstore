@@ -1,4 +1,4 @@
-﻿let cart = JSON.parse(sessionStorage.getItem('cart')) || [];
+﻿let cart = JSON.parse(sessionStorage.getItem('cart')) || []; // Retrieve cart from session storage or initialize as an array
 
 // Cached DOM elements
 const cartContainer = document.getElementById('cartContainer');
@@ -18,10 +18,12 @@ function toggleCart(open) {
     blurOverlay.style.display = open ? 'block' : 'none';
 }
 
+// Event Listeners
 cartIcon.addEventListener('click', () => toggleCart(true));
 closeCartBtn.addEventListener('click', () => toggleCart(false));
-blurOverlay.addEventListener('click', () => toggleCart(false));
+blurOverlay.addEventListener('click', () => toggleCart(false)); // ✅ Close cart when clicking on overlay
 
+// Delegate event handling to the document for buttons (better performance)
 document.addEventListener('click', (event) => {
     const target = event.target;
 
@@ -40,8 +42,7 @@ document.addEventListener('click', (event) => {
             removeFromBag(productId);
         }
 
-        // Ensure cart opens when an item is added
-        toggleCart(true);
+        toggleCart(true); // Ensure cart opens when an item is added
     }
 
     // Quantity Increment/Decrement
@@ -58,7 +59,7 @@ document.addEventListener('click', (event) => {
     }
 });
 
-// Function to Add Product to Cart
+// Function to Add Product to Cart (stored in an array)
 function addToBag(id, name, price, image) {
     const existingProduct = cart.find(item => item.id === id);
 
@@ -183,11 +184,10 @@ function updateCartUI() {
             </section>
         `;
     } else {
-        // Trigger the jello animation for the cart count circle when there are products in the cart
         cartCountEl.classList.add('jello-animation');
         setTimeout(() => {
             cartCountEl.classList.remove('jello-animation');
-        }, 1000); // Duration of jello animation
+        }, 1000);
     }
 }
 

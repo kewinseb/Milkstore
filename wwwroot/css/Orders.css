@@ -28,6 +28,10 @@ h2 {
     display: flex;
     gap: 15px;
     margin-bottom: 20px;
+    justify-content: left; /* Center tabs for a balanced look */
+    flex-wrap: wrap; /* Ensure tabs wrap on smaller screens */
+    padding: 10px 20px; /* Added padding to prevent touching edges */
+    
 }
 
     .order-tabs .tab {
@@ -48,10 +52,14 @@ h2 {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
+    justify-content: center; /* Center tabs for a balanced look */
+    flex-wrap: wrap; /* Ensure tabs wrap on smaller screens */
+    padding: 10px 20px; /* Added padding to prevent touching edges */
+   
 }
 
 /* Individual Order Card */
-.order-card {
+    .order-card {
     background: #fff;
     border-radius: 8px;
     box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
