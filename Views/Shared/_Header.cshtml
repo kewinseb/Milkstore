@@ -67,7 +67,7 @@
         <p id="shipping">Shipping: Free</p>
         <p id="total">Total: ₹0.00</p>
         <button class="button button-secondary" onclick="continueShopping()">Continue Shopping</button>
-        <button class="button button-primary">Proceed to Checkout</button>
+        <button class="button button-primary" onclick="location.href='@Url.Action("Index", "Payment")'">Proceed to Checkout</button>
     </div>
 </div>
 @section Scripts {
