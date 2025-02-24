@@ -61,10 +61,34 @@ document.addEventListener('click', (event) => {
 
 // Function to Add Product to Cart (stored in an array)
 function addToBag(id, name, price, image) {
-    cart.push({ id, name, price, image, quantity: 1 });
-    updateSessionStorage();
+    const existingProduct = cart.find(item => item.id === id);
+
+    if (existingProduct) {
+        existingProduct.quantity++;
+    } else {
+        cart.push({ id, name, price, image, quantity: 1 });
+    }
+
     updateCartUI();
     updateProductButton(id, true);
+
+    fetch('/ProductController/AddToCart', {  // Corrected path if needed
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            ProductProductId: id, // Correct casing
+            CreatedAt: new Date().toISOString(), // Correct casing and format for dates
+            UpdatedAt: new Date().toISOString(),
+            Quantity: cart.find(item => item.id === id).quantity,// Get correct quantity
+        })
+    })
+        .then(response => response.json())
+        .then(data => console.log(data.Message))
+        .catch(error => console.error('Error:', error));
+
+    updateSessionStorage(); // Move this *after* the fetch
 }
 
 // Function to Remove Product from Cart
@@ -73,14 +97,28 @@ function removeFromBag(id) {
     updateSessionStorage();
     updateCartUI();
     updateProductButton(id, false);
+
+    fetch('/ProductController/RemoveFromCart', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(id) // Passing the integer directly
+    })
+        .then(response => response.json())
+        .then(data => console.log(data.Message))
+        .catch(error => console.error('Error:', error));
 }
 
 // Function to Update Quantity
 function updateQuantity(id, change) {
     const product = cart.find(item => item.id === id);
     if (product) {
-        product.quantity = Math.max(0, product.quantity + change);
-        if (product.quantity === 0) removeFromBag(id);
+        product.quantity = Math.max(1, product.quantity + change); // Prevent quantity from going below 1
+        if (product.quantity === 1 && change === -1) {  // If decrementing from 1, remove the item
+            removeFromBag(id);
+            return; // Exit the function to prevent further updates
+        }
         updateSessionStorage();
         updateCartUI();
     }
@@ -99,7 +137,8 @@ function updateProductButton(id, isAdded) {
 // Function to Update Cart UI
 function updateCartUI() {
     cartBody.innerHTML = '';
-    let totalAmount = 0, totalQuantity = 0;
+    let totalAmount = 0;
+    let totalQuantity = 0;
 
     cart.forEach(product => {
         totalAmount += product.price * product.quantity;
@@ -128,15 +167,12 @@ function updateCartUI() {
 
     totalAmountEl.textContent = `Total: ₹${totalAmount.toFixed(2)}`;
 
-    // Show the number of distinct products added
-    const totalProductsAdded = cart.length;
-    cartCountEl.textContent = totalProductsAdded;
+    cartCountEl.textContent = cart.length; // Number of unique items
 
-    // Show or hide the cart count circle based on the number of products added
-    cartCountEl.classList.toggle('hidden', totalProductsAdded === 0);
+    cartCountEl.classList.toggle('hidden', cart.length === 0);
+    cartCountEl.classList.toggle('jello-animation', cart.length > 0); // Jello animation logic
 
-    // If no products are in the cart, show frown icon and message with jello animation
-    if (totalProductsAdded === 0) {
+    if (cart.length === 0) {
         cartBody.innerHTML = `
             <section class="page_404">
                 <div class="four_zero_four_bg"></div>
@@ -159,5 +195,4 @@ function updateSessionStorage() {
     sessionStorage.setItem('cart', JSON.stringify(cart));
 }
 
-// Call this function on page load
 document.addEventListener('DOMContentLoaded', updateCartUI);
