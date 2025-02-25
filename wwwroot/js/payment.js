@@ -85,7 +85,29 @@
                 console.error('Error:', error);
             }
         } else if (selectedMethod.value === 'cod') {
-            alert('Cash on Delivery selected. Proceeding with the order...');
+            try {
+                const response = await fetch('/PaymentController/SavePayment', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        paymentMethod: selectedMethod.value,
+                    }),
+                });
+
+                if (response.ok) {
+                    const result = await response.text();
+                    alert(result); // Display success message
+                } else {
+                    const errorText = await response.text();
+                    errorMessage.textContent = `Error: ${errorText}`;
+                }
+            } catch (error) {
+                errorMessage.textContent = 'An error occurred while processing the payment.';
+                console.error('Error:', error);
+            }
+            //alert('Cash on Delivery selected. Proceeding with the order...');
         }
     }
 
