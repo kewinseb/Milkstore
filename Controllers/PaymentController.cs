@@ -25,7 +25,9 @@ namespace MilkStore.Controllers
         public IActionResult SavePayment([FromBody] JsonDocument data)
         {
             var userEmailId = HttpContext.Session.GetString("UserEmailId");
-            var orderid = 0;
+            // Initialize total amount and total quantity before the loop
+            decimal totalAmount = 0;
+            int totalQuantity = 0;
 
             if (data == null)
             {
@@ -70,6 +72,9 @@ namespace MilkStore.Controllers
                 return BadRequest("No items found in the cart to place an order");
             }
 
+            DateTime createdAt = cartItems.Min(c => c.CreatedAt);
+            DateTime updatedAt = cartItems.Max(c => c.UpdatedAt);
+
             // Store cart data into Order table
             foreach (var cartItem in cartItems)
             {
@@ -78,24 +83,50 @@ namespace MilkStore.Controllers
                 {
                     return BadRequest($"Product with ID {cartItem.ProductProductId} not found");
                 }
-                var orderStatus = paymentMethod == "debit-credit" ? "Shipped" : "Pending";
-                var order = new Orders
+                // Accumulate total price and quantity
+                totalAmount += product.Price * cartItem.Quantity;
+                totalQuantity += cartItem.Quantity;
+            }
+            var orderStatus = paymentMethod == "debit-credit" ? "Shipped" : "Pending";
+            var orderdata = new Orders
+            {
+                UserEmailId = userEmailId,
+                OrderQuantity = totalQuantity,
+                TotalAmount = totalAmount, // Correct total amount calculation
+                OrderDate = DateTime.Now,
+                CreatedAt = createdAt,
+                UpdatedAt = updatedAt,
+                OrderStatus = orderStatus
+            };
+            _context.Orders.Add(orderdata);
+            _context.SaveChanges();
+
+            foreach (var cartItem in cartItems)
+            {
+                var product = _context.Products.FirstOrDefault(p => p.ProductId == cartItem.ProductProductId);
+                if (product == null)
                 {
-                    UserEmailId = userEmailId,
-                    OrderQuantity = cartItem.Quantity,
-                    TotalAmount =  product.Price, // Correct total amount calculation
-                    OrderDate = DateTime.Now,
+                    continue;
+                }
+
+                var orderItem = new OrderItem
+                {
+                    OrdersOrderId = orderdata.OrderId,  // Link to main order
+                    ProductProductId = cartItem.ProductProductId,
+                    PriceAtOrder =  cartItem.Quantity * product.Price,
+                    TrackingNumber = 5678,        // Price per unit
                     CreatedAt = cartItem.CreatedAt,
                     UpdatedAt = cartItem.UpdatedAt,
-                    OrderStatus = orderStatus
                 };
-               orderid= _context.Orders.Add(order);
+
+                _context.OrderItems.Add(orderItem);
             }
 
+            // Save order details
             _context.SaveChanges();
 
             // Fetch user's recent orders
-            var orders = _context.Orders.Where(c => c.UserEmailId == userEmailId).ToList();
+            var orders = _context.Orders.Where(c => c.OrderId == orderdata.OrderId).ToList();
             if (orders == null || !orders.Any())
             {
                 return BadRequest("No transactions found in the table");
