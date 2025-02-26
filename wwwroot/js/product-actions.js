@@ -99,7 +99,7 @@ function removeFromBag(id) {
     updateProductButton(id, false);
 
     fetch('/ProductController/RemoveFromCart', {
-        method: 'POST',
+        method: 'DELETE',
         headers: {
             'Content-Type': 'application/json'
         },
@@ -115,14 +115,29 @@ function updateQuantity(id, change) {
     const product = cart.find(item => item.id === id);
     if (product) {
         product.quantity = Math.max(1, product.quantity + change); // Prevent quantity from going below 1
-        if (product.quantity === 1 && change === -1) {  // If decrementing from 1, remove the item
-            removeFromBag(id);
-            return; // Exit the function to prevent further updates
-        }
+        //if (product.quantity === 1 && change === -1) {  // If decrementing from 1, remove the item
+        //    removeFromBag(id);
+        //    return; // Exit the function to prevent further updates
+        //}
         updateSessionStorage();
         updateCartUI();
+
+        fetch('/ProductController/UpdateCartQuantity', {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                ProductProductId: id,
+                Quantity: product.quantity
+            })
+        })
+            .then(response => response.json())
+            .then(data => console.log(data.Message))
+            .catch(error => console.error('Error:', error));
     }
 }
+
 
 // Function to Update "Add to Bag" Button
 function updateProductButton(id, isAdded) {
