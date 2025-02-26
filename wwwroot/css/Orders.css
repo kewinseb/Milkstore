@@ -1,8 +1,7 @@
 ﻿/* Orders Page Styling */
 h2 {
-    flex: 1;
-    margin-top: 20px;
-    padding-top: 10px;
+    font-size: 24px;
+    margin-bottom: 15px;
 }
 
 /* Filters */
@@ -29,9 +28,9 @@ h2 {
     display: flex;
     gap: 15px;
     margin-bottom: 20px;
-    justify-content: left;
-    flex-wrap: wrap;
-    padding: 10px 20px;
+    justify-content: left; /* Center tabs for a balanced look */
+    flex-wrap: wrap; /* Ensure tabs wrap on smaller screens */
+    padding: 10px 20px; /* Added padding to prevent touching edges */
 }
 
     .order-tabs .tab {
@@ -47,35 +46,15 @@ h2 {
             background: #ddd;
         }
 
-/* Order Grid with Scrollbar */
+/* Order Grid */
 .order-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
     gap: 20px;
-    padding: 10px 20px;
-    max-height: 200px; /* Set a maximum height for scrolling */
-    overflow-y: auto; /* Enables vertical scrolling */
-    scrollbar-width: thin; /* For Firefox */
-    scrollbar-color: #ff9900 #f1f1f1; /* Scrollbar color */
+    justify-content: center; /* Center tabs for a balanced look */
+    flex-wrap: wrap; /* Ensure tabs wrap on smaller screens */
+    padding: 10px 20px; /* Added padding to prevent touching edges */
 }
-
-    /* Custom scrollbar for WebKit browsers (Chrome, Edge, Safari) */
-    .order-grid::-webkit-scrollbar {
-        width: 8px;
-    }
-
-    .order-grid::-webkit-scrollbar-track {
-        background: #f1f1f1;
-    }
-
-    .order-grid::-webkit-scrollbar-thumb {
-        background: #ff9900;
-        border-radius: 4px;
-    }
-
-        .order-grid::-webkit-scrollbar-thumb:hover {
-            background: #e68a00;
-        }
 
 /* Individual Order Card */
 .order-card {
@@ -132,5 +111,19 @@ h2 {
 }
 
     .btn:hover {
+        background: #e68a00;
+    }
+
+.viewbut {
+    background: #ff9900;
+    color: white;
+    padding: 8px 15px;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+    .viewbut:hover {
         background: #e68a00;
     }
