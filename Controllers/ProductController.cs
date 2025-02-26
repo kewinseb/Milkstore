@@ -43,6 +43,18 @@ public class ProductController : Controller
         }
     }
 
+    [HttpGet]
+    public async Task<IActionResult> GetCart()
+    {
+        string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        if (string.IsNullOrEmpty(userId))
+        {
+            return Unauthorized("User not logged in.");
+        }
+        var cartItems = await _context.Carts.Where(c => c.UserEmailId == userId).ToListAsync();
+        return Ok(cartItems);
+    }
+
     [HttpPost]
     [Route("ProductController/AddToCart")]
 
@@ -52,12 +64,7 @@ public class ProductController : Controller
         {
             return BadRequest("Invalid cart data.");
         }
-        // Get User ID (Assuming you have authentication in place)
-        /*string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(userId))
-        {
-            return Unauthorized("User not logged in.");
-        }*/
+
         try
         {
             cartItem.UserEmailId = HttpContext.Session.GetString("UserEmailId");
@@ -90,24 +97,45 @@ public class ProductController : Controller
 
     }
 
-    [HttpGet]
-    public async Task<IActionResult> GetCart()
+    [HttpPut]
+    [Route("ProductController/UpdateCartQuantity")]
+    public async Task<IActionResult> UpdateCartQuantity([FromBody] Cart cartItem)
     {
-        string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        if (string.IsNullOrEmpty(userId))
+        if (cartItem == null)
         {
-            return Unauthorized("User not logged in.");
+            return BadRequest("Invalid cart data.");
         }
-        var cartItems = await _context.Carts.Where(c => c.UserEmailId == userId).ToListAsync();
-        return Ok(cartItems);
+
+        try
+        {
+            cartItem.UserEmailId = HttpContext.Session.GetString("UserEmailId");
+
+            var existingItem = await _context.Carts.FirstOrDefaultAsync(c => c.ProductProductId == cartItem.ProductProductId && c.UserEmailId == cartItem.UserEmailId);
+
+            if (existingItem != null)
+            {
+                existingItem.Quantity = cartItem.Quantity;
+                _context.Carts.Update(existingItem);
+                await _context.SaveChangesAsync();
+                return Ok(new { Message = "Cart quantity updated successfully!" });
+            }
+
+            return NotFound(new { Message = "Item not found in cart." });
+        }
+        catch (DbUpdateException ex)
+        {
+            _logger.LogError(ex, "Error updating cart quantity (DbUpdateException)");
+            return StatusCode(500, "A database error occurred while updating cart quantity.");
+        }
+        catch (Exception ex)
+        {
+            _logger.LogError(ex, "Error updating cart quantity");
+            return StatusCode(500, "An error occurred while updating cart quantity.");
+        }
     }
 
-    [HttpPost]
-
+    [HttpDelete]
     [Route("ProductController/RemoveFromCart")]
-
-    [HttpPost]
-
     public async Task<IActionResult> RemoveFromCart([FromBody] int productProductId)
 
     {
