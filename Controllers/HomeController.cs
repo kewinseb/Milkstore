@@ -20,6 +20,7 @@ namespace MilkStore.Controllers
             {
                 return RedirectToAction("Login","HomeLogin"); // Redirect to login if session is missing
             }
+
             return View();
         }
 
