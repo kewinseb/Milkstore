@@ -15,6 +15,11 @@ namespace MilkStore.Controllers
 
         public IActionResult Index()
         {
+            // Check if session exists
+            if (string.IsNullOrEmpty(HttpContext.Session.GetString("UserEmailId")))
+            {
+                return RedirectToAction("Login","HomeLogin"); // Redirect to login if session is missing
+            }
             return View();
         }
 
