@@ -19,42 +19,44 @@
     </form>
 </div>
 
-<!-- Order grid -->
-<div class="order-grid">
-    @if (Model.Any())
-    {
-        @foreach (var order in Model)
+<!-- Order Grid Container -->
+<div class="order-grid-container">
+    <div class="order-grid">
+        @if (Model.Any())
         {
-            <div class="order-card">
-                <div class="order-header">
-                    <span>Order ID: #@order.OrderId</span>
-                    <span>Status: @order.OrderStatus</span>
-                </div>
+            @foreach (var order in Model)
+            {
+                <div class="order-card">
+                    <div class="order-header">
+                        <span>Order ID: #@order.OrderId</span>
+                        <span>Status: @order.OrderStatus</span>
+                    </div>
 
-                <div class="order-body">
-                    <img src="@order.ProductImage" alt="@order.ProductName" class="product-image" />
-                    <div class="order-info">
-                        <h3>@order.ProductName</h3>
-                        <p><strong>Order Date:</strong> @order.OrderDate.ToString("yyyy-MM-dd")</p>
-                        <p><strong>Delivery Date:</strong> @order.DeliveryDate.ToString("yyyy-MM-dd")</p>
-                        <p><strong>Total Amount:</strong> $@order.TotalAmount</p>
+                    <div class="order-body">
+                        <img src="@order.ProductImage" alt="@order.ProductName" class="product-image" />
+                        <div class="order-info">
+                            <h3>@order.ProductName</h3>
+                            <p><strong>Order Date:</strong> @order.OrderDate.ToString("yyyy-MM-dd")</p>
+                            <p><strong>Delivery Date:</strong> @order.DeliveryDate.ToString("yyyy-MM-dd")</p>
+                            <p><strong>Total Amount:</strong> $@order.TotalAmount</p>
+                        </div>
+                    </div>
+
+                    <div class="order-actions">
+                        @if (order.OrderStatus != "Cancelled")
+                        {
+                            <a asp-action="CancelOrder" asp-route-orderId="@order.OrderId" class="btn">Cancel Order</a>
+                        }
+                        <a asp-action="Reorder" asp-route-orderId="@order.OrderId" class="btn">Reorder</a>
+                        <a class="viewbut" asp-controller="OrderDetails" asp-action="Index">View Details</a>
+                        <a class="viewbut" asp-controller="ShipmentDetails" asp-action="Index">Shipment Details</a>
                     </div>
                 </div>
-
-                <div class="order-actions">
-                    @if (order.OrderStatus != "Cancelled")
-                    {
-                        <a asp-action="CancelOrder" asp-route-orderId="@order.OrderId" class="btn">Cancel Order</a>
-                    }
-                    <a asp-action="Reorder" asp-route-orderId="@order.OrderId" class="btn">Reorder</a>
-                    <a class="viewbut" asp-controller="OrderDetails" asp-action="Index">View Details</a>
-                    <a class="viewbut" asp-controller="ShipmentDetails" asp-action="Index">Shipment Details</a>
-                </div>
-            </div>
+            }
         }
-    }
-    else
-    {
-        <p>No orders found.</p>
-    }
+        else
+        {
+            <p>No orders found.</p>
+        }
+    </div>
 </div>
