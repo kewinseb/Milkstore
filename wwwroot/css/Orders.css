@@ -1,18 +1,32 @@
-﻿/* Orders Page Styling */
+﻿/* General Page Styling */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-y: auto; /* Enable full-page scrolling */
+    background: #f8f8f8; /* Light background */
+    font-family: Arial, sans-serif;
+}
+
+/* Orders Page Styling */
 h2 {
     flex: 1;
     margin-top: 20px;
-    padding-top: 10px;
+    padding-top: 5px;
 }
 
 /* Filters */
 .filters {
     margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    align-items: center;
 }
 
-    .filters input, .filters select {
+    .filters input,
+    .filters select {
         padding: 8px;
-        margin-right: 10px;
         border-radius: 5px;
         border: 1px solid #ccc;
     }
@@ -53,51 +67,15 @@ h2 {
             background: #ddd;
         }
 
-/* Order Grid Container with Scrollbar */
-.order-grid-container {
-    /* Set a fixed height for scrolling */
-    overflow-y: auto; /* Enable vertical scrollbar */
-    overflow-x: hidden;
-    padding: 10px 20px;
-    max-height: 200px;
-    border: 1px solid #ccc;
-    border-radius: 10px;
-    background: #fff;
-    display: flex;
-    flex-direction: column;
-    min-height: calc(50vh - 50px);
-}
-    /* Custom Scrollbar */
-    .order-grid-container::-webkit-scrollbar {
-        width: 8px; /* Width of the scrollbar */
-    }
 
-    .order-grid-container::-webkit-scrollbar-track {
-        background: #f1f1f1; /* Light background */
-        border-radius: 10px;
-    }
-
-    .order-grid-container::-webkit-scrollbar-thumb {
-        background: #ff9900; /* Orange scrollbar */
-        border-radius: 10px;
-    }
-
-        .order-grid-container::-webkit-scrollbar-thumb:hover {
-            background: #e68a00; /* Darker orange on hover */
-        }
-
-/* Firefox scrollbar */
-.order-grid-container {
-    scrollbar-width: thin;
-    scrollbar-color: #ff9900 #f1f1f1;
-}
+    
 
 /* Order Grid */
 .order-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
     gap: 20px;
-    flex-grow: 1; /* Ensure it fills the container */
+    padding: 10px 20px;
 }
 
 /* Individual Order Card */
@@ -147,6 +125,7 @@ h2 {
     flex-wrap: wrap;
 }
 
+/* Buttons */
 .btn {
     background: #ff9900;
     color: white;
@@ -164,7 +143,7 @@ h2 {
     }
 
 .viewbut {
-    background: #28a745;
+    background: #ff9900;
     color: white;
     padding: 8px 15px;
     text-decoration: none;
@@ -178,3 +157,30 @@ h2 {
     .viewbut:hover {
         background: #218838;
     }
+
+/* Mobile Responsive Design */
+@media (max-width: 768px) {
+    .order-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .order-body {
+        flex-direction: column;
+    }
+
+    .product-image {
+        width: 100%;
+        height: auto;
+    }
+
+    .filters {
+        flex-direction: column;
+        gap: 5px;
+    }
+
+        .filters input,
+        .filters select,
+        .filters button {
+            
+        }
+}
