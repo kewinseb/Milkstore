@@ -1,3 +1,4 @@
+/* General Styles */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f8f8;
@@ -6,28 +7,67 @@ body {
     color: black;
 }
 
+/* Ensure body and html do not overflow */
+html, body {
+    width: 100%;
+    overflow-x: hidden; /* Prevents horizontal scrolling */
+}
+
+/* Ensure no element is pushing content outside */
+* {
+    box-sizing: border-box;
+}
+
+/* Main Layout */
+.main-layout {
+    display: flex;
+    flex-wrap: nowrap; /* Prevent wrapping to ensure both sections stay side by side */
+    justify-content: space-between;
+    gap: 20px;
+    width: 100%; /* Ensure it takes the full width of the parent */
+}
+
+/* Fix container width */
 .Order_Details_container {
-    width: 75%; /* Set width to 75% of the screen width */
-    margin-left: 0; /* No left margin */
+    width: 100%; /* Make sure it takes full width */
+    max-width: 1200px; /* Adjust this based on your layout */
+    margin: 0 auto; /* Centering the content */
     padding: 20px;
 }
 
-.header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 15px;
+/* Left section (Customer Info) */
+.customer-info {
+    flex: 0 0 75%; /* Takes 75% of the width */
+    max-width: 75%; /* Ensure it doesn't exceed 75% */
+    padding: 20px;
+    background-color: #f8f8f8;
 }
 
-/* Info Cards */
+/* Right section (Order Details Scrollable) */
+.order-details-scrollable-container {
+    flex: 0 0 25%; /* Takes 25% of the width */
+    max-width: 25%; /* Ensure it doesn't exceed 25% */
+    padding: 20px;
+    background-color: #ffffff;
+    border-radius: 8px;
+    overflow-y: auto; /* Enable vertical scrolling if needed */
+}
+
+/* Information Section */
 .info-section {
     display: flex;
     justify-content: space-between;
+    flex-wrap: wrap;
     margin-bottom: 20px;
+    width: 100%; /* Ensure it fits within the parent */
 }
 
 .info-card {
-    width: 45%;
+    width: 48%; /* Slightly adjusted to fit with gap */
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
     .info-card h3 {
@@ -41,107 +81,49 @@ body {
         color: #555555;
     }
 
-/* Order Details Scrollable Section */
+/* Scrollable Order Details */
 .order-details-scrollable {
     display: flex;
     flex-wrap: wrap;
     gap: 15px;
-    overflow: auto; /* Enables both horizontal and vertical scrolling */
+    overflow-y: auto; /* Enables vertical scrolling */
     padding: 20px 0;
     margin-bottom: 20px;
-    max-height: 300px; /* Optional: to control the height and show vertical scroll */
-}
-
-    .order-details-scrollable .card {
-        flex: 0 0 auto;
-        width: 200px; /* Fixed width for cards */
-        height: 200px; /* Fixed height for the cards */
-        border-radius: 8px;
-        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
-        background-color: #f8f9fa;
-        border: 1px solid #ddd;
-    }
-
-.Customer_card-header {
-    background: linear-gradient(135deg, #7f19e6, #b96bff);
-    color: white;
-    font-weight: bold;
-    padding: 10px;
-    border-radius: 8px 8px 0 0;
-}
-
-.order-details-scrollable .card-body {
-    padding: 10px;
-    color: black;
-}
-
-    /* Scrollbar styles */
-    .order-details-scrollable::-webkit-scrollbar {
-        width: 8px; /* Vertical scrollbar thickness */
-        height: 8px; /* Horizontal scrollbar thickness */
-    }
-
-    .order-details-scrollable::-webkit-scrollbar-thumb {
-        background-color: #888;
-        border-radius: 10px;
-    }
-
-        .order-details-scrollable::-webkit-scrollbar-thumb:hover {
-            background-color: #555;
-        }
-
-
-/* Flexbox Layout for Customer Info and Order Details */
-.main-layout {
-    display: flex; /* Flexbox for side-by-side layout */
-    justify-content: space-between; /* Space between the left and right sections */
-    gap: 20px;
-}
-
-/* Customer Info - Takes 93% width */
-.customer-info {
-    flex: 0 0 93%; /* Set width to 93% */
-    padding: 20px;
-    background-color: #f8f8f8; /* Optional background color */
-}
-
-/* Order Details Scrollable - Takes 25% width */
-.order-details-scrollable-container {
-    flex: 0 0 25%; /* Set width to 25% */
-    padding: 20px;
-    background-color: #f8f8f8; /* Optional background color */
-}
-
-/* Order Details Scrollable Section */
-.order-details-scrollable {
     max-height: 355px;
-    overflow-y: auto; /* Vertical scroll */
-    margin-bottom: 20px;
+    word-wrap: break-word;
 }
 
+    /* Cards inside the scrollable section */
     .order-details-scrollable .card {
-        margin-bottom: 15px;
+        flex: 0 0 100%; /* Make cards take full width of the container */
+        width: 100%; /* Ensure cards fit within the container */
+        height: auto; /* Adjust height dynamically */
         border-radius: 8px;
         box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
         background-color: #f8f9fa;
         border: 1px solid #ddd;
     }
 
+    /* Card Header */
+    .Customer_card-header,
     .order-details-scrollable .card-header {
         background: linear-gradient(135deg, #7f19e6, #b96bff);
-        color: white; /* White text */
+        color: white;
         font-weight: bold;
         padding: 10px;
         border-radius: 8px 8px 0 0;
     }
 
+    /* Card Body */
     .order-details-scrollable .card-body {
         padding: 10px;
+        color: black;
     }
 
-    /* Scrollbar styles */
+    /* Scrollbar Customization */
     .order-details-scrollable::-webkit-scrollbar {
         width: 8px;
+        height: 8px;
     }
 
     .order-details-scrollable::-webkit-scrollbar-thumb {
@@ -153,23 +135,31 @@ body {
             background-color: #555;
         }
 
-/* Flexbox Container */
-.flex-container {
-    display: flex;
-    background-color: #f0f0f0; /* Light gray background */
-    padding: 10px;
-    border-radius: 8px;
-}
-
-.flex-item {
-    padding: 10px;
-    background-color: blue; /* White background for each item */
-    border-radius: 4px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Optional shadow for styling */
-}
-
-    .flex-item p {
-        margin: 0;
-        font-size: 16px;
-        color: #333333; /* Dark text color */
+/* Responsive Design */
+@media screen and (max-width: 1024px) {
+    .main-layout {
+        flex-direction: column;
     }
+
+    .customer-info,
+    .order-details-scrollable-container {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    .info-card {
+        width: 100%;
+        margin-bottom: 10px;
+    }
+
+    .order-details-scrollable {
+        max-height: 250px;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    .order-details-scrollable .card {
+        width: 100%;
+        height: auto;
+    }
+}
